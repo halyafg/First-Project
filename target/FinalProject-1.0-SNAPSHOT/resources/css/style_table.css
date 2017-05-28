@@ -1,0 +1,66 @@
+
+th {
+    font-size: 18px;
+    font-weight: normal;
+    background: #b9c9fe;
+    border-top: 4px solid #aabcfe;
+    border-bottom: 1px solid #fff;
+    color: #039;
+    padding: 8px;
+}
+.head{
+    text-align: left;
+}
+td {
+    background: #e8edff;
+    border-bottom: 1px solid #fff;
+    color: #669;
+    border-top: 1px solid transparent;
+    padding: 8px;
+}
+tr:hover td {
+    background: #ccddff;
+}
+/*
+div{
+    background-color: gainsboro;
+    padding: 20px;
+    margin: 15px auto;
+    width: 80%;
+
+}*/
+table{
+    background-color: gray;
+    padding: 1px;
+    margin-top: 30px;
+}
+.table_home{
+    margin-top: 150px;
+}
+
+.money{
+    text-align: right;
+}
+table a{
+    text-decoration: none;
+}
+/*img{
+    width: 80%;
+
+}*/
+.page{
+    margin:  auto 50px;
+
+    /* border: 3px solid black;*/
+}
+.c1{
+
+    float: left;
+}
+.c2{
+    float: left;
+    margin-left: 150px;
+}
+.flatNumber{
+    text-align: center;
+}
