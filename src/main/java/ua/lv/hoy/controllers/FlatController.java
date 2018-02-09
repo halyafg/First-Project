@@ -20,6 +20,12 @@ import java.util.List;
  */
 @Controller
 public class FlatController {
+
+    static final String FLAT_ID = "flatId";
+    static final String FLAT = "flat";
+    static final String FLATS = "flats";
+    static final String REDIRECT_FLATS_ALL = "redirect:/flats/all/";
+
     @Autowired
     FlatService flatService;
     @Autowired
@@ -30,27 +36,21 @@ public class FlatController {
     @RequestMapping(value = "/flat/inf/{flatId}", method = RequestMethod.GET)
     private String openFlatImage(@PathVariable Integer flatId, Model model){
         Flat flat = flatService.findById(flatId);
-        model.addAttribute("flat", flat);
+        model.addAttribute(FLAT, flat);
 
         return "flatInf";
     }
 
-    @RequestMapping(value = "/flats/all", method = RequestMethod.GET)
-    private  String openAllFlatsPage(Model model){
-        List<Flat> flatList = flatService.findAllFlats();
-
-        return "allFlats";
-    }
     @RequestMapping(value = "/flats/all/{houseId}", method = RequestMethod.GET)
     private  String openAllFlatsPage(@PathVariable Integer houseId, Model model){
-        model.addAttribute("house", houseService.findById(houseId));
-        model.addAttribute("flats", flatService.findAllFlatsInHouse(houseId));
+        model.addAttribute(HouseController.HOUSE, houseService.findById(houseId));
+        model.addAttribute(FLATS, flatService.findAllFlatsInHouse(houseId));
         return "allFlats";
     }
 
     @RequestMapping(value = "/flat/add/{id}", method = RequestMethod.GET)
     private  String openAddFlatPage(@PathVariable Integer id, Model model){
-        model.addAttribute("house", houseService.findById(id));
+        model.addAttribute(HouseController.HOUSE, houseService.findById(id));
         return "addFlat";
     }
 
@@ -63,13 +63,13 @@ public class FlatController {
                            @RequestParam("fl_r_size") double realSize,
                            @RequestParam("fl_description") String description){
         houseService.addFlatToHouse(houseId, number, floor, rooms, projectSize, realSize, description);
-        return "redirect:/flats/all/"+houseId;
+        return REDIRECT_FLATS_ALL + houseId;
     }
     @RequestMapping(value = "/flat/editpage/{houseId},{flatId}", method = RequestMethod.GET)
     private  String openEditFlatPage(@PathVariable Integer houseId,@PathVariable Integer flatId, Model model){
         Flat flat = flatService.findById(flatId);
-        model.addAttribute("flat", flat);
-        model.addAttribute("houseId",houseId);
+        model.addAttribute(FLAT, flat);
+        model.addAttribute(HouseController.HOUSE_ID,houseId);
         return "editFlat";
     }
     @RequestMapping(value = "/flat/edit", method = RequestMethod.POST)
@@ -83,47 +83,46 @@ public class FlatController {
                             @RequestParam("fl_status") String status,
                             @RequestParam("fl_description") String description){
         flatService.edit(id, number, floor, rooms, projectSize, realSize, status, description);
-        return "redirect:/flats/all/"+houseId;
+        return REDIRECT_FLATS_ALL + houseId;
     }
     @RequestMapping(value = "/flat/delete/{houseId},{FlatId}", method = RequestMethod.GET)
     private String deleteFlat(@PathVariable Integer houseId,
                               @PathVariable Integer FlatId){
         flatService.delete(FlatId);
-        return "redirect:/flats/all/"+houseId;
+        return REDIRECT_FLATS_ALL + houseId;
     }
 
     @RequestMapping(value = "/flat/buypage/{houseId}/{customerId}", method = RequestMethod.GET)
     private String buyFlatPage(@PathVariable Integer houseId, @PathVariable Integer customerId, Model model){
         model.addAttribute("freeFlats", flatService.findFreeFlatsInHouse(houseId));
         model.addAttribute("customer_sFlats", flatService.findByCustomerId(customerId));
-        model.addAttribute("customer", customerService.findById(customerId));
-        model.addAttribute("houseId", houseId);
+        model.addAttribute(CustomerController.CUSTOMER, customerService.findById(customerId));
+        model.addAttribute(HouseController.HOUSE_ID, houseId);
         return "buyFlat";
     }
 
     @RequestMapping(value = "/flat/buy", method = RequestMethod.POST)
     private String buyFlat(@RequestParam("houseId") Integer houseId,
-                           @RequestParam("customer_id") Integer customer_id,
+                           @RequestParam("customer_id") Integer customerId,
                            @RequestParam("flatId") Integer flatId){
-        flatService.buy(flatId, customer_id);
-       /* return "redirect:/customer/inf/{customer_id}";*/
-        return "redirect:/customers/all/inhouse/"+houseId;
+        flatService.buy(flatId, customerId);
+        return CustomerController.REDIRECT_CUSTOMER_ALL_INHOUSE + houseId;
     }
     @RequestMapping(value = "/flat/takepage/{houseId}/{id}", method = RequestMethod.GET)
     private String takeFlatPage(@PathVariable Integer houseId, @PathVariable Integer id, Model model){
 
         model.addAttribute("customer_sFlats", flatService.findByCustomerId(id));
-        model.addAttribute("customer", customerService.findById(id));
-        model.addAttribute("houseId", houseId);
+        model.addAttribute(CustomerController.CUSTOMER, customerService.findById(id));
+        model.addAttribute(HouseController.HOUSE_ID, houseId);
         return "takeFlat";
     }
 
     @RequestMapping(value = "/flat/take", method = RequestMethod.POST)
     private String takeFlat(@RequestParam("houseId") Integer houseId,
-                            @RequestParam("customer_id") Integer customer_id,
-                           @RequestParam("flatId") Integer flatId){
-        flatService.takeAway(flatId, customer_id);
-        return "redirect:/customers/all/inhouse/"+houseId;
+                            @RequestParam("customer_id") Integer customerId,
+                            @RequestParam("flatId") Integer flatId){
+        flatService.takeAway(flatId, customerId);
+        return CustomerController.REDIRECT_CUSTOMER_ALL_INHOUSE + houseId;
     }
 
 

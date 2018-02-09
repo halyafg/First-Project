@@ -21,7 +21,7 @@
         <input name="cust_surname" id="surname" class="textbox" type="text" placeholder="Second name*" required>
         <input name="cust_lastname" id="lastname" class="textbox" type="text" placeholder="Last name*" required>
         <input name="cust_phone" id="phone" class="textbox" class="textbox" type="text" placeholder="Phone:">
-        <input name="cust_email" id="email" class="textbox" type="email" placeholder="Email:">
+        <input name="cust_email" id="email" class="textbox" type="email" placeholder="Email:" required>
         <input name="cust_password" id="password" class="textbox" type="password" placeholder="Password*: " required>
         <input name="pas_ser" id="pasportSerija" class="textbox" type="text" placeholder="Pasport's serija:">
         <input name="pas_number" id="pasportNumber" class="textbox" type="text" placeholder="Pasport's number:">

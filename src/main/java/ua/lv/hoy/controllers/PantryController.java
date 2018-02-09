@@ -20,6 +20,10 @@ import java.util.List;
  */
 @Controller
 public class PantryController {
+
+    static final String PANTRY = "pantry";
+    static final String PANTRIES = "pantries";
+
     @Autowired
     PantryService pantryService;
     @Autowired
@@ -31,20 +35,20 @@ public class PantryController {
     @RequestMapping(value = "/pantries/all", method = RequestMethod.GET)
     private  String openAllPantriesPage(Model model){
         List<Pantry> pantryList = pantryService.findAllPantries();
-        model.addAttribute("pantries", pantryList );
+        model.addAttribute(PANTRIES, pantryList );
         return "allPantries";
     }
     @RequestMapping(value = "/pantries/all/{houseId}", method = RequestMethod.GET)
     private  String openAllPantriesPage(@PathVariable Integer houseId,  Model model){
-        model.addAttribute("house", houseService.findById(houseId));
-        model.addAttribute("pantries", pantryService.findAllPantriesInHouse(houseId));
+        model.addAttribute(HouseController.HOUSE, houseService.findById(houseId));
+        model.addAttribute(PANTRIES, pantryService.findAllPantriesInHouse(houseId));
         return "allPantries";
     }
 
 
     @RequestMapping(value = "/pantry/add/{houseId}", method = RequestMethod.GET)
     private  String openAddPantryPage(@PathVariable Integer houseId, Model model){
-        model.addAttribute("houseId", houseId);
+        model.addAttribute(HouseController.HOUSE_ID, houseId);
         return "addPantry";
     }
     @RequestMapping(value = "/pantry/add", method = RequestMethod.POST)
@@ -60,8 +64,8 @@ public class PantryController {
     @RequestMapping(value = "/pantry/editpage/{houseId}/{pantryId}", method = RequestMethod.GET)
     private  String openEditPantryPage(@PathVariable Integer houseId, @PathVariable Integer pantryId, Model model){
         Pantry pantry = pantryService.findById(pantryId);
-        model.addAttribute("pantry", pantry);
-        model.addAttribute("houseId", houseId);
+        model.addAttribute(PANTRY, pantry);
+        model.addAttribute(HouseController.HOUSE_ID, houseId);
         return "editPantry";
     }
     @RequestMapping(value = "/pantry/edit", method = RequestMethod.POST)
@@ -84,7 +88,7 @@ public class PantryController {
 
    @RequestMapping(value = "/pantry/buyPantryPage/{houseId}/{customerId}", method = RequestMethod.GET)
     private String buyPantryPage(@PathVariable Integer houseId,@PathVariable Integer customerId, Model model){
-        model.addAttribute("customer", customerService.findById(customerId));
+        model.addAttribute(CustomerController.CUSTOMER, customerService.findById(customerId));
         model.addAttribute("freePantries", pantryService.fiindFreePantriesInHouse(houseId));
         model.addAttribute("customer_sPantries", pantryService.findByCustomerId(customerId));
         return "buyPantry";
@@ -99,16 +103,16 @@ public class PantryController {
     }
     @RequestMapping(value = "/pantry/takePage/{houseId}/{id}", method = RequestMethod.GET)
     private String takeParkingPage(@PathVariable Integer houseId,@PathVariable Integer id, Model model){
-        model.addAttribute("customer", customerService.findById(id));
+        model.addAttribute(CustomerController.CUSTOMER, customerService.findById(id));
         model.addAttribute("customer_sPantries", pantryService.findByCustomerId(id));
-        model.addAttribute("houseId",houseId);
+        model.addAttribute(HouseController.HOUSE_ID,houseId);
         return "takePantry";
     }
     @RequestMapping(value = "/pantry/take", method = RequestMethod.POST)
     private String takeParking(@RequestParam("houseId") Integer houseId,
-                               @RequestParam("customer_id") Integer customer_id,
+                               @RequestParam("customer_id") Integer customerId,
                                @RequestParam("pantryId") Integer pantryId){
-        pantryService.takeOut(pantryId, customer_id);
+        pantryService.takeOut(pantryId, customerId);
         return "redirect:/customers/all/inhouse/"+houseId;
     }
 }

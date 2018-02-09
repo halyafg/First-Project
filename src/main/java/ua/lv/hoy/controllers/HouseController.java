@@ -18,8 +18,10 @@ import ua.lv.hoy.services.ParkingService;
  * Created by Administrator on 07-Apr-17.
  */
 @Controller
-@Transactional
 public class HouseController {
+
+    static final String HOUSE_ID = "houseId";
+    static final String HOUSE = "house";
 
     @Autowired
     private HouseService houseService;
@@ -52,15 +54,15 @@ public class HouseController {
     @RequestMapping(value = "/house/editpage/{houseId}", method = RequestMethod.GET)
     private  String openEditHousePage(@PathVariable Integer houseId, Model model){
         House house = houseService.findById(houseId);
-        model.addAttribute("house", house);
+        model.addAttribute(HOUSE, house);
         return "editHouse";
     }
     @RequestMapping(value = "/house/edit", method = RequestMethod.POST)
     private String editHouse(@RequestParam("houseId") Integer id,
-                            @RequestParam("house_name") String house_name,
+                            @RequestParam("house_name") String houseName,
                             @RequestParam("house_description") String description,
-                            @RequestParam("house_address") String house_address){
-        houseService.edit(id, house_name, house_address, description);
+                            @RequestParam("house_address") String houseAddress){
+        houseService.edit(id, houseName, houseAddress, description);
         return "redirect:/";
     }
 
@@ -72,7 +74,7 @@ public class HouseController {
 
     @RequestMapping(value = "/house/page/{houseId}", method = RequestMethod.GET)
     private String housePage(@PathVariable Integer houseId, Model model){
-        model.addAttribute("house", houseService.findById(houseId));
+        model.addAttribute(HOUSE, houseService.findById(houseId));
         model.addAttribute("flats1", flatService.findFreeFlatByRoomsNumber(1,houseId));
         model.addAttribute("flats2", flatService.findFreeFlatByRoomsNumber(2,houseId));
         model.addAttribute("flats3", flatService.findFreeFlatByRoomsNumber(3, houseId));

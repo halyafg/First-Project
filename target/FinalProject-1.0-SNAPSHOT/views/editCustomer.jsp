@@ -15,30 +15,30 @@
 <h1>Edit customer page</h1>
 <div class="container">
     <form action="/customer/edit" method="post">
-        <input name="cust_id" value="${cust.id}" hidden>
+        <input name="custId" value="${customer.id}" hidden>
         <input name="houseId" value="${houseId}" hidden>
 
         <label for="name">Name </label>
-        <input name="cust_name" id="name" class="textbox" type="text" value="${cust.name}">
+        <input name="custName" id="name" class="textbox" type="text" value="${customer.name}">
         <label for="surname">Second name: </label>
-        <input name="cust_surname" id="surname" class="textbox" type="text" value="${cust.surname}">
+        <input name="custSurname" id="surname" class="textbox" type="text" value="${customer.surname}">
         <label for="lastname">Last name: </label>
-        <input name="cust_lastname" id="lastname" class="textbox" type="text" value="${cust.lastname}">
+        <input name="custLastname" id="lastname" class="textbox" type="text" value="${customer.lastname}">
         <label for="phone">Phone: </label>
-        <input name="cust_phone" id="phone" class="textbox" type="text" value="${cust.phone}">
+        <input name="custPhone" id="phone" class="textbox" type="text" value="${customer.phone}">
         <label for="email">Email: </label>
-        <input name="cust_email" id="email" class="textbox" type="email" value="${cust.email}">
+        <input name="custEmail" id="email" class="textbox" type="email" value="${customer.email}">
         <label for="password">Password*: </label>
-        <input name="cust_password" id="password" class="textbox" type="password" value="${cust.password}">
+        <input name="custPassword" id="password" class="textbox" type="password" value="${customer.password}">
 
         <label for="pasportSerija">Pasport's serija: </label>
-        <input name="pas_ser" id="pasportSerija" class="textbox" type="text" value="${cust. pasportSeria}">
+        <input name="pasSer" id="pasportSerija" class="textbox" type="text" value="${customer. pasportSeria}">
         <label for="pasportNumber">Pasport's number: </label>
-        <input name="pas_number" id="pasportNumber" class="textbox" type="text" value="${cust.pasportNumber}">
+        <input name="pasNumber" id="pasportNumber" class="textbox" type="text" value="${customer.pasportNumber}">
         <label for="pasportVidan">Pasport kim vydan: </label>
-        <input name="pas_vidan" id="pasportVidan" class="textbox" type="text" value="${cust.pasportKimVidan}">
+        <input name="pasVidan" id="pasportVidan" class="textbox" type="text" value="${customer.pasportKimVidan}">
         <label for="pasportdata">Pasport data vidachi: </label>
-        <input name="pas_data" id="pasportdata" class="textbox"  type="text" value="${cust.pasportData}">
+        <input name="pasData" id="pasportdata" class="textbox"  type="text" value="${customer.pasportData}">
 
         <button type="submit" class="button">Edit!</button>
     </form>

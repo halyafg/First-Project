@@ -66,9 +66,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "/password/change", method = RequestMethod.POST)
-    public String changePassword(@RequestParam("customer_login") String customer_login,
+    public String changePassword(@RequestParam("customer_login") String customerLogin,
                                  @RequestParam("password") String password){
-        Customer customer = customerService.findCustomerByLogin(customer_login);
+        Customer customer = customerService.findCustomerByLogin(customerLogin);
         customer.setPassword(password);
         customerService.edit(customer.getId(), customer.getName(), customer.getSurname(), customer.getLastname(),
                     customer.getPhone(), customer.getEmail(), customer.getPassword(), customer.getPasportSeria(),
