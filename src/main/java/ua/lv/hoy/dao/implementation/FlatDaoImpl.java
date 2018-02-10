@@ -5,12 +5,9 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.lv.hoy.dao.FlatDao;
 import ua.lv.hoy.entity.Customer;
 import ua.lv.hoy.entity.Flat;
-import ua.lv.hoy.entity.House;
-import ua.lv.hoy.entity.Image;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
 import java.util.List;
 
 /**
@@ -22,27 +19,22 @@ public class FlatDaoImpl implements FlatDao {
     @PersistenceContext(unitName = "Main")
     private EntityManager entityManager;
 
-    @Transactional
     public void add(Flat flat) {
         entityManager.persist((flat));
     }
 
-    @Transactional
     public void edit(Flat flat) {
         entityManager.merge(flat);
     }
 
-    @Transactional
     public void delete(int id) {
         entityManager.remove(entityManager.find(Flat.class, id));
     }
 
-    @Transactional
     public Flat findById(int id) {
         return entityManager.find(Flat.class, id);
     }
 
-    @Transactional
     public List<Flat> findAllFlats() {
         return entityManager.createQuery("SELECT f FROM Flat f order by flatnumber").getResultList();
     }

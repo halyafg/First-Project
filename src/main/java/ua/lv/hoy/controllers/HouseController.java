@@ -1,8 +1,8 @@
 package ua.lv.hoy.controllers;
 
+import org.jsoup.Connection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,7 +48,7 @@ public class HouseController {
                             @RequestParam("description") String description){
 
         houseService.add(name, address, description);
-        return "redirect:/";
+        return BaseController.REDIRECT_HOME_PAGE;
     }
 
     @RequestMapping(value = "/house/editpage/{houseId}", method = RequestMethod.GET)
@@ -59,17 +59,17 @@ public class HouseController {
     }
     @RequestMapping(value = "/house/edit", method = RequestMethod.POST)
     private String editHouse(@RequestParam("houseId") Integer id,
-                            @RequestParam("house_name") String houseName,
-                            @RequestParam("house_description") String description,
-                            @RequestParam("house_address") String houseAddress){
+                            @RequestParam("houseName") String houseName,
+                            @RequestParam("houseDescription") String description,
+                            @RequestParam("houseAddress") String houseAddress){
         houseService.edit(id, houseName, houseAddress, description);
-        return "redirect:/";
+        return BaseController.REDIRECT_HOME_PAGE;
     }
 
     @RequestMapping(value = "/house/delete/{houseId}", method = RequestMethod.GET)
     private String deleteHouse(@PathVariable Integer houseId){
         houseService.delete(houseId);
-        return "redirect:/";
+        return BaseController.REDIRECT_HOME_PAGE;
     }
 
     @RequestMapping(value = "/house/page/{houseId}", method = RequestMethod.GET)

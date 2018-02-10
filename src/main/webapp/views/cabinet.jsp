@@ -98,7 +98,7 @@
                     <th>Разом:</th>
                     <th></th>
                     <th></th>
-                    <th class="money">${amount_USA}</th>
+                    <th class="money">${amountUSA}</th>
                 </tr>
                 </tbody>
             </table>

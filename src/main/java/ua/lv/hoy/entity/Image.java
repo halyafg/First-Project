@@ -16,15 +16,10 @@ public class Image {
     private String imagePath;
 
     @ManyToMany
-    @JoinTable(name = "flat_image", joinColumns = @JoinColumn(name = "imageId"),inverseJoinColumns = @JoinColumn(name = "flatId"))
+    @JoinTable(name = "flat_image",
+            joinColumns = @JoinColumn(name = "imageId"),
+            inverseJoinColumns = @JoinColumn(name = "flatId"))
     private List<Flat>flatList;
-
-//    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "flatList")
-//    private List<Flat> flatList;
-
-
-//    @ManyToMany(mappedBy="imageList")
-//    public List<Flat> getFlats() { return flats; }
 
 
     public Image() {

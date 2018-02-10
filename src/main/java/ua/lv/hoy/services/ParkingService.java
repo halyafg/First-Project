@@ -1,6 +1,5 @@
 package ua.lv.hoy.services;
 
-import ua.lv.hoy.entity.Customer;
 import ua.lv.hoy.entity.Parking;
 
 import java.util.List;
@@ -14,9 +13,9 @@ public interface ParkingService {
 
     void edit(int id, int number, String status);
 
-    void buy(int parkingId,  int customer_id);
+    void buy(int parkingId,  int customerId);
 
-    void takeParking(int parkingId,  int customer_id);
+    void takeParking(int parkingId,  int customerId);
 
     void delete(int id);
 

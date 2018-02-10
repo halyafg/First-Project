@@ -7,12 +7,9 @@ import ua.lv.hoy.dao.CustomerDao;
 import ua.lv.hoy.dao.HouseDao;
 import ua.lv.hoy.dao.ParkingDao;
 import ua.lv.hoy.entity.Customer;
-import ua.lv.hoy.entity.Pantry;
 import ua.lv.hoy.entity.Parking;
-import ua.lv.hoy.services.CustomerService;
 import ua.lv.hoy.services.ParkingService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,16 +27,7 @@ public class ParkingServiceImpl implements ParkingService {
     private HouseDao houseDao;
 
     public void add(int number, int houseId) {
-        /*List<Parking> parkingList = parkingDao.FindAllParkingInHouse(houseId);
-        boolean existParking = true;
-        for (Parking p:parkingList             ) {
-            if(p.getNumber() == number){
-                existParking = false;
-            }
-        }
-        if(number !=0 && !existParking) {
-            parkingDao.add(new Parking(number, "free"));
-        }*/
+
         if(number !=0 ) {
             Parking parking = new Parking(number, "free");
             parking.setHouse(houseDao.findById(houseId));
@@ -61,9 +49,9 @@ public class ParkingServiceImpl implements ParkingService {
 
     }
 
-    public void buy(int parkingId, int customer_id) {
+    public void buy(int parkingId, int customerId) {
         if(parkingId != -1){
-            Customer customer = customerDao.findById(customer_id);
+            Customer customer = customerDao.findById(customerId);
             Parking parking = parkingDao.findById(parkingId);
 
             if (!parking.getStatus().equalsIgnoreCase("sold") ){
@@ -75,16 +63,14 @@ public class ParkingServiceImpl implements ParkingService {
 
     }
 
-    public void takeParking(int parkingId, int customer_id) {
+    public void takeParking(int parkingId, int customerId) {
         if (parkingId != -1){
-            Customer customer = customerDao.findById(customer_id);
+            Customer customer = customerDao.findById(customerId);
             Parking parking = parkingDao.findById(parkingId);
 
-        /*if(!parking.getCustomer().equals(null)){*/
             if(parking.getCustomer().equals(customer)){
                 parking.setStatus("free");
                 parking.setCustomer(null);
-          /*  }*/
             }
 
             parkingDao.edit(parking);
@@ -112,16 +98,6 @@ public class ParkingServiceImpl implements ParkingService {
 
     public List<Parking> findFreeParkings(int houseId) {
         return parkingDao.findFreeParkingsInHouse(houseId);
-       /* List<Parking> parkingList = parkingDao.FindAllParkingInHouse(houseId);
-        List<Parking> freeParkings = new ArrayList<>();
-        if(!parkingList.isEmpty()){
-            for (Parking p:parkingList     ) {
-                if(p.getStatus().equalsIgnoreCase("free")){
-                    freeParkings.add(p);
-                }
-            }
-        }
-        return  freeParkings;*/
     }
 
     public List<Parking> findAllByCustomerId(int id) {
@@ -130,6 +106,6 @@ public class ParkingServiceImpl implements ParkingService {
 
     @Override
     public List<Parking> findAllParkingsInHouse(int houseId) {
-        return parkingDao.FindAllParkingInHouse(houseId);
+        return  parkingDao.findAllParkingInHouse(houseId);
     }
 }

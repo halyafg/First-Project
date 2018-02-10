@@ -1,7 +1,6 @@
 package ua.lv.hoy.dao;
 
 import ua.lv.hoy.entity.Flat;
-import ua.lv.hoy.entity.Image;
 
 import java.util.List;
 
@@ -17,15 +16,13 @@ public interface FlatDao {
 
     Flat findById (int id);
 
-
     List<Flat> findAllFlats();
 
     List<Flat> findFreeFlatsinHouse(int houseId);
 
     Flat findByNumber(int number);
 
-    List<Flat> findByCustomerId(int customer_id);
-
+    List<Flat> findByCustomerId(int customerId);
 
     List<Flat> findAllFlatsInHouse(int houseId);
 

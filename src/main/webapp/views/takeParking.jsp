@@ -20,7 +20,7 @@
     <div class="container">
         <form action="/parking/take" method="post">
             <input name="houseId" value="${houseId}" hidden>
-            <input name="customer_id"  value="${customer.id}" hidden>
+            <input name="customerId"  value="${customer.id}" hidden>
 
             <label for="parkingId">Parking's number to take away from customer: </label>
             <select name="parkingId" id="parkingId"  class="textbox" >

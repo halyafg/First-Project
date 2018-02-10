@@ -20,22 +20,22 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Autowired
     CustomerDao customerDao;
 
-    public void add(int customer_id, String date, double amount_$) {
+    public void add(int customerId, String date, double amountUSA) {
         Schedule schedule = new Schedule();
-        schedule.setCustomer(customerDao.findById(customer_id));
+        schedule.setCustomer(customerDao.findById(customerId));
         schedule.setDate(date);
-        schedule.setAmount_$(amount_$);
+        schedule.setAmount_$(amountUSA);
         scheduleDao.add(schedule);
     }
 
-    public void edit(int id, String date, double amount_$) {
+    public void edit(int id, String date, double amountUSA) {
         Schedule schedule = scheduleDao.findById(id);
 
         if (date != null  && !date.equalsIgnoreCase("")){
             schedule.setDate(date);
         }
-        if (amount_$ > 0){
-            schedule.setAmount_$(amount_$);
+        if (amountUSA > 0){
+            schedule.setAmount_$(amountUSA);
         }
 
         scheduleDao.edit(schedule);
@@ -53,8 +53,8 @@ public class ScheduleServiceImpl implements ScheduleService {
         return scheduleDao.findAllSchedules();
     }
 
-    public List<Schedule> findScheduleByCustId(int cust_id) {
-        return scheduleDao.findByCustomer(cust_id);
+    public List<Schedule> findScheduleByCustId(int custId) {
+        return scheduleDao.findByCustomer(custId);
     }
 
     public List<Schedule>findAllCustomerSchedules(String email){

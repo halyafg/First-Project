@@ -33,8 +33,6 @@ public class Customer {
     private String pasportKimVidan;
     @Column
     private String pasportData;
-    /*@Column(nullable = false)
-    private String authority;*/
 
     @OneToMany(mappedBy = "customer" , fetch = FetchType.EAGER)
     private List<Flat> flatList;
@@ -56,7 +54,7 @@ public class Customer {
     }
 
     public Customer(String name, String surname, String lastname, String phone, String email, String password,
-                    String pasportSeria, String pasportNumber, String pasportKimVidan, String pasportData /*, String authority*/) {
+                    String pasportSeria, String pasportNumber, String pasportKimVidan, String pasportData) {
         this.name = name;
         this.surname = surname;
         this.lastname = lastname;
@@ -67,7 +65,6 @@ public class Customer {
         this.pasportNumber = pasportNumber;
         this.pasportKimVidan = pasportKimVidan;
         this.pasportData = pasportData;
-        /*this.authority = authority;*/
     }
 
     public int getId() {
@@ -158,14 +155,6 @@ public class Customer {
     public void setPasportData(String pasportData) {
         this.pasportData = pasportData;
     }
-
-    /*public String getAuthority() {
-        return authority;
-    }
-
-    public void setAuthority(String authority) {
-        this.authority = authority;
-    }*/
 
     public List<Flat> getFlatList() {
         return flatList;

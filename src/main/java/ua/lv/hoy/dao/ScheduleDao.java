@@ -19,7 +19,7 @@ public interface ScheduleDao {
 
     List<Schedule> findAllSchedules();
 
-    List<Schedule> findByCustomer(int cust_id);
+    List<Schedule> findByCustomer(int custId);
 
     List<Schedule> findAllCustomerSchedules(String email);
 }

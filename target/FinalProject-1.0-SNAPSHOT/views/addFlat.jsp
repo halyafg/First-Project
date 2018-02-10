@@ -17,19 +17,18 @@
     <form action="/flat/add" method="post">
         <input name="houseId"  type="text" value="${house.id}" hidden>
         <label for="number">Flat's number: </label>
-        <input name="fl_name" id="number" type="text" class="textbox" required/>
+        <input name="flName" id="number" type="text" class="textbox" required/>
         <label for="floor">Floor: </label>
-        <input name="fl_floor" id="floor" type="text" class="textbox" required/>
+        <input name="flFloor" id="floor" type="text" class="textbox" required/>
         <label for="rooms">Rooms: </label>
-        <input name="fl_rooms" id="rooms" type="text" class="textbox" required />
+        <input name="flRooms" id="rooms" type="text" class="textbox" required />
         <label for="p_size" >Project size: </label>
-        <input name="fl_p_size" id="p_size" type="text" class="textbox" value="0.0">
+        <input name="flPrSize" id="p_size" type="text" class="textbox" value="0.0">
         <label for="r_size">Real size: </label>
-        <input name="fl_r_size" id="r_size" type="text" class="textbox" value="0.0">
-
+        <input name="flRealSize" id="r_size" type="text" class="textbox" value="0.0">
 
         <label for="description">Description: </label>
-        <input name="fl_description" id="description" type="text" class="textbox"><br><br>
+        <input name="flDescription" id="description" type="text" class="textbox"><br><br>
 
         <button type="submit" class="button">Add!</button>
     </form>

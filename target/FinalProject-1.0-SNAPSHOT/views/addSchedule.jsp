@@ -14,7 +14,7 @@
 <body>
 <div class="container">
     <form action="/schedule/add" method="post">
-        <input name="customer_id" type="text" value="${customer_id}" hidden>
+        <input name="customerId" type="text" value="${customerId}" hidden>
         <input name="houseId" type="text" value="${houseId}" hidden>
         <label for="data">Дата оплати: </label>
         <input name="data" id="data" class="textbox" type="text"><br><br>

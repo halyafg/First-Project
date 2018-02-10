@@ -3,7 +3,6 @@ package ua.lv.hoy.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,13 +37,13 @@ public class UserController {
         model.addAttribute("principal", principal.getName());
 
         List<Schedule>scheduleList = scheduleService.findAllCustomerSchedules(principal.getName());
-        model.addAttribute("schedules",scheduleList);
+        model.addAttribute(ScheduleController.SCHEDULES, scheduleList);
 
         List<Payment>paymentList = paymentService.findPaymentsByCustomerEmail(principal.getName());
         model.addAttribute("payments", paymentList);
 
         double amountUSA = paymentService.paymentAmount(principal.getName());
-        model.addAttribute("amount_USA", amountUSA);
+        model.addAttribute("amountUSA", amountUSA);
 
         Customer customer = customerService.findCustomerByLogin(principal.getName());
         List<Flat>flatList = flatService.findByCustomerId(customer.getId());
@@ -66,7 +65,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/password/change", method = RequestMethod.POST)
-    public String changePassword(@RequestParam("customer_login") String customerLogin,
+    public String changePassword(@RequestParam("customerLogin") String customerLogin,
                                  @RequestParam("password") String password){
         Customer customer = customerService.findCustomerByLogin(customerLogin);
         customer.setPassword(password);

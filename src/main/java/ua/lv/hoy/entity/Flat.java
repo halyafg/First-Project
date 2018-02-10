@@ -12,7 +12,7 @@ public class Flat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private  int id;
-    @Column /*(unique = true)*/
+    @Column
     private int flatnumber;
     @Column
     private int floor;
@@ -40,44 +40,6 @@ public class Flat {
             joinColumns = @JoinColumn(name = "flatId"),
             inverseJoinColumns = @JoinColumn(name = "imageId"))
     private List<Image> imageList;
-
-
-
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(
-//            name = "FLAT_IMAGE",
-//            joinColumns = @JoinColumn(name = "FLAT_ID", referencedColumnName="id"),
-//            inverseJoinColumns = @JoinColumn(name = "IMAGE_ID", referencedColumnName="id"))
-//    private List<Image> imageList;
-
-
-//    @ManyToMany(fetch = FetchType.EAGER)
-//    @JoinTable(name = "flat_image",
-//            joinColumns = @JoinColumn(name = "flatId", referencedColumnName="id"),
-//            inverseJoinColumns = @JoinColumn(name = "imageId", referencedColumnName="id"))
-//    public List<Image> getImages(){return imageList;}
-
-
-
-//    Example 3:
-//
-//    // In Customer class:
-//
-//    @ManyToMany
-//    @JoinTable(name="CUST_PHONE",
-//            joinColumns= @JoinColumn(name="CUST_ID", referencedColumnName="ID"),
-//            inverseJoinColumns= @JoinColumn(name="PHONE_ID", referencedColumnName="ID")
-//    )
-//    public Set<PhoneNumber> getPhones() { return phones; }
-//
-//    // In PhoneNumberClass:
-//
-//    @ManyToMany(mappedBy="phones")
-//    public Set<Customer> getCustomers() { return customers; }
-
-
-
-
 
     public Flat() {
     }

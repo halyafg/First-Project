@@ -56,9 +56,9 @@ public class PantryServiceImpl implements PantryService {
 
         pantryDao.edit(pantry);
     }
-    public void buy (int pantryId, int customer_id){
+    public void buy (int pantryId, int customerId){
         if(pantryId!= -1){
-            Customer customer = customerDao.findById(customer_id);
+            Customer customer = customerDao.findById(customerId);
             Pantry pantry = pantryDao.findById(pantryId);
             if(!pantry.getStatus().equalsIgnoreCase("sold")){
                 pantry.setStatus("sold");
@@ -68,9 +68,9 @@ public class PantryServiceImpl implements PantryService {
         }
     }
 
-    public void takeOut(int pantryId, int customer_id) {
+    public void takeOut(int pantryId, int customerId) {
         if(pantryId != -1){
-            Customer customer = customerDao.findById(customer_id);
+            Customer customer = customerDao.findById(customerId);
             Pantry pantry = pantryDao.findById(pantryId);
             if(pantry.getCustomer().equals(customer)){
                 pantry.setStatus("free");

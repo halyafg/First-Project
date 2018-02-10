@@ -36,7 +36,7 @@
     <div class="container">
     <form action="/pantry/take" method="post">
         <input name="houseId" value="${houseId}" hidden>
-        <input name="customer_id"  value="${customer.id}" hidden>
+        <input name="customerId"  value="${customer.id}" hidden>
 
         <label for="pantryId">Pantry's number to take away from customer: </label>
         <select name="pantryId" id="pantryId"  class="textbox" >

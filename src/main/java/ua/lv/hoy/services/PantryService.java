@@ -15,9 +15,9 @@ public interface PantryService {
     void edit(int id, int number, String floor, double projectSize,
               double realSize, String status, String description);
 
-    void buy(int pantryId,  int customer_id);
+    void buy(int pantryId,  int customerId);
 
-    void takeOut(int pantryId,  int customer_id);
+    void takeOut(int pantryId,  int customerId);
 
     void delete(int id);
 

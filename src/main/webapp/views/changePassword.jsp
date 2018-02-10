@@ -18,7 +18,7 @@
 
     <div class="container">
         <form action="/password/change" method="post">
-            <input name="customer_login" type="text" value="${userLogin}" hidden>
+            <input name="customerLogin" type="text" value="${userLogin}" hidden>
 
             <label for="password">Enter new password: </label>
             <input name="password" id="password" type="text"><br><br>

@@ -37,7 +37,7 @@
     <div class="container">
         <form action="/parking/buy" method="post">
             <input name="houseId" type="text" value="${houseId}" hidden>
-            <input name="customer_id" type="text" value="${customer.id}" hidden>
+            <input name="customerId" type="text" value="${customer.id}" hidden>
 
             <label for="parkingId">Parking's number to buy: </label>
             <select name="parkingId" id="parkingId"  class="textbox">

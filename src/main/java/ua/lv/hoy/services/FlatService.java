@@ -2,9 +2,6 @@ package ua.lv.hoy.services;
 
 
 import ua.lv.hoy.entity.Flat;
-import ua.lv.hoy.entity.House;
-import ua.lv.hoy.entity.Image;
-
 import java.util.List;
 
 /**
@@ -25,9 +22,9 @@ public interface FlatService {
 
    Flat findByNumber(int number);
 
-    List<Flat> findByCustomerId(int customer_id);
+    List<Flat> findByCustomerId(int customerId);
 
-    void buy (int flatId, int customer_id);
+    void buy (int flatId, int customerId);
 
     void takeAway(int flatId, int customerId);
 

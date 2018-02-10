@@ -16,7 +16,7 @@
     <div class="container">
 
     <form action="/payment/add" method="post">
-        <input name="customer_id" type="text" value="${customer.id}" hidden >
+        <input name="customerId" type="text" value="${customer.id}" hidden >
         <input name="houseId" type="text" value="${houseId}" hidden >
 
         <label for="data">Дата оплати: </label>

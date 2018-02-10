@@ -3,7 +3,6 @@ package ua.lv.hoy.services.implementation;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.lv.hoy.dao.CustomerDao;
@@ -26,12 +25,12 @@ public class PaymentServiceImpl implements PaymentService {
     @Autowired
     CustomerDao customerDao;
 
-    public void add(String data, double amount_grn, double quote_$, double amount_$) {
-        paymentDao.add(new Payment(data, amount_grn, quote_$, amount_$));
+    public void add(String data, double amountGRN, double quoteUSA, double amountUSA) {
+        paymentDao.add(new Payment(data, amountGRN, quoteUSA, amountUSA));
     }
 
-    public void add(int customer_id, String data, double amount_grn) {
-        if(customer_id != 0 && data!=null && amount_grn != 0){
+    public void add(int customerId, String data, double amountGRN) {
+        if(customerId != 0 && data!=null && amountGRN != 0){
 
             Document doc;
             String inf=null;
@@ -45,16 +44,14 @@ public class PaymentServiceImpl implements PaymentService {
             }
             String quoteUSD = inf.substring(12, 19);
 
-
-
             Double quote = new Double(quoteUSD);
             Payment payment = new Payment();
-            payment.setCustomer(customerDao.findById(customer_id));
+            payment.setCustomer(customerDao.findById(customerId));
             payment.setData(data);
-            payment.setAmount_grn(amount_grn);
+            payment.setAmount_grn(amountGRN);
             payment.setQuote_$(quote);
 
-            String amountString = String.format("%1$.2f",amount_grn/quote);
+            String amountString = String.format("%1$.2f",amountGRN/quote);
             double amountDouble = Double.parseDouble(amountString);
             payment.setAmount_$(amountDouble);
 
@@ -63,26 +60,26 @@ public class PaymentServiceImpl implements PaymentService {
 
     }
 
-    public void edit(int id, String data, double amount_grn, double quote_$, double amount_$) {
+    public void edit(int id, String data, double amountGRN, double quoteUSA, double amountUSA) {
         Payment payment = paymentDao.findById(id);
         double quote = 27.13;
 
         if (data != null  && !data.equalsIgnoreCase("")){
             payment.setData(data);
         }
-        if (amount_grn > 0){
-            String amountGrnString = String.format("%.2f",amount_grn);
+        if (amountGRN > 0){
+            String amountGrnString = String.format("%.2f",amountGRN);
             double amountGrnDouble = Double.parseDouble(amountGrnString);
 
             payment.setAmount_grn(amountGrnDouble);
         }
-        if (amount_$ > 0){
-            String amountString = String.format("%1$.2f",amount_grn/quote);
+        if (amountUSA > 0){
+            String amountString = String.format("%1$.2f",amountGRN/quote);
             double amountDouble = Double.parseDouble(amountString);
             payment.setAmount_$(amountDouble);
         }
-        if (quote_$ > 0){
-            payment.setQuote_$(quote_$);
+        if (quoteUSA > 0){
+            payment.setQuote_$(quoteUSA);
         }
 
         paymentDao.edit(payment);
@@ -104,8 +101,8 @@ public class PaymentServiceImpl implements PaymentService {
         return paymentDao.findAllCustomerPayments(email);
     }
 
-    public double paymentAmount (int cust_id){
-        Customer customer = customerDao.findById(cust_id);
+    public double paymentAmount (int custId){
+        Customer customer = customerDao.findById(custId);
         List<Payment>paymentList = paymentDao.findAllCustomerPayments(customer.getEmail());
         double amount = 0;
         for (Payment p: paymentList ) {
@@ -113,8 +110,8 @@ public class PaymentServiceImpl implements PaymentService {
         }
         return amount;
     }
-    public double paymentAmount (String user_login){
-        Customer customer = customerDao.findByLogin(user_login);
+    public double paymentAmount (String userLogin){
+        Customer customer = customerDao.findByLogin(userLogin);
         List<Payment>paymentList = paymentDao.findAllCustomerPayments(customer.getEmail());
         double amount = 0;
         for (Payment p: paymentList ) {

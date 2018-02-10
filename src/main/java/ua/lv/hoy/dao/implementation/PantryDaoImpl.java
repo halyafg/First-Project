@@ -8,7 +8,6 @@ import ua.lv.hoy.entity.Pantry;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
 import java.util.List;
 
 /**
@@ -21,27 +20,22 @@ public class PantryDaoImpl implements PantryDao {
     @PersistenceContext(unitName = "Main")
     private EntityManager entityManager;
 
-    @Transactional
     public void add(Pantry pantry) {
         entityManager.persist((pantry));
     }
 
-    @Transactional
     public void edit(Pantry pantry) {
         entityManager.merge(pantry);
     }
 
-    @Transactional
     public void delete(int id) {
         entityManager.remove(entityManager.find(Pantry.class, id));
     }
 
-    @Transactional
     public Pantry findById(int id) {
         return entityManager.find(Pantry.class, id);
     }
 
-    @Transactional
     public List<Pantry> findAllPantries() {
         return entityManager.createQuery("SELECT p FROM Pantry p order by number").getResultList();
     }

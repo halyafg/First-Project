@@ -1,7 +1,5 @@
 package ua.lv.hoy.services;
 
-import ua.lv.hoy.dao.HouseDao;
-import ua.lv.hoy.entity.Flat;
 import ua.lv.hoy.entity.House;
 
 import java.util.List;

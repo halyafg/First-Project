@@ -7,7 +7,6 @@ import ua.lv.hoy.entity.Schedule;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
 import java.util.List;
 
 /**
@@ -44,10 +43,9 @@ public class ScheduleDaoImpl implements ScheduleDao {
         return entityManager.createQuery("SELECT s FROM Schedule s order by date").getResultList();
     }
     @Transactional
-    public List<Schedule> findByCustomer(int cust_id) {
+    public List<Schedule> findByCustomer(int custId) {
         return entityManager.createQuery("SELECT s FROM Schedule s WHERE s.customer.id=:id order by date")
-                                        .setParameter("id",cust_id).getResultList();
-
+                                        .setParameter("id",custId).getResultList();
     }
 
     @Transactional

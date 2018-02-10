@@ -15,12 +15,13 @@ import ua.lv.hoy.services.*;
 @Controller
 public class BaseController {
 
+    static final String REDIRECT_HOME_PAGE = "redirect:/";
+
     @Autowired
     private HouseService houseService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     private  String  homePage(Model model){
-
         model.addAttribute("houses", houseService.findAll());
         return "home";
     }

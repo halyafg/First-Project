@@ -25,7 +25,7 @@ public interface ParkingDao {
 
     List<Parking> findByCustomerId(int id);
 
-    List<Parking> FindAllParkingInHouse(int houseId);
+    List<Parking> findAllParkingInHouse(int houseId);
 
 
 }

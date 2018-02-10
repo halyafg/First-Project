@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import ua.lv.hoy.entity.Customer;
 import ua.lv.hoy.services.CustomerService;
 import ua.lv.hoy.services.HouseService;
 
@@ -20,18 +19,17 @@ public class CustomerController {
     static final String CUSTOMER = "customer";
     static final String REDIRECT_CUSTOMER_INF = "redirect:/customer/inf/";
     static final String REDIRECT_CUSTOMER_ALL_INHOUSE = "redirect:/customers/all/inhouse/";
+    static final String ALL_CUSTOMERS = "allCustomers";
 
     @Autowired
     CustomerService customerService;
     @Autowired
     HouseService houseService;
 
-
-
     @RequestMapping(value = "/customers/all", method = RequestMethod.GET)
     private  String openAllCustomerPage(Model model){
         model.addAttribute(CUSTOMERS, customerService.findAllCustomers());
-        return "allCustomers";
+        return ALL_CUSTOMERS;
     }
 
     @RequestMapping(value = "/customers/inAllHouses", method = RequestMethod.GET)
@@ -44,7 +42,7 @@ public class CustomerController {
     private  String openAllCustomerPage(@PathVariable Integer houseId, Model model){
         model.addAttribute(CUSTOMERS, customerService.findAllCustomersInHouse(houseId));
         model.addAttribute(HouseController.HOUSE, houseService.findById(houseId));
-        return "allCustomers";
+        return ALL_CUSTOMERS;
     }
     @RequestMapping(value = "/customer/add/{houseId}", method = RequestMethod.GET)
     private  String openAddCustomerPage(@PathVariable int houseId, Model model){
@@ -54,16 +52,16 @@ public class CustomerController {
 
     @RequestMapping(value = "/customer/add", method = RequestMethod.POST)
     private String addCustomer(@RequestParam("houseId") String houseId,
-                               @RequestParam("cust_name") String name,
-                               @RequestParam("cust_surname") String surname,
-                               @RequestParam("cust_lastname") String lastname,
-                               @RequestParam("cust_phone") String phone,
-                               @RequestParam("cust_email") String email,
-                               @RequestParam("cust_password") String password,
-                               @RequestParam("pas_ser") String pasportSerija,
-                               @RequestParam("pas_number") String pasportNumber,
-                               @RequestParam("pas_vidan") String pasportKimVidan,
-                               @RequestParam("pas_data") String pasportData){
+                               @RequestParam("custName") String name,
+                               @RequestParam("custSurname") String surname,
+                               @RequestParam("custLastname") String lastname,
+                               @RequestParam("custPhone") String phone,
+                               @RequestParam("custEmail") String email,
+                               @RequestParam("custPassword") String password,
+                               @RequestParam("pasSer") String pasportSerija,
+                               @RequestParam("pasNumber") String pasportNumber,
+                               @RequestParam("pasVidan") String pasportKimVidan,
+                               @RequestParam("pasData") String pasportData){
         customerService.add(name, surname, lastname, phone, email, password,pasportSerija, pasportNumber,pasportKimVidan,pasportData );
         return REDIRECT_CUSTOMER_INF + houseId+"/"+customerService.findCustomerByLogin(email).getId();
     }

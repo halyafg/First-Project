@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import ua.lv.hoy.entity.Customer;
 import ua.lv.hoy.entity.Pantry;
 import ua.lv.hoy.services.CustomerService;
 import ua.lv.hoy.services.HouseService;
@@ -23,6 +22,8 @@ public class PantryController {
 
     static final String PANTRY = "pantry";
     static final String PANTRIES = "pantries";
+    static final String ALL_PANTRIES = "allPantries";
+    static final String REDIRECT_ALL_PANTRIES = "redirect:/pantries/all/";
 
     @Autowired
     PantryService pantryService;
@@ -36,13 +37,13 @@ public class PantryController {
     private  String openAllPantriesPage(Model model){
         List<Pantry> pantryList = pantryService.findAllPantries();
         model.addAttribute(PANTRIES, pantryList );
-        return "allPantries";
+        return ALL_PANTRIES;
     }
     @RequestMapping(value = "/pantries/all/{houseId}", method = RequestMethod.GET)
     private  String openAllPantriesPage(@PathVariable Integer houseId,  Model model){
         model.addAttribute(HouseController.HOUSE, houseService.findById(houseId));
         model.addAttribute(PANTRIES, pantryService.findAllPantriesInHouse(houseId));
-        return "allPantries";
+        return ALL_PANTRIES;
     }
 
 
@@ -53,13 +54,13 @@ public class PantryController {
     }
     @RequestMapping(value = "/pantry/add", method = RequestMethod.POST)
     private String addPantry(@RequestParam ("houseId") int houseId,
-                             @RequestParam("pant_number") int number,
-                             @RequestParam("pant_floor") String floor,
-                             @RequestParam("p_size") double projectSize,
-                             @RequestParam("r_size") double realSize,
-                             @RequestParam("pant_description") String description){
+                             @RequestParam("pantNumber") int number,
+                             @RequestParam("pantFloor") String floor,
+                             @RequestParam("pSize") double projectSize,
+                             @RequestParam("rSize") double realSize,
+                             @RequestParam("pantDescription") String description){
         pantryService.add(houseId,number, floor, projectSize, realSize,  description);
-        return "redirect:/pantries/all/"+houseId;
+        return REDIRECT_ALL_PANTRIES + houseId;
     }
     @RequestMapping(value = "/pantry/editpage/{houseId}/{pantryId}", method = RequestMethod.GET)
     private  String openEditPantryPage(@PathVariable Integer houseId, @PathVariable Integer pantryId, Model model){
@@ -69,21 +70,21 @@ public class PantryController {
         return "editPantry";
     }
     @RequestMapping(value = "/pantry/edit", method = RequestMethod.POST)
-    private String editPantry(@RequestParam("pant_id") Integer id,
+    private String editPantry(@RequestParam("pantId") Integer id,
                               @RequestParam("houseId") Integer houseId,
-                              @RequestParam("pant_number") Integer number,
-                              @RequestParam("pant_floor") String floor,
-                              @RequestParam("pant_p_size") Double projectSize,
-                              @RequestParam("pant_r_size") Double realSize,
-                              @RequestParam("pant_status") String status,
-                              @RequestParam("pant_description") String description){
+                              @RequestParam("pantNumber") Integer number,
+                              @RequestParam("pantFloor") String floor,
+                              @RequestParam("pSize") Double projectSize,
+                              @RequestParam("rSize") Double realSize,
+                              @RequestParam("pantStatus") String status,
+                              @RequestParam("pantDescription") String description){
         pantryService.edit(id, number, floor, projectSize, realSize, status, description);
-        return "redirect:/pantries/all/"+houseId;
+        return REDIRECT_ALL_PANTRIES + houseId;
     }
     @RequestMapping(value = "/pantry/delete/{houseId}/{pantryId}", method = RequestMethod.GET)
     private String deletePantry(@PathVariable Integer houseId, @PathVariable Integer pantryId){
         pantryService.delete(pantryId);
-        return "redirect:/pantries/all/"+houseId;
+        return REDIRECT_ALL_PANTRIES + houseId;
     }
 
    @RequestMapping(value = "/pantry/buyPantryPage/{houseId}/{customerId}", method = RequestMethod.GET)
@@ -94,11 +95,11 @@ public class PantryController {
         return "buyPantry";
     }
     @RequestMapping(value = "/pantry/buy", method = RequestMethod.POST)
-    private String buyPantry (@RequestParam("customer_id") Integer customer_id,
+    private String buyPantry (@RequestParam("customerId") Integer customerId,
                               @RequestParam("houseId") Integer houseId,
                                 @RequestParam("pantryId") Integer pantryId){
-        pantryService.buy(pantryId, customer_id);
-        return "redirect:/customers/all/inhouse/"+houseId;
+        pantryService.buy(pantryId, customerId);
+        return CustomerController.REDIRECT_CUSTOMER_ALL_INHOUSE + houseId;
 
     }
     @RequestMapping(value = "/pantry/takePage/{houseId}/{id}", method = RequestMethod.GET)
@@ -110,9 +111,9 @@ public class PantryController {
     }
     @RequestMapping(value = "/pantry/take", method = RequestMethod.POST)
     private String takeParking(@RequestParam("houseId") Integer houseId,
-                               @RequestParam("customer_id") Integer customerId,
+                               @RequestParam("customerId") Integer customerId,
                                @RequestParam("pantryId") Integer pantryId){
         pantryService.takeOut(pantryId, customerId);
-        return "redirect:/customers/all/inhouse/"+houseId;
+        return CustomerController.REDIRECT_CUSTOMER_ALL_INHOUSE + houseId;
     }
 }

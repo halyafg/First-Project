@@ -21,7 +21,6 @@ import ua.lv.hoy.services.CustomerService;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Administrator on 04-Mar-17.
@@ -32,7 +31,6 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
 
     @Autowired
     private CustomerDao customerDao;
-
     @Autowired
     private FlatDao flatDao;
     @Autowired
@@ -43,7 +41,6 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     public void add(String name, String surname, String lastname, String phone, String email, String password, String pasportSeria, String pasportNumber, String pasportKimVidan, String pasportData) {
         customerDao.add(new Customer(name, surname, lastname, phone, email, password,
                 pasportSeria, pasportNumber, pasportKimVidan, pasportData));
-
     }
 
     public void edit(int id, String name, String surname, String lastname, String phone, String email, String password,
@@ -112,7 +109,6 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         return new User(customer.getEmail(), customer.getPassword(), authorities);
     }
-
 
     public List<Customer> findAllCustomersInHouse(int houseId) {
         List<Customer> customerList =  customerDao.findAllCustomers();

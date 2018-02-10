@@ -7,7 +7,6 @@ import ua.lv.hoy.entity.Payment;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceUnit;
 import java.util.List;
 
 /**

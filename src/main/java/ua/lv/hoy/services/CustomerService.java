@@ -3,7 +3,6 @@ package ua.lv.hoy.services;
 import ua.lv.hoy.entity.Customer;
 
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Administrator on 26-Feb-17.

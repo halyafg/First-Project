@@ -7,8 +7,6 @@ import ua.lv.hoy.dao.CustomerDao;
 import ua.lv.hoy.dao.FlatDao;
 import ua.lv.hoy.entity.Customer;
 import ua.lv.hoy.entity.Flat;
-import ua.lv.hoy.entity.House;
-import ua.lv.hoy.entity.Image;
 import ua.lv.hoy.services.FlatService;
 
 import java.util.ArrayList;
@@ -59,7 +57,6 @@ public class FlatServiceImpl implements FlatService {
 
         flatDao.edit(flat);
 
-
     }
 
     public void delete(int id) {
@@ -78,23 +75,19 @@ public class FlatServiceImpl implements FlatService {
         return flatDao.findAllFlats();
     }
 
-    /*public List<Flat> findFreeFlats() {
-        return flatDao.findFreeFlats();
-    }*/
-
     public Flat findByNumber(int number) {
         return flatDao.findByNumber(number);
     }
 
-    public List<Flat> findByCustomerId(int customer_id) {
-        return flatDao.findByCustomerId(customer_id);
+    public List<Flat> findByCustomerId(int customerId) {
+        return flatDao.findByCustomerId(customerId);
     }
 
 
-    public void buy(int flatId, int customer_id){
+    public void buy(int flatId, int customerId){
 
         if(flatId != -9999){
-            Customer customer = customerDao.findById(customer_id);
+            Customer customer = customerDao.findById(customerId);
             Flat flat = flatDao.findById(flatId);
 
             if(flat.getStatus().equalsIgnoreCase("free")){
@@ -104,7 +97,6 @@ public class FlatServiceImpl implements FlatService {
             }
         }
     }
-
 
     public void takeAway(int flatId, int customerId){
         if (flatId != -1){
@@ -117,7 +109,6 @@ public class FlatServiceImpl implements FlatService {
         }
     }
 
-
     public List<Flat> findFreeFlatByRoomsNumber(int rooms, int houseId){
         List<Flat> freeFlats = flatDao.findFreeFlatsinHouse(houseId);
         List<Flat> flats = new ArrayList<Flat>();
@@ -128,7 +119,6 @@ public class FlatServiceImpl implements FlatService {
         }
         return flats;
     }
-
 
     @Override
     public List<Flat> findAllFlatsInHouse(int houseId) {
