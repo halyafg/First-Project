@@ -5,7 +5,7 @@
   Time: 23:59
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>DreamHouse</title>
@@ -21,7 +21,7 @@
         <input name="data" id="data" type="text" class="textbox" value="${schedule.date}">
 
         <label for="amount">Сума оплати, $: </label>
-        <input name="amount" id="amount" type="text" class="textbox" value="${schedule.amount_$}">
+        <input name="amount" id="amount" type="text" class="textbox" value="${schedule.amountUSA}">
 
         <button class="button" type="submit">Edit!</button>
     </form>

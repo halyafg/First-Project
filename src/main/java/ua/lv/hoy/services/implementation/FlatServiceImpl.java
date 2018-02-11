@@ -24,17 +24,17 @@ public class FlatServiceImpl implements FlatService {
     @Autowired
     private CustomerDao customerDao;
 
-    public void add(int flatnumber, int floor, int romsNumber, double projectSize, double realSize,  String description) {
+    public void add(int flatNumber, int floor, int romsNumber, double projectSize, double realSize,  String description) {
         if(romsNumber >0 && romsNumber <=3){
-            flatDao.add( new Flat(flatnumber, floor, romsNumber, projectSize,
+            flatDao.add( new Flat(flatNumber, floor, romsNumber, projectSize,
                     realSize, "free", description));
         }
     }
 
-    public void edit(int id, int flatnumber, int floor, int romsNumber, double projectSize, double realSize, String status, String description) {
+    public void edit(int id, int flatNumber, int floor, int romsNumber, double projectSize, double realSize, String status, String description) {
         Flat flat = flatDao.findById(id);
-        if (flatnumber >0){
-            flat.setFlatnumber(flatnumber);
+        if (flatNumber >0){
+            flat.setflatNumber(flatNumber);
         }
         if (floor >0){
             flat.setFloor(floor);
@@ -111,7 +111,7 @@ public class FlatServiceImpl implements FlatService {
 
     public List<Flat> findFreeFlatByRoomsNumber(int rooms, int houseId){
         List<Flat> freeFlats = flatDao.findFreeFlatsinHouse(houseId);
-        List<Flat> flats = new ArrayList<Flat>();
+        List<Flat> flats = new ArrayList<>();
         for (Flat f: freeFlats) {
             if(f.getRomsNumber() == rooms){
                 flats.add(f);

@@ -6,7 +6,7 @@
   Time: 0:48
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>DreamHouse</title>
@@ -52,12 +52,10 @@
             <tbody>
             <c:forEach items="${customerPayments}" var = "p">
                 <tr>
-
                     <td>${p.data}</td>
                     <td class="money">${p.amount_grn}</td>
                     <td class="money">${p.quote_$}</td>
                     <td class="money">${p.amount_$}</td>
-
                 </tr>
             </c:forEach>
             <tr>

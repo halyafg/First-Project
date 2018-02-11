@@ -13,7 +13,7 @@ public class Flat {
     @Column
     private  int id;
     @Column
-    private int flatnumber;
+    private int flatNumber;
     @Column
     private int floor;
     @Column
@@ -44,8 +44,8 @@ public class Flat {
     public Flat() {
     }
 
-    public Flat(int flatnumber, int floor, int romsNumber, double projectSize, double realSize, String status, String description) {
-        this.flatnumber = flatnumber;
+    public Flat(int flatNumber, int floor, int romsNumber, double projectSize, double realSize, String status, String description) {
+        this.flatNumber = flatNumber;
         this.floor = floor;
         this.romsNumber = romsNumber;
         this.projectSize = projectSize;
@@ -62,12 +62,12 @@ public class Flat {
         this.id = id;
     }
 
-    public int getFlatnumber() {
-        return flatnumber;
+    public int getflatNumber() {
+        return flatNumber;
     }
 
-    public void setFlatnumber(int flatnumber) {
-        this.flatnumber = flatnumber;
+    public void setflatNumber(int flatNumber) {
+        this.flatNumber = flatNumber;
     }
 
     public int getFloor() {

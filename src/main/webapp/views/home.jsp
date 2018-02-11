@@ -7,11 +7,10 @@
   Time: 1:52
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>DreamHouse</title>
-    <%--<link rel="stylesheet" href="/resources/css/style.css">--%>
     <link rel="stylesheet" href="/resources/css/menu.css">
     <link rel="stylesheet" href="/resources/css/style_table.css">
     <link rel="stylesheet" href="/resources/css/style.css">
@@ -27,20 +26,15 @@
                 <li><sec:authorize access="isAnonymous()"><a class="bot" href="/loginpage">Увійти</a></sec:authorize></li>
 
                 <li><sec:authorize access="hasRole('ROLE_USER')"><a class="bot" href="/cabinet">Моя сторінка </a></sec:authorize></li>
-                <%--<li><sec:authorize access="hasRole('ROLE_ADMIN')"><a class="bot" href="/customers/inAllHouses">Покупці </a> </sec:authorize></li>--%>
-
                 <li><sec:authorize access="hasRole('ROLE_ADMIN')"><a class="bot" href="/houses/addpage">AddHouse </a> </sec:authorize></li>
 
 
                 <li><sec:authorize access="isAuthenticated()"><a class="bot logout" href="/logout">Вийти   </a></sec:authorize></li><br><br><br>
                 <c:forEach items="${houses}" var="h">
-                    <li><%--<sec:authorize access="hasRole('ROLE_ADMIN')">--%><a class="bot house" href="/house/page/${h.id}">${h.name} <br>${h.address} </a> <%--</sec:authorize>--%></li>
+                    <li><a class="bot house" href="/house/page/${h.id}">${h.name} <br>${h.address} </a> </li>
                 </c:forEach>
             </ul>
         </div>
-
-
-
 
     </div>
 

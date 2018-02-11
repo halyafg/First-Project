@@ -5,7 +5,7 @@
   Time: 17:27
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>DreamHouse</title>
@@ -15,7 +15,8 @@
 <h1> Add flat in ${house.name}</h1>
 <div class="container">
     <form action="/flat/add" method="post">
-        <input name="houseId"  type="text" value="${house.id}" hidden>
+        <label for="houseId"></label>
+        <input name="houseId"  type="text" id="houseId" value="${house.id}" hidden>
         <label for="number">Flat's number: </label>
         <input name="flName" id="number" type="text" class="textbox" required/>
         <label for="floor">Floor: </label>

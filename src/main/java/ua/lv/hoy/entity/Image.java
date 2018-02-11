@@ -7,7 +7,7 @@ import java.util.List;
  * Created by Administrator on 31-Mar-17.
  */
 @Entity
-public class Image {
+public class Image {  //TODO
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column

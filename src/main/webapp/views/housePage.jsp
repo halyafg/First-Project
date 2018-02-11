@@ -7,11 +7,10 @@
   Time: 13:38
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Title</title>
-    <%--<link rel="stylesheet" href="/resources/css/style.css">--%>
     <link rel="stylesheet" href="/resources/css/style_table.css">
     <link rel="stylesheet" href="/resources/css/menu.css">
 </head>
@@ -36,7 +35,7 @@
             <th rowspan="3">Вільні <br>квартири:</th>
             <th>1-кім</th>
             <td ><c:forEach items="${flats1}" var="f1">
-                <a href="/flat/inf/${f1.id}" >${f1.flatnumber},
+                <a href="/flat/inf/${f1.id}" >${f1.flatNumber},
                 </a></c:forEach>
             </td>
 
@@ -44,14 +43,14 @@
         <tr>
             <th>2-кім</th>
             <td ><c:forEach items="${flats2}" var="f2">
-                <a href="/flat/inf/${f2.flatnumber}" >${f2.flatnumber},
+                <a href="/flat/inf/${f2.flatNumber}" >${f2.flatNumber},
                 </a></c:forEach>
             </td>
         </tr>
         <tr>
             <th>3-кім</th>
             <td ><c:forEach items="${flats3}" var="f3">
-                <a href="/flat/inf/${f3.flatnumber}" >${f3.flatnumber},
+                <a href="/flat/inf/${f3.flatNumber}" >${f3.flatNumber},
                 </a></c:forEach>
             </td>
         </tr>

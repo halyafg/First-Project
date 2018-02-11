@@ -21,14 +21,7 @@ td {
 tr:hover td {
     background: #ccddff;
 }
-/*
-div{
-    background-color: gainsboro;
-    padding: 20px;
-    margin: 15px auto;
-    width: 80%;
 
-}*/
 table{
     background-color: gray;
     padding: 1px;
@@ -44,14 +37,8 @@ table{
 table a{
     text-decoration: none;
 }
-/*img{
-    width: 80%;
-
-}*/
 .page{
     margin:  auto 50px;
-
-    /* border: 3px solid black;*/
 }
 .c1{
 

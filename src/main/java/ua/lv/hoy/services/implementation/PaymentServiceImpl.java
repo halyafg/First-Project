@@ -48,12 +48,12 @@ public class PaymentServiceImpl implements PaymentService {
             Payment payment = new Payment();
             payment.setCustomer(customerDao.findById(customerId));
             payment.setData(data);
-            payment.setAmount_grn(amountGRN);
-            payment.setQuote_$(quote);
+            payment.setAmountGRN(amountGRN);
+            payment.setQuoteUSA(quote);
 
             String amountString = String.format("%1$.2f",amountGRN/quote);
             double amountDouble = Double.parseDouble(amountString);
-            payment.setAmount_$(amountDouble);
+            payment.setAmountUSA(amountDouble);
 
             paymentDao.add(payment);
         }
@@ -71,15 +71,15 @@ public class PaymentServiceImpl implements PaymentService {
             String amountGrnString = String.format("%.2f",amountGRN);
             double amountGrnDouble = Double.parseDouble(amountGrnString);
 
-            payment.setAmount_grn(amountGrnDouble);
+            payment.setAmountGRN(amountGrnDouble);
         }
         if (amountUSA > 0){
             String amountString = String.format("%1$.2f",amountGRN/quote);
             double amountDouble = Double.parseDouble(amountString);
-            payment.setAmount_$(amountDouble);
+            payment.setAmountUSA(amountDouble);
         }
         if (quoteUSA > 0){
-            payment.setQuote_$(quoteUSA);
+            payment.setQuoteUSA(quoteUSA);
         }
 
         paymentDao.edit(payment);
@@ -106,7 +106,7 @@ public class PaymentServiceImpl implements PaymentService {
         List<Payment>paymentList = paymentDao.findAllCustomerPayments(customer.getEmail());
         double amount = 0;
         for (Payment p: paymentList ) {
-            amount += p.getAmount_$();
+            amount += p.getAmountUSA();
         }
         return amount;
     }
@@ -115,7 +115,7 @@ public class PaymentServiceImpl implements PaymentService {
         List<Payment>paymentList = paymentDao.findAllCustomerPayments(customer.getEmail());
         double amount = 0;
         for (Payment p: paymentList ) {
-            amount += p.getAmount_$();
+            amount += p.getAmountUSA();
         }
         return amount;
     }

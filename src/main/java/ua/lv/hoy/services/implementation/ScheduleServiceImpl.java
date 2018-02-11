@@ -24,7 +24,7 @@ public class ScheduleServiceImpl implements ScheduleService {
         Schedule schedule = new Schedule();
         schedule.setCustomer(customerDao.findById(customerId));
         schedule.setDate(date);
-        schedule.setAmount_$(amountUSA);
+        schedule.setAmountUSA(amountUSA);
         scheduleDao.add(schedule);
     }
 
@@ -35,7 +35,7 @@ public class ScheduleServiceImpl implements ScheduleService {
             schedule.setDate(date);
         }
         if (amountUSA > 0){
-            schedule.setAmount_$(amountUSA);
+            schedule.setAmountUSA(amountUSA);
         }
 
         scheduleDao.edit(schedule);

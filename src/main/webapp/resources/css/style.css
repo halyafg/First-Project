@@ -1,83 +1,9 @@
-/**{
-    color: navy;
-}*/
+
 body{
-    /*background-image: url(/resources/images/house1.png);*/
     background-image: url(/resources/images/house2.jpg);
     background-color: linen;
     background-repeat: no-repeat;
     background-size: cover;
     color: coral;
-    /*background-color: cadetblue;*/
-
-   /* background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;*/
-}
-/*
-.page{
-    padding: 30px;
-    font-family: Verdana;
-    !*color: white;*!
-}
-.authentic{
-    color: red;
-    text-align: center;
-    font-weight: bold;
-    width: 780px;
-    margin: 0 auto;
-    text-align: left;
-    padding: 10px;
-}
-.menu{
-    !*background-color: #484848;*!
-  !*  border-color: black;
-    border-width: 5px;
-    border-style: solid;*!
-    background-color: darkslategrey;
-    opacity: 0.8;
-    margin: 20px auto 150px;
-    padding: 10px 0px;
-    font-weight: bold;
-    font-size: 12px;
-    width: 800px;
-    !*margin: 0 auto;*!
-}
-.bot{
-   !* float: left;*!
-    margin: 5px 0 5px 15px;
-    padding: 6px 17px;
-    color: deepskyblue;
-    text-align: center;
-    text-decoration: none;
-    !*width: 60px;*!
-}
-.bot:hover{
-    color: white;
-    background-image: url(/resources/images/menu_hover.png);
-    background-size: cover;
-}
-.activ{
-    background-image: url(/resources/images/menu_hover.png);
-    background-size: cover;
-    color: white;
 }
 
-
-
-th{
-    width:90px;
-    height: 30px;
-    color: crimson;
-}
-tr{
-    !*border: 3px solid black ;*!
-    text-align: center;
-}
-
-.tabl, tr{
-    border-color: orange;
-    border-style: solid;
-    border-width: medium;
-}
-*/

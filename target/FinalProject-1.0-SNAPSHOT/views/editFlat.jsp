@@ -5,7 +5,7 @@
   Time: 22:44
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
     <title>DreamHouse</title>
@@ -18,7 +18,7 @@
         <input name="houseId" type="text" value="${houseId}" hidden >
 
         <label for="number">Flat's number: </label>
-        <input name="flName" id="number" type="text" class="textbox" value="${flat.flatnumber}"><br><br>
+        <input name="flName" id="number" type="text" class="textbox" value="${flat.flatNumber}"><br><br>
         <label for="floor">Floor: </label>
         <input name="flFloor" id="floor" type="text" class="textbox" value="${flat.floor}"><br><br>
         <label for="rooms">Rooms: </label>
@@ -30,10 +30,8 @@
 
         <input name="flStatus" id="status" type="text" value="${flat.status}" hidden>
 
-
         <label for="description">Description: </label>
         <input name="flDescription" id="description" class="textbox" type="text" value="${flat.description}"><br><br>
-
 
         <button type="submit" class="button">Edit!</button>
     </form>

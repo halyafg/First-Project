@@ -6,7 +6,7 @@
   Time: 12:34
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"%>
 <html>
 <head>
     <title>Title</title>
@@ -15,11 +15,11 @@
 </head>
 <body>
 <div class="page">
-<h1> Основні характеристики квартири № ${flat.flatnumber}</h1>
+<h1> Основні характеристики квартири № ${flat.flatNumber}</h1>
     <table>
         <tr>
             <th class="head">Flat's number:</th>
-            <td>${flat.flatnumber}</td>
+            <td>${flat.flatNumber}</td>
         </tr>
         <tr>
             <th class="head">Floor:</th>
@@ -28,7 +28,6 @@
         <tr>
             <th class="head">Number of rooms:</th>
             <td>${flat.romsNumber}</td>
-        </tr>
         </tr>
         <tr>
             <th class="head">Project size:</th>
@@ -44,7 +43,6 @@
 
     </table>
     <br>
-
 
     <c:forEach items="${flat.imageList}" var="img">
         <img class="img" src="${img.imagePath}"><br><br>

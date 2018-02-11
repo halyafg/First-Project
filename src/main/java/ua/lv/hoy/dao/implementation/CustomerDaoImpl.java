@@ -29,7 +29,6 @@ public class CustomerDaoImpl implements CustomerDao {
 
     public void delete(int id) {
         entityManager.remove(entityManager.find(Customer.class, id));
-
     }
 
     public Customer findById(int id) {

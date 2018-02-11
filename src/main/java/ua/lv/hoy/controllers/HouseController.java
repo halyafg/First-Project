@@ -32,11 +32,6 @@ public class HouseController {
     @Autowired
     private ParkingService parkingService;
 
-    @RequestMapping(value = "/houses/all", method = RequestMethod.GET)
-    private String allHouses(){
-        return "";
-    }
-
     @RequestMapping(value = "/houses/addpage", method = RequestMethod.GET)
     private String addHousePage(){
         return "addHouse";
@@ -46,7 +41,6 @@ public class HouseController {
     private String addHouse(@RequestParam ("name") String name,
                             @RequestParam("address") String address,
                             @RequestParam("description") String description){
-
         houseService.add(name, address, description);
         return BaseController.REDIRECT_HOME_PAGE;
     }

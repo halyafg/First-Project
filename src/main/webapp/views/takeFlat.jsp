@@ -6,7 +6,7 @@
   Time: 0:39
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"  %>
 <html>
 <head>
     <title>DreamHouse</title>
@@ -26,7 +26,7 @@
 
         <select name="flatId" id="number"  class="textbox">
             <option value="-1">Виберіть квартиру:</option>
-            <c:forEach items="${customer_sFlats}" var = "f"><option value="${f.id}">${f.flatnumber}</option></c:forEach>
+            <c:forEach items="${customer_sFlats}" var = "f"><option value="${f.id}">${f.flatNumber}</option></c:forEach>
         </select>
 
         <button type="submit" class="button">Take away!</button>

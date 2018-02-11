@@ -54,9 +54,9 @@
             <tr>
                 <td><sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/payment/editpage/${p.id}">Edit payment! </a> <br></sec:authorize></td>
                 <td>${p.data}</td>
-                <td class="money">${p.amount_grn}</td>
-                <td>${p.quote_$}</td>
-                <td class="money">${p.amount_$}</td>
+                <td class="money">${p.amountGRN}</td>
+                <td>${p.quoteUSA}</td>
+                <td class="money">${p.amountUSA}</td>
                 <td><a href="/customer/inf/${p.getCustomer().getId()}"> ${p.customer.getSurname()} ${p.customer.getName()} ${p.customer.getLastname()}</a> </td>
                 <td><a href="/payment/delete/${p.id}">Delete! </a></td>
             </tr>

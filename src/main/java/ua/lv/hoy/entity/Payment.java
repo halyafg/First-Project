@@ -14,11 +14,11 @@ public class Payment {
     @Column
     private String data;
     @Column
-    private double amount_grn;
+    private double amountGRN;
     @Column
-    private double quote_$;
+    private double quoteUSA;
     @Column
-    private double amount_$;
+    private double amountUSA;
 
     @ManyToOne
     private Customer customer;
@@ -26,11 +26,11 @@ public class Payment {
     public Payment() {
     }
 
-    public Payment(String data, double amount_grn, double quote_$, double amount_$) {
+    public Payment(String data, double amountGRN, double quoteUSA, double amountUSA) {
         this.data = data;
-        this.amount_grn = amount_grn;
-        this.quote_$ = quote_$;
-        this.amount_$ = amount_$;
+        this.amountGRN = amountGRN;
+        this.quoteUSA = quoteUSA;
+        this.amountUSA = amountUSA;
     }
 
     public int getId() {
@@ -49,28 +49,28 @@ public class Payment {
         this.data = data;
     }
 
-    public double getAmount_grn() {
-        return amount_grn;
+    public double getAmountGRN() {
+        return amountGRN;
     }
 
-    public void setAmount_grn(double amount_grn) {
-        this.amount_grn = amount_grn;
+    public void setAmountGRN(double amountGRN) {
+        this.amountGRN = amountGRN;
     }
 
-    public double getQuote_$() {
-        return quote_$;
+    public double getQuoteUSA() {
+        return quoteUSA;
     }
 
-    public void setQuote_$(double quote_$) {
-        this.quote_$ = quote_$;
+    public void setQuoteUSA(double quoteUSA) {
+        this.quoteUSA = quoteUSA;
     }
 
-    public double getAmount_$() {
-        return amount_$;
+    public double getAmountUSA() {
+        return amountUSA;
     }
 
-    public void setAmount_$(double amount_$) {
-        this.amount_$ = amount_$;
+    public void setAmountUSA(double amountUSA) {
+        this.amountUSA = amountUSA;
     }
 
     public Customer getCustomer() {

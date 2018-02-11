@@ -94,6 +94,4 @@ public class ScheduleController {
         return "schedules_payments";
     }
 
-
-
 }

@@ -34,8 +34,8 @@ form{
     padding:40px;
     border-radius:5px;
     background:RGBA(255,255,255,1);
-    -webkit-box-shadow:  0px 0px 15px 0px rgba(0, 0, 0, .45);
-    box-shadow:  0px 0px 15px 0px rgba(0, 0, 0, .45);
+    -webkit-box-shadow:  0 0 15px 0 rgba(0, 0, 0, .45);
+    box-shadow:  0 0 15px 0 rgba(0, 0, 0, .45);
 }
 label{
     font-family: 'Open Sans', sans-serif;
@@ -55,35 +55,18 @@ label{
     margin-top: 6px;
     color: #90c843;
 }
-.message:focus,
+
 .textbox:focus{
     outline:none;
     border:rgba(24,149,215,1) 2px solid;
     color:rgba(24,149,215,1);
-}
-/* Стили текстового поля */
-.message{
-    background: rgba(255, 255, 255, 0.4);
-    width:100%;
-    height: 120px;
-    border:rgba(0,0,0,.3) 2px solid;
-    box-sizing:border-box;
-    -moz-border-radius: 3px;
-    font-size:18px;
-    font-family: 'Open Sans', sans-serif;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-    display:block;
-    padding:10px;
-    margin-bottom:30px;
-    overflow:hidden;
 }
 /* Базовые стили кнопки */
 .button{
     height:50px;
     width:100%;
     border-radius:3px;
-    border:rgba(0,0,0,.3) 0px solid;
+    border:rgba(0,0,0,.3) 0 solid;
     box-sizing:border-box;
     padding:10px;
     background:#90c843;

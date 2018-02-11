@@ -1,7 +1,6 @@
 package ua.lv.hoy.entity;
 
 import javax.persistence.*;
-import java.util.Date;
 
 /**
  * Created by Administrator on 25-Feb-17.
@@ -15,7 +14,7 @@ public class Schedule {
     @Column
     private String  date;
     @Column
-    private double amount_$;
+    private double amountUSA;
 
     @ManyToOne
     private Customer customer;
@@ -23,9 +22,9 @@ public class Schedule {
     public Schedule() {
     }
 
-    public Schedule(String date, double amount_$) {
+    public Schedule(String date, double amountUSA) {
         this.date = date;
-        this.amount_$ = amount_$;
+        this.amountUSA = amountUSA;
     }
 
     public int getId() {
@@ -44,12 +43,12 @@ public class Schedule {
         this.date = date;
     }
 
-    public double getAmount_$() {
-        return amount_$;
+    public double getAmountUSA() {
+        return amountUSA;
     }
 
-    public void setAmount_$(double amount_$) {
-        this.amount_$ = amount_$;
+    public void setAmountUSA(double amountUSA) {
+        this.amountUSA = amountUSA;
     }
 
     public Customer getCustomer() {

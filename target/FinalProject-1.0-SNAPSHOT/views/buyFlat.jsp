@@ -6,7 +6,7 @@
   Time: 23:59
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"  %>
 <html>
 <head>
     <title>DreamHouse</title>
@@ -24,7 +24,7 @@
     <table>
         <tr>
             <th class="head">This customer already has flats:</th>
-            <td><c:forEach items="${customer_sFlats}" var = "cp">${cp.flatnumber}, </c:forEach></td>
+            <td><c:forEach items="${customer_sFlats}" var = "cp">${cp.flatNumber}, </c:forEach></td>
         </tr>
     </table>
 
@@ -40,7 +40,7 @@
 
             <select name="flatId" id="number"  class="textbox">
                 <option value="-9999">Виберіть вільну квартиру:</option>
-                <c:forEach items="${freeFlats}" var = "p"><option value="${p.id}">${p.flatnumber}</option></c:forEach>
+                <c:forEach items="${freeFlats}" var = "p"><option value="${p.id}">${p.flatNumber}</option></c:forEach>
             </select>
 
             <button class="button"  type="submit">Buy!</button>

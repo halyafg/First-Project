@@ -35,26 +35,27 @@ public class FlatDaoImpl implements FlatDao {
         return entityManager.find(Flat.class, id);
     }
 
+    @SuppressWarnings (value="unchecked")
     public List<Flat> findAllFlats() {
-        return entityManager.createQuery("SELECT f FROM Flat f order by flatnumber").getResultList();
+        return entityManager.createQuery("SELECT f FROM Flat f order by flatNumber").getResultList();
     }
-
+    @SuppressWarnings (value="unchecked")
     public List<Flat> findFreeFlatsinHouse(int houseId) {
-        return entityManager.createQuery("SELECT f from Flat f WHERE f.status='free' AND f.house.id=:id order by flatnumber")
+        return entityManager.createQuery("SELECT f from Flat f WHERE f.status='free' AND f.house.id=:id order by flatNumber")
                 .setParameter("id", houseId).getResultList();
     }
 
     public Flat findByNumber(int number) {
-        return (Flat) entityManager.createQuery("SELECT f FROM Flat f WHERE f.flatnumber=:number").setParameter("number", number).getSingleResult();
+        return (Flat) entityManager.createQuery("SELECT f FROM Flat f WHERE f.flatNumber=:number").setParameter("number", number).getSingleResult();
     }
 
     public List<Flat> findByCustomerId(int customer_id) {
         Customer customer = entityManager.find(Customer.class, customer_id);
-        return entityManager.createQuery("SELECT f FROM Flat f WHERE f.customer=:customer order by flatnumber").setParameter("customer", customer).getResultList();
+        return entityManager.createQuery("SELECT f FROM Flat f WHERE f.customer=:customer order by flatNumber").setParameter("customer", customer).getResultList();
     }
 
     @Override
     public List<Flat> findAllFlatsInHouse(int houseId) {
-        return entityManager.createQuery("SELECT f FROM Flat f where f.house.id=:id order by flatnumber").setParameter("id", houseId).getResultList();
+        return entityManager.createQuery("SELECT f FROM Flat f where f.house.id=:id order by flatNumber").setParameter("id", houseId).getResultList();
     }
 }

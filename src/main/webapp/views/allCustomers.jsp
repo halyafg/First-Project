@@ -59,7 +59,7 @@
 
                 <tr>
                     <td><a href="/customer/inf/${house.id}/${cust.id}">${cust.surname} ${cust.name} ${cust.lastname}</a></td>
-                    <td><sec:authorize access="hasRole('ROLE_ADMIN')"><c:forEach items="${cust.flatList}" var="cpl">${cpl.flatnumber},</c:forEach><br></sec:authorize></td>
+                    <td><sec:authorize access="hasRole('ROLE_ADMIN')"><c:forEach items="${cust.flatList}" var="cpl">${cpl.flatNumber},</c:forEach><br></sec:authorize></td>
                     <td><sec:authorize access="hasRole('ROLE_ADMIN')"><c:forEach items="${cust.pantryList}" var="cpanl">${cpanl.number},</c:forEach><br></sec:authorize></td>
                     <td><sec:authorize access="hasRole('ROLE_ADMIN')"><c:forEach items="${cust.parkingList}" var="cpl">${cpl.number},</c:forEach><br></sec:authorize></td>
                     <td><sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/schedl_paym/${cust.id}"> ***** </a> <br></sec:authorize></td>
