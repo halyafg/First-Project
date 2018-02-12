@@ -3,6 +3,7 @@ package ua.lv.hoy.services.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.lv.hoy.dao.AbstractDao;
 import ua.lv.hoy.dao.CustomerDao;
 import ua.lv.hoy.dao.HouseDao;
 import ua.lv.hoy.dao.ParkingDao;
@@ -25,13 +26,15 @@ public class ParkingServiceImpl implements ParkingService {
     private CustomerDao customerDao;
     @Autowired
     private HouseDao houseDao;
+    @Autowired
+    AbstractDao abstractDao;
 
     public void add(int number, int houseId) {
 
         if(number !=0 ) {
             Parking parking = new Parking(number, "free");
             parking.setHouse(houseDao.findById(houseId));
-            parkingDao.add(parking);
+            abstractDao.add(parking);
         }
     }
 
@@ -45,7 +48,7 @@ public class ParkingServiceImpl implements ParkingService {
             parking.setStatus(status);
         }
 
-        parkingDao.edit(parking);
+        abstractDao.edit(parking);
 
     }
 
@@ -57,7 +60,7 @@ public class ParkingServiceImpl implements ParkingService {
             if (!parking.getStatus().equalsIgnoreCase("sold") ){
                 parking.setStatus("sold");
                 parking.setCustomer(customer);
-                parkingDao.edit(parking);
+                abstractDao.edit(parking);
             }
         }
 
@@ -73,7 +76,7 @@ public class ParkingServiceImpl implements ParkingService {
                 parking.setCustomer(null);
             }
 
-            parkingDao.edit(parking);
+            abstractDao.edit(parking);
         }
     }
 

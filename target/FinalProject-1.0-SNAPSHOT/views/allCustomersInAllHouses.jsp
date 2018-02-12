@@ -53,7 +53,7 @@
                     <%--<td>${cust.name}</td>
                     <td>${cust.lastname}</td>--%>
 
-                <td><sec:authorize access="hasRole('ROLE_ADMIN')"><c:forEach items="${cust.flatList}" var="cpl">${cpl.flatnumber}(${cpl.house.name}),</c:forEach><br></sec:authorize></td>
+                <td><sec:authorize access="hasRole('ROLE_ADMIN')"><c:forEach items="${cust.flatList}" var="cpl">${cpl.flatNumber}(${cpl.house.name}),</c:forEach><br></sec:authorize></td>
                 <td><sec:authorize access="hasRole('ROLE_ADMIN')"><c:forEach items="${cust.pantryList}" var="cpanl">${cpanl.number}(${cpanl.house.name}),</c:forEach><br></sec:authorize></td>
                 <td><sec:authorize access="hasRole('ROLE_ADMIN')"><c:forEach items="${cust.parkingList}" var="cpl">${cpl.number}(${cpl.house.name}),</c:forEach><br></sec:authorize></td>
                 <td><sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/schedl_paym/${cust.id}"> ***** </a> <br></sec:authorize></td>

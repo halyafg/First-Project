@@ -19,16 +19,6 @@ public class ScheduleDaoImpl implements ScheduleDao {
     private EntityManager entityManager;
 
     @Transactional
-    public void add(Schedule schedule) {
-        entityManager.persist((schedule));
-    }
-
-    @Transactional
-    public void edit(Schedule schedule) {
-        entityManager.merge(schedule);
-    }
-
-    @Transactional
     public void delete(int id) {
         entityManager.remove(entityManager.find(Schedule.class, id));
     }

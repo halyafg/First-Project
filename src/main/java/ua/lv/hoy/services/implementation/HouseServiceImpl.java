@@ -2,6 +2,7 @@ package ua.lv.hoy.services.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.lv.hoy.dao.AbstractDao;
 import ua.lv.hoy.dao.FlatDao;
 import ua.lv.hoy.dao.HouseDao;
 import ua.lv.hoy.entity.Flat;
@@ -20,6 +21,8 @@ public class HouseServiceImpl implements HouseService {
     private HouseDao houseDao;
     @Autowired
     private FlatDao flatDao;
+    @Autowired
+    private AbstractDao abstractDao;
 
 
     @Override
@@ -34,7 +37,7 @@ public class HouseServiceImpl implements HouseService {
         if(description.equalsIgnoreCase("")){
             house.setDescription("no description");
         }
-        houseDao.add(house);
+        abstractDao.add(house);
     }
 
     @Override
@@ -49,7 +52,7 @@ public class HouseServiceImpl implements HouseService {
         if(!description.equalsIgnoreCase("")){
             house.setDescription(description);
         }
-        houseDao.edit(house);
+        abstractDao.edit(house);
 
     }
 
@@ -79,7 +82,8 @@ public class HouseServiceImpl implements HouseService {
         Flat fl = new Flat(number, floor, rooms, projectSize, realSize, "free", description);
         fl.setHouse(house);
         if(fl.getRomsNumber()>0 && fl.getRomsNumber() <= 3){
-            flatDao.add(fl);
+            abstractDao.add(fl);
+            //flatDao.add(fl);
         }
 
     }

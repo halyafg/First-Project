@@ -19,16 +19,6 @@ public class PaymentDaoImpl implements PaymentDao {
     private EntityManager entityManager;
 
     @Transactional
-    public void add(Payment payment) {
-        entityManager.persist((payment));
-    }
-
-    @Transactional
-    public void edit(Payment payment) {
-        entityManager.merge(payment);
-    }
-
-    @Transactional
     public void delete(int id) {
         entityManager.remove(entityManager.find(Payment.class, id));
     }

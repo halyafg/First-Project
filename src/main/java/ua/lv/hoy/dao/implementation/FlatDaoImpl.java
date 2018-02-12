@@ -19,14 +19,6 @@ public class FlatDaoImpl implements FlatDao {
     @PersistenceContext(unitName = "Main")
     private EntityManager entityManager;
 
-    public void add(Flat flat) {
-        entityManager.persist((flat));
-    }
-
-    public void edit(Flat flat) {
-        entityManager.merge(flat);
-    }
-
     public void delete(int id) {
         entityManager.remove(entityManager.find(Flat.class, id));
     }

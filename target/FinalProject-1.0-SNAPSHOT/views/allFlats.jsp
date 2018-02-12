@@ -57,7 +57,7 @@
         <tbody>
         <c:forEach items="${flats}" var = "fl">
             <tr>
-                <td class="flatNumber"><strong>${fl.flatnumber}</strong></td>
+                <td class="flatNumber"><strong>${fl.flatNumber}</strong></td>
                 <td>${fl.floor}</td>
                 <td>${fl.romsNumber}</td>
                 <td>${fl.projectSize}</td>

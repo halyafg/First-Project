@@ -3,6 +3,7 @@ package ua.lv.hoy.services.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.lv.hoy.dao.AbstractDao;
 import ua.lv.hoy.dao.CustomerDao;
 import ua.lv.hoy.dao.HouseDao;
 import ua.lv.hoy.dao.PantryDao;
@@ -25,11 +26,13 @@ public class PantryServiceImpl implements PantryService {
     private CustomerDao customerDao;
     @Autowired
     private HouseDao houseDao;
+    @Autowired
+    AbstractDao abstractDao;
 
     public void add(int houseId, int number, String floor,  double projectSize, double realSize,  String description) {
         Pantry pantry = new Pantry(number, floor, projectSize, realSize, "free", description);
         pantry.setHouse(houseDao.findById(houseId));
-        pantryDao.add(pantry);
+        abstractDao.add(pantry);
     }
 
     public void edit(int id, int number, String floor,  double projectSize, double realSize, String status, String description) {
@@ -54,7 +57,7 @@ public class PantryServiceImpl implements PantryService {
             pantry.setDescription(description);
         }
 
-        pantryDao.edit(pantry);
+        abstractDao.edit(pantry);
     }
     public void buy (int pantryId, int customerId){
         if(pantryId!= -1){
@@ -64,7 +67,7 @@ public class PantryServiceImpl implements PantryService {
                 pantry.setStatus("sold");
                 pantry.setCustomer(customer);
             }
-            pantryDao.edit(pantry);
+            abstractDao.edit(pantry);
         }
     }
 
@@ -77,7 +80,7 @@ public class PantryServiceImpl implements PantryService {
                 pantry.setCustomer(null);
             }
 
-            pantryDao.edit(pantry);
+            abstractDao.edit(pantry);
         }
     }
 

@@ -19,14 +19,6 @@ public class CustomerDaoImpl implements CustomerDao {
     @PersistenceContext(unitName = "Main")
     private EntityManager entityManager;
 
-    public void add(Customer customer) {
-        entityManager.persist(customer);
-    }
-
-    public void edit(Customer customer) {
-        entityManager.merge(customer);
-    }
-
     public void delete(int id) {
         entityManager.remove(entityManager.find(Customer.class, id));
     }

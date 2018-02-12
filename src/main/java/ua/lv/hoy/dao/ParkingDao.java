@@ -9,9 +9,6 @@ import java.util.List;
  * Created by Administrator on 26-Feb-17.
  */
 public interface ParkingDao {
-    void add(Parking parking);
-
-    void edit(Parking parking);
 
     void delete(int id);
 

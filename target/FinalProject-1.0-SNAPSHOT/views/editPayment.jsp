@@ -20,10 +20,10 @@
         <input name="data" id="data" class="textbox" type="text" value="${payment.data}"><br><br>
 
         <label for="amount">Сума оплати, грн: </label>
-        <input name="amount" id="amount" class="textbox" type="text" value="${payment.amount_grn}"><br><br>
+        <input name="amount" id="amount" class="textbox" type="text" value="${payment.amountGRN}"><br><br>
 
         <label for="quote">Курс, грн/дол: </label>
-        <input name="quote" id="quote" class="textbox" type="text" value="${payment.quote_$}"><br><br>
+        <input name="quote" id="quote" class="textbox" type="text" value="${payment.quoteUSA}"><br><br>
 
         <button type="submit" class="button">Edit!</button>
     </form>

@@ -2,6 +2,7 @@ package ua.lv.hoy.services.implementation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.lv.hoy.dao.AbstractDao;
 import ua.lv.hoy.dao.CustomerDao;
 import ua.lv.hoy.dao.ScheduleDao;
 import ua.lv.hoy.entity.Schedule;
@@ -19,13 +20,15 @@ public class ScheduleServiceImpl implements ScheduleService {
     private ScheduleDao scheduleDao;
     @Autowired
     CustomerDao customerDao;
+    @Autowired
+    AbstractDao abstractDao;
 
     public void add(int customerId, String date, double amountUSA) {
         Schedule schedule = new Schedule();
         schedule.setCustomer(customerDao.findById(customerId));
         schedule.setDate(date);
         schedule.setAmountUSA(amountUSA);
-        scheduleDao.add(schedule);
+        abstractDao.add(schedule);
     }
 
     public void edit(int id, String date, double amountUSA) {
@@ -38,7 +41,7 @@ public class ScheduleServiceImpl implements ScheduleService {
             schedule.setAmountUSA(amountUSA);
         }
 
-        scheduleDao.edit(schedule);
+        abstractDao.edit(schedule);
     }
 
     public void delete(int id) {

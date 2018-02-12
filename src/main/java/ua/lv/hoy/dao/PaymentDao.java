@@ -8,9 +8,6 @@ import java.util.List;
  * Created by Administrator on 26-Feb-17.
  */
 public interface PaymentDao {
-    void add(Payment payment);
-
-    void edit(Payment payment);
 
     void delete(int id);
 

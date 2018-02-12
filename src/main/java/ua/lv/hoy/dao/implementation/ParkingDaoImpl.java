@@ -19,14 +19,6 @@ public class ParkingDaoImpl implements ParkingDao {
     @PersistenceContext(unitName = "Main")
     private EntityManager entityManager;
 
-    public void add(Parking parking) {
-        entityManager.persist((parking));
-    }
-
-    public void edit(Parking parking) {
-        entityManager.merge(parking);
-    }
-
     public void delete(int id) {
         entityManager.remove(entityManager.find(Parking.class, id));
     }

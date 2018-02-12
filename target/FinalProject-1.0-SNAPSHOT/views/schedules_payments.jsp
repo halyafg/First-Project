@@ -30,7 +30,7 @@
             <c:forEach items="${customerSchedules}" var = "s">
                 <tr>
                     <td>${s.date}</td>
-                    <td class="money">${s.amount_$}</td>
+                    <td class="money">${s.amountUSA}</td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -53,9 +53,9 @@
             <c:forEach items="${customerPayments}" var = "p">
                 <tr>
                     <td>${p.data}</td>
-                    <td class="money">${p.amount_grn}</td>
-                    <td class="money">${p.quote_$}</td>
-                    <td class="money">${p.amount_$}</td>
+                    <td class="money">${p.amountGRN}</td>
+                    <td class="money">${p.quoteUSA}</td>
+                    <td class="money">${p.amountUSA}</td>
                 </tr>
             </c:forEach>
             <tr>

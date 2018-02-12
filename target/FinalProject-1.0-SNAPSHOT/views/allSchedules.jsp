@@ -47,7 +47,7 @@
             <tr>
                 <td><sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/schedule/editpage/${s.id}">Edit schedule! </a> <br></sec:authorize></td>
                 <td>${s.date}</td>
-                <td>${s.amount_$}</td>
+                <td>${s.amountUSA}</td>
                 <td><a href="/customer/inf/${s.getCustomer().getId()}"> ${s.customer.getSurname()} ${s.customer.getName()} ${s.customer.getLastname()}</a> </td>
 
                 <td><a href="/schedule/delete/${s.id}">Delete! </a></td>

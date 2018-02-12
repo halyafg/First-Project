@@ -9,10 +9,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ua.lv.hoy.dao.CustomerDao;
-import ua.lv.hoy.dao.FlatDao;
-import ua.lv.hoy.dao.PantryDao;
-import ua.lv.hoy.dao.ParkingDao;
+import ua.lv.hoy.dao.*;
 import ua.lv.hoy.entity.Customer;
 import ua.lv.hoy.entity.Flat;
 import ua.lv.hoy.entity.Pantry;
@@ -37,9 +34,11 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     private PantryDao pantryDao;
     @Autowired
     private ParkingDao  parkingDao;
+    @Autowired
+    private AbstractDao abstractDao;
 
     public void add(String name, String surname, String lastname, String phone, String email, String password, String pasportSeria, String pasportNumber, String pasportKimVidan, String pasportData) {
-        customerDao.add(new Customer(name, surname, lastname, phone, email, password,
+        abstractDao.add(new Customer(name, surname, lastname, phone, email, password,
                 pasportSeria, pasportNumber, pasportKimVidan, pasportData));
     }
 
@@ -80,7 +79,7 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
             customer.setPasportData(pasportData);
         }
 
-        customerDao.edit(customer);
+        abstractDao.edit(customer);
 
     }
 
@@ -105,7 +104,7 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
 
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
         Customer customer = customerDao.findByLogin(login);
-        List<GrantedAuthority>authorities = new ArrayList<GrantedAuthority>();
+        List<GrantedAuthority>authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
         return new User(customer.getEmail(), customer.getPassword(), authorities);
     }

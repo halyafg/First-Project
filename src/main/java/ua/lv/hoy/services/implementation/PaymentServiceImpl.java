@@ -5,6 +5,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.lv.hoy.dao.AbstractDao;
 import ua.lv.hoy.dao.CustomerDao;
 import ua.lv.hoy.dao.PaymentDao;
 import ua.lv.hoy.entity.Customer;
@@ -24,9 +25,11 @@ public class PaymentServiceImpl implements PaymentService {
     private PaymentDao paymentDao;
     @Autowired
     CustomerDao customerDao;
+    @Autowired
+    AbstractDao abstractDao;
 
     public void add(String data, double amountGRN, double quoteUSA, double amountUSA) {
-        paymentDao.add(new Payment(data, amountGRN, quoteUSA, amountUSA));
+        abstractDao.add(new Payment(data, amountGRN, quoteUSA, amountUSA));
     }
 
     public void add(int customerId, String data, double amountGRN) {
@@ -55,7 +58,7 @@ public class PaymentServiceImpl implements PaymentService {
             double amountDouble = Double.parseDouble(amountString);
             payment.setAmountUSA(amountDouble);
 
-            paymentDao.add(payment);
+            abstractDao.add(payment);
         }
 
     }
@@ -82,7 +85,7 @@ public class PaymentServiceImpl implements PaymentService {
             payment.setQuoteUSA(quoteUSA);
         }
 
-        paymentDao.edit(payment);
+        abstractDao.edit(payment);
     }
 
     public void delete(int id) {

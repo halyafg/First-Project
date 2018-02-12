@@ -8,9 +8,6 @@ import java.util.List;
  * Created by Administrator on 26-Feb-17.
  */
 public interface PantryDao {
-    void add(Pantry pantry);
-
-    void edit(Pantry pantry);
 
     void delete(int id);
 

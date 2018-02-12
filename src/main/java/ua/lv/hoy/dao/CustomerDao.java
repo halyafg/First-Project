@@ -8,9 +8,6 @@ import java.util.List;
  * Created by Administrator on 26-Feb-17.
  */
 public interface CustomerDao {
-    void add(Customer customer);
-
-    void edit(Customer customer);
 
     void delete(int id);
 

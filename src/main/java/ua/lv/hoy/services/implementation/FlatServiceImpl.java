@@ -3,6 +3,7 @@ package ua.lv.hoy.services.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ua.lv.hoy.dao.AbstractDao;
 import ua.lv.hoy.dao.CustomerDao;
 import ua.lv.hoy.dao.FlatDao;
 import ua.lv.hoy.entity.Customer;
@@ -23,10 +24,12 @@ public class FlatServiceImpl implements FlatService {
     private FlatDao flatDao;
     @Autowired
     private CustomerDao customerDao;
+    @Autowired
+    private AbstractDao abstractDao;
 
     public void add(int flatNumber, int floor, int romsNumber, double projectSize, double realSize,  String description) {
         if(romsNumber >0 && romsNumber <=3){
-            flatDao.add( new Flat(flatNumber, floor, romsNumber, projectSize,
+            abstractDao.add(new Flat(flatNumber, floor, romsNumber, projectSize,
                     realSize, "free", description));
         }
     }
@@ -55,7 +58,7 @@ public class FlatServiceImpl implements FlatService {
             flat.setDescription(description);
         }
 
-        flatDao.edit(flat);
+        abstractDao.edit(flat);
 
     }
 
@@ -83,7 +86,6 @@ public class FlatServiceImpl implements FlatService {
         return flatDao.findByCustomerId(customerId);
     }
 
-
     public void buy(int flatId, int customerId){
 
         if(flatId != -9999){
@@ -93,7 +95,7 @@ public class FlatServiceImpl implements FlatService {
             if(flat.getStatus().equalsIgnoreCase("free")){
                 flat.setStatus("sold");
                 flat.setCustomer(customer);
-                flatDao.edit(flat);
+                abstractDao.edit(flat);
             }
         }
     }

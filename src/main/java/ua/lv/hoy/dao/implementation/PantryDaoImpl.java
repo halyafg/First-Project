@@ -20,14 +20,6 @@ public class PantryDaoImpl implements PantryDao {
     @PersistenceContext(unitName = "Main")
     private EntityManager entityManager;
 
-    public void add(Pantry pantry) {
-        entityManager.persist((pantry));
-    }
-
-    public void edit(Pantry pantry) {
-        entityManager.merge(pantry);
-    }
-
     public void delete(int id) {
         entityManager.remove(entityManager.find(Pantry.class, id));
     }

@@ -9,9 +9,6 @@ import java.util.List;
  * Created by Administrator on 26-Feb-17.
  */
 public interface ScheduleDao {
-    void add(Schedule schedule);
-
-    void edit(Schedule schedule);
 
     void delete(int id);
 

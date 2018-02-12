@@ -21,16 +21,6 @@ public class HouseDaoImpl implements HouseDao {
     private EntityManager entityManager;
 
     @Override
-    public void add(House house) {
-        entityManager.persist(house);
-    }
-
-    @Override
-    public void edit(House house) {
-        entityManager.merge(house);
-    }
-
-    @Override
     public void delete(int id) {
         entityManager.remove(entityManager.find(House.class, id));
     }

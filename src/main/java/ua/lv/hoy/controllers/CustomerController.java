@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import ua.lv.hoy.services.CustomerService;
 import ua.lv.hoy.services.HouseService;
 
-import java.util.List;
 
 @Controller
 public class CustomerController {
@@ -82,7 +81,7 @@ public class CustomerController {
     private String editCustomer(@RequestParam("houseId") Integer houseId,
                                 @RequestParam("custId") Integer id,
                                 @RequestParam("custName") String name,
-                                @RequestParam("custName") String surname,
+                                @RequestParam("custSurname") String surname,
                                 @RequestParam("custLastname") String lastname,
                                 @RequestParam("custPhone") String phone,
                                 @RequestParam("custEmail") String email,

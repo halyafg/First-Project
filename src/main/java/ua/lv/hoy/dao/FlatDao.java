@@ -8,9 +8,6 @@ import java.util.List;
  * Created by Administrator on 26-Feb-17.
  */
 public interface FlatDao {
-    void add(Flat flat);
-
-    void edit(Flat flat);
 
     void delete(int id);
 
