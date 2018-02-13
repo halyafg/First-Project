@@ -17,10 +17,6 @@
 <div class="page">
     <h1>Buy flat for ${customer.surname} ${customer.name} ${customer.lastname}</h1>
 
-
-
-
-
     <table>
         <tr>
             <th class="head">This customer already has flats:</th>
@@ -36,7 +32,6 @@
             <input name="houseId" type="text" value="${houseId}" hidden>
 
             <label for="number">Flat's number to buy: </label>
-            <%--<input name="number" id="number" type="text"><br><br>--%>
 
             <select name="flatId" id="number"  class="textbox">
                 <option value="-9999">Виберіть вільну квартиру:</option>

@@ -21,6 +21,18 @@
                     <target>1.8</target>
                 </configuration>
             </plugin>
+
+            <plugin>
+                <groupId>com.googlecode.flyway</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>1.5</version>
+                <configuration>
+                    <driver>com.mysql.jdbc.Driver</driver>
+                    <url>jdbc:mysql://localhost:8080/flywaytest?autoReconnect=true&amp;useUnicode=true&amp;characterEncoding=UTF-8&amp;connectionCollation=utf8_general_ci&amp;characterSetResults=UTF-8</url>
+                    <baseDir>db/migration</baseDir>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
@@ -216,6 +228,11 @@
             <version>1.8.3</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.googlecode.flyway</groupId>
+            <artifactId>flyway-core</artifactId>
+            <version>1.5</version>
+        </dependency>
 
 
     </dependencies>

@@ -3,10 +3,7 @@ package ua.lv.hoy.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ua.lv.hoy.entity.Flat;
 import ua.lv.hoy.services.CustomerService;
 import ua.lv.hoy.services.FlatService;
@@ -29,10 +26,10 @@ public class FlatController {
     @Autowired
     HouseService houseService;
 
-    @RequestMapping(value = "/flat/inf/{flatId}", method = RequestMethod.GET)
-    private String openFlatImage(@PathVariable Integer flatId, Model model){
-        Flat flat = flatService.findById(flatId);
-        model.addAttribute(FLAT, flat);
+    @RequestMapping(value = "/flat/inf/{flatNumber}", method = RequestMethod.GET)
+    private String openFlatImage(@PathVariable Integer flatNumber,
+                                 Model model){
+        model.addAttribute(FLAT, flatService.findByNumber(flatNumber));
         return "flatInf";
     }
 
@@ -51,15 +48,11 @@ public class FlatController {
 
     @RequestMapping(value = "/flat/add", method = RequestMethod.POST)
     private String addFlat(@RequestParam("houseId") int houseId,
-                            @RequestParam("flName") int number,
-                           @RequestParam("flFloor") int floor,
-                           @RequestParam("flRooms") int rooms,
-                           @RequestParam("flPrSize") double projectSize,
-                           @RequestParam("flRealSize") double realSize,
-                           @RequestParam("flDescription") String description){
-        houseService.addFlatToHouse(houseId, number, floor, rooms, projectSize, realSize, description);
+                           @ModelAttribute Flat flat){
+        flatService.addFlatToHouse(houseId, flat);
         return REDIRECT_FLATS_ALL + houseId;
     }
+
     @RequestMapping(value = "/flat/editpage/{houseId},{flatId}", method = RequestMethod.GET)
     private  String openEditFlatPage(@PathVariable Integer houseId,@PathVariable Integer flatId, Model model){
         model.addAttribute(FLAT, flatService.findById(flatId));
@@ -67,16 +60,10 @@ public class FlatController {
         return "editFlat";
     }
     @RequestMapping(value = "/flat/edit", method = RequestMethod.POST)
-    private String editFlat(@RequestParam("flId") Integer id,
+    private String editFlat(@RequestParam("flId") Integer flatId,
                             @RequestParam("houseId") Integer houseId,
-                            @RequestParam("flName") Integer number,
-                            @RequestParam("flFloor") Integer floor,
-                            @RequestParam("flRooms") Integer rooms,
-                            @RequestParam("flPrSize") Double projectSize,
-                            @RequestParam("flRealSize") Double realSize,
-                            @RequestParam("flStatus") String status,
-                            @RequestParam("flDescription") String description){
-        flatService.edit(id, number, floor, rooms, projectSize, realSize, status, description);
+                            @ModelAttribute Flat flat){
+        flatService.edit(flatId, flat);
         return REDIRECT_FLATS_ALL + houseId;
     }
     @RequestMapping(value = "/flat/delete/{houseId},{flatId}", method = RequestMethod.GET)

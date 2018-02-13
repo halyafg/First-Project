@@ -69,9 +69,7 @@ public class UserController {
                                  @RequestParam("password") String password){
         Customer customer = customerService.findCustomerByLogin(customerLogin);
         customer.setPassword(password);
-        customerService.edit(customer.getId(), customer.getName(), customer.getSurname(), customer.getLastname(),
-                    customer.getPhone(), customer.getEmail(), customer.getPassword(), customer.getPasportSeria(),
-                    customer.getPasportNumber(), customer.getPasportKimVidan(), customer.getPasportData());
+        customerService.edit(customer.getId(),customer);
 
         return "home";
     }

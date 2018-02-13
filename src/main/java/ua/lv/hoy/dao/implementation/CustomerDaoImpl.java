@@ -27,6 +27,7 @@ public class CustomerDaoImpl implements CustomerDao {
         return entityManager.find(Customer.class, id);
     }
 
+    @SuppressWarnings (value="unchecked")
     public List<Customer> findAllCustomers() {
         return entityManager.createQuery("select c FROM Customer c order by surname").getResultList();
     }

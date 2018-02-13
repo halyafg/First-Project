@@ -18,18 +18,18 @@
         <input name="pantId" type="text" value="${pantry.id}" hidden >
 
         <label for="number">Flat's number: </label>
-        <input name="pantNumber" id="number" type="text" class="textbox" value="${pantry.number}">
+        <input name="number" id="number" type="text" class="textbox" value="${pantry.number}">
         <label for="floor">Floor: </label>
-        <input name="pantFloor" id="floor" type="text" class="textbox" value="${pantry.floor}">
+        <input name="floor" id="floor" type="text" class="textbox" value="${pantry.floor}">
         <label for="p_size">Project size: </label>
-        <input name="pSize" id="p_size" type="text" class="textbox" value="${pantry.projectSize}">
+        <input name="projectSize" id="p_size" type="text" class="textbox" value="${pantry.projectSize}">
         <label for="r_size">Real size: </label>
-        <input name="rSize" id="r_size" type="text" class="textbox" value="${pantry.realSize}">
+        <input name="realSize" id="r_size" type="text" class="textbox" value="${pantry.realSize}">
 
-        <input name="pantStatus" id="status" type="text" class="textbox" value="${pantry.status}" hidden>
+        <input name="status" id="status" type="text" class="textbox" value="${pantry.status}" hidden>
 
         <label for="description">Description: </label>
-        <input name="pantDescription" id="description" type="text" class="textbox" value="${pantry.description}">
+        <input name="description" id="description" type="text" class="textbox" value="${pantry.description}">
 
 
         <button type="submit" class="button">Edit!</button>

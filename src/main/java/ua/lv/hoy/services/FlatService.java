@@ -8,11 +8,10 @@ import java.util.List;
  * Created by Administrator on 05-Mar-17.
  */
 public interface FlatService {
-    void add(int flatNumber, int floor, int romsNumber, double projectSize, double realSize,
-             String description);
 
-    void edit(int id, int flatNumber, int floor, int romsNumber, double projectSize, double realSize,
-              String status, String description);
+    void addFlatToHouse(int houseId, Flat flat);
+
+    void edit (int flatId, Flat newFlat);
 
     void delete(int id);
 

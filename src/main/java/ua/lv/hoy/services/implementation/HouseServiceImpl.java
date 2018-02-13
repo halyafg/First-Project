@@ -3,9 +3,7 @@ package ua.lv.hoy.services.implementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.lv.hoy.dao.AbstractDao;
-import ua.lv.hoy.dao.FlatDao;
 import ua.lv.hoy.dao.HouseDao;
-import ua.lv.hoy.entity.Flat;
 import ua.lv.hoy.entity.House;
 import ua.lv.hoy.services.HouseService;
 
@@ -20,40 +18,36 @@ public class HouseServiceImpl implements HouseService {
     @Autowired
     private HouseDao houseDao;
     @Autowired
-    private FlatDao flatDao;
-    @Autowired
     private AbstractDao abstractDao;
 
 
     @Override
-    public void add(String name, String address, String  description) {
-        House house = new House(name, address, description);
-        if(name.equalsIgnoreCase("")){
+    public void add(House house) {
+        if(house.getName().equalsIgnoreCase("")){
             house.setName("no name");
         }
-        if(address.equalsIgnoreCase("")){
+        if(house.getAddress().equalsIgnoreCase("")){
             house.setAddress("no address");
         }
-        if(description.equalsIgnoreCase("")){
+        if(house.getDescription().equalsIgnoreCase("")){
             house.setDescription("no description");
         }
         abstractDao.add(house);
     }
 
     @Override
-    public void edit(int id, String name, String address, String description) {
-        House house =houseDao.findById(id);
-        if(!name.equalsIgnoreCase("")){
-            house.setName(name);
+    public void edit(int houseId, House editedHouse) {
+        House house =houseDao.findById(houseId);
+        if(!editedHouse.getName().equalsIgnoreCase("")){
+            house.setName(editedHouse.getName());
         }
-        if(!address.equalsIgnoreCase("")){
-            house.setAddress(address);
+        if(!editedHouse.getAddress().equalsIgnoreCase("")){
+            house.setAddress(editedHouse.getAddress());
         }
-        if(!description.equalsIgnoreCase("")){
-            house.setDescription(description);
+        if(!editedHouse.getDescription().equalsIgnoreCase("")){
+            house.setDescription(editedHouse.getDescription());
         }
         abstractDao.edit(house);
-
     }
 
     @Override
@@ -74,18 +68,5 @@ public class HouseServiceImpl implements HouseService {
         return houseDao.findAll();
     }
 
-    @Override
-    public void addFlatToHouse(int houseId, int number, int floor, int rooms,
-                               double projectSize, double realSize, String description){
-
-        House house = houseDao.findById(houseId);
-        Flat fl = new Flat(number, floor, rooms, projectSize, realSize, "free", description);
-        fl.setHouse(house);
-        if(fl.getRomsNumber()>0 && fl.getRomsNumber() <= 3){
-            abstractDao.add(fl);
-            //flatDao.add(fl);
-        }
-
-    }
 }
 

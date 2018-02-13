@@ -6,8 +6,10 @@ import org.springframework.transaction.annotation.Transactional;
 import ua.lv.hoy.dao.AbstractDao;
 import ua.lv.hoy.dao.CustomerDao;
 import ua.lv.hoy.dao.FlatDao;
+import ua.lv.hoy.dao.HouseDao;
 import ua.lv.hoy.entity.Customer;
 import ua.lv.hoy.entity.Flat;
+import ua.lv.hoy.entity.House;
 import ua.lv.hoy.services.FlatService;
 
 import java.util.ArrayList;
@@ -26,36 +28,40 @@ public class FlatServiceImpl implements FlatService {
     private CustomerDao customerDao;
     @Autowired
     private AbstractDao abstractDao;
+    @Autowired
+    HouseDao houseDao;
 
-    public void add(int flatNumber, int floor, int romsNumber, double projectSize, double realSize,  String description) {
-        if(romsNumber >0 && romsNumber <=3){
-            abstractDao.add(new Flat(flatNumber, floor, romsNumber, projectSize,
-                    realSize, "free", description));
+    @Override
+    public void addFlatToHouse(int houseId, Flat flat) {
+        House house = houseDao.findById(houseId);
+        flat.setHouse(house);
+        if(flat.getRomsNumber()>0 && flat.getRomsNumber() <= 3){
+            abstractDao.add(flat);
         }
     }
 
-    public void edit(int id, int flatNumber, int floor, int romsNumber, double projectSize, double realSize, String status, String description) {
-        Flat flat = flatDao.findById(id);
-        if (flatNumber >0){
-            flat.setflatNumber(flatNumber);
+    public void edit(int flatId, Flat editedFlat) {
+        Flat flat = flatDao.findById(flatId);
+        if (editedFlat.getflatNumber()>0){
+            flat.setflatNumber(editedFlat.getflatNumber());
         }
-        if (floor >0){
-            flat.setFloor(floor);
+        if (editedFlat.getFloor() >0){
+            flat.setFloor(editedFlat.getFloor());
         }
-        if (romsNumber >0){
-            flat.setRomsNumber(romsNumber);
+        if (editedFlat.getRomsNumber() >0){
+            flat.setRomsNumber(editedFlat.getRomsNumber());
         }
-        if (projectSize >0){
-            flat.setProjectSize(projectSize);
+        if (editedFlat.getProjectSize() >0){
+            flat.setProjectSize(editedFlat.getProjectSize());
         }
-        if (realSize >0){
-            flat.setRealSize(realSize);
+        if (editedFlat.getRealSize() >0){
+            flat.setRealSize(editedFlat.getRealSize());
         }
-        if (status != null  && !status.equalsIgnoreCase("")){
-            flat.setStatus(status);
+        if (editedFlat.getStatus() != null  && !editedFlat.getStatus().equalsIgnoreCase("")){
+            flat.setStatus(editedFlat.getStatus());
         }
-        if (description != null  && !description.equalsIgnoreCase("")){
-            flat.setDescription(description);
+        if (editedFlat.getDescription() != null  && !editedFlat.getDescription().equalsIgnoreCase("")){
+            flat.setDescription(editedFlat.getDescription());
         }
 
         abstractDao.edit(flat);

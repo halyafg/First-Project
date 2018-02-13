@@ -37,46 +37,45 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     @Autowired
     private AbstractDao abstractDao;
 
-    public void add(String name, String surname, String lastname, String phone, String email, String password, String pasportSeria, String pasportNumber, String pasportKimVidan, String pasportData) {
-        abstractDao.add(new Customer(name, surname, lastname, phone, email, password,
-                pasportSeria, pasportNumber, pasportKimVidan, pasportData));
+    @Override
+    public void add(Customer customer) {
+        abstractDao.add(customer);
     }
 
-    public void edit(int id, String name, String surname, String lastname, String phone, String email, String password,
-                     String pasportSeria, String pasportNumber, String pasportKimVidan, String pasportData) {
 
-        Customer customer = customerDao.findById(id);
+    public void edit(int customrId, Customer newCustomer) {
 
-        if (name != null && !name.equalsIgnoreCase("")){
-            customer.setName(name);
-        }
-        if (surname != null && !surname.equalsIgnoreCase("")){
-            customer.setSurname(surname);
-        }
-        if (lastname != null && !lastname.equalsIgnoreCase("")){
-            customer.setLastname(lastname);
-        }
-        if (phone != null && !phone.equalsIgnoreCase("")){
-            customer.setPhone(phone);
-        }
-        if (email != null && !email.equalsIgnoreCase("")){
-            customer.setEmail(email);
-        }
-        if (password != null && !password.equalsIgnoreCase("")){
-            customer.setPassword(password);
-        }
+        Customer customer = customerDao.findById(customrId);
 
-        if (pasportSeria != null && !pasportSeria.equalsIgnoreCase("")){
-            customer.setPasportSeria(pasportSeria);
+        if (checkField(newCustomer.getName())){
+            customer.setName(newCustomer.getName());
         }
-        if (pasportNumber != null && !pasportNumber.equalsIgnoreCase("")){
-            customer.setPasportNumber(pasportNumber);
+        if (checkField(newCustomer.getSurname())){
+            customer.setSurname(newCustomer.getSurname());
         }
-        if (pasportKimVidan != null && !pasportKimVidan.equalsIgnoreCase("")){
-            customer.setPasportKimVidan(pasportKimVidan);
+        if (checkField(newCustomer.getLastname())){
+            customer.setLastname(newCustomer.getLastname());
         }
-        if (pasportData != null && !pasportData.equalsIgnoreCase("")){
-            customer.setPasportData(pasportData);
+        if (checkField(newCustomer.getPhone())){
+            customer.setPhone(newCustomer.getPhone());
+        }
+        if (checkField(newCustomer.getEmail())){
+            customer.setEmail(newCustomer.getEmail());
+        }
+        if (checkField(newCustomer.getPassword())){
+            customer.setPassword(newCustomer.getPassword());
+        }
+        if (checkField(newCustomer.getPasportSeria())){
+            customer.setPasportSeria(newCustomer.getPasportSeria());
+        }
+        if (checkField(newCustomer.getPasportNumber())){
+            customer.setPasportNumber(newCustomer.getPasportNumber());
+        }
+        if (checkField(newCustomer.getPasportKimVidan())){
+            customer.setPasportKimVidan(newCustomer.getPasportKimVidan());
+        }
+        if (checkField(newCustomer.getPasportData())){
+            customer.setPasportData(newCustomer.getPasportData());
         }
 
         abstractDao.edit(customer);
@@ -102,7 +101,7 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
         return customerDao.findByLogin(login);
     }
 
-    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String login){
         Customer customer = customerDao.findByLogin(login);
         List<GrantedAuthority>authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
@@ -112,6 +111,7 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     public List<Customer> findAllCustomersInHouse(int houseId) {
         List<Customer> customerList =  customerDao.findAllCustomers();
         List<Customer> customers = new ArrayList<>();
+
         for (Customer c:customerList           ) {
             if(!c.getFlatList().isEmpty()){
                 List<Flat> flatList = flatDao.findByCustomerId(c.getId());
@@ -144,4 +144,12 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
         }
         return customers;
     }
+
+    private static boolean checkField(String field){
+        if(field != null && !field.equalsIgnoreCase("")){
+            return true;
+        }
+        return false;
+    }
+
 }

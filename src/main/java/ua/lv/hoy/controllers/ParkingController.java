@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import ua.lv.hoy.entity.Parking;
 import ua.lv.hoy.services.CustomerService;
 import ua.lv.hoy.services.HouseService;
 import ua.lv.hoy.services.ParkingService;
@@ -17,9 +16,9 @@ import ua.lv.hoy.services.ParkingService;
  */
 @Controller
 public class ParkingController {
-    static final String PARKING = "parking";
-    static final String PARKINGS = "parkings";
-    static final String REDIRECT_PARKINGS_ALL = "redirect:/parkings/all/";
+    private static final String PARKING = "parking";
+    private static final String PARKINGS = "parkings";
+    private static final String REDIRECT_PARKINGS_ALL = "redirect:/parkings/all/";
 
     @Autowired
     ParkingService parkingService;
@@ -48,8 +47,7 @@ public class ParkingController {
     }
     @RequestMapping(value = "/parking/editpage/{parkingId}", method = RequestMethod.GET)
     private  String openEditParkingage( @PathVariable Integer parkingId, Model model){
-        Parking parking = parkingService.findById(parkingId);
-        model.addAttribute(PARKING, parking);
+        model.addAttribute(PARKING, parkingService.findById(parkingId));
         return "editParking";
     }
     @RequestMapping(value = "/parking/edit", method = RequestMethod.POST)

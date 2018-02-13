@@ -4,10 +4,7 @@ import org.jsoup.Connection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ua.lv.hoy.entity.House;
 import ua.lv.hoy.services.FlatService;
 import ua.lv.hoy.services.HouseService;
@@ -38,10 +35,8 @@ public class HouseController {
     }
 
     @RequestMapping(value = "/house/add", method = RequestMethod.POST)
-    private String addHouse(@RequestParam ("name") String name,
-                            @RequestParam("address") String address,
-                            @RequestParam("description") String description){
-        houseService.add(name, address, description);
+    private String addHouse(@ModelAttribute House house){
+        houseService.add(house);
         return BaseController.REDIRECT_HOME_PAGE;
     }
 
@@ -52,11 +47,9 @@ public class HouseController {
         return "editHouse";
     }
     @RequestMapping(value = "/house/edit", method = RequestMethod.POST)
-    private String editHouse(@RequestParam("houseId") Integer id,
-                            @RequestParam("houseName") String houseName,
-                            @RequestParam("houseDescription") String description,
-                            @RequestParam("houseAddress") String houseAddress){
-        houseService.edit(id, houseName, houseAddress, description);
+    private String editHouse(@RequestParam("houseId") Integer houseId,
+                            @ModelAttribute House editedHouse){
+        houseService.edit(houseId, editedHouse);
         return BaseController.REDIRECT_HOME_PAGE;
     }
 

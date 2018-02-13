@@ -16,15 +16,16 @@
     <form action="/pantry/add" method="post">
         <input name="houseId"  type="text" value=${houseId} hidden>
         <label for="number">Pantry's number: </label>
-        <input name="pantNumber" id="number" type="text" class="textbox">
+        <input name="number" id="number" type="text" class="textbox">
         <label for="floor">Floor: </label>
-        <input name="pantFloor" id="floor" type="text" class="textbox">
+        <input name="floor" id="floor" type="text" class="textbox">
         <label for="p_size">Project size: </label>
-        <input name="pSize" id="p_size" type="text" class="textbox" value="0">
+        <input name="projectSize" id="p_size" type="text" class="textbox" value="0">
         <label for="r_size">Real size: </label>
-        <input name="rSize" id="r_size" type="text" class="textbox" value="0">
+        <input name="realSize" id="r_size" type="text" class="textbox" value="0">
+        <input hidden name="status" type="text" class="textbox" value="free">
         <label for="description">Description: </label>
-        <input name="pantDescription" id="description" type="text" class="textbox">
+        <input name="description" id="description" type="text" class="textbox">
 
         <button type="submit" class="button">Add!</button>
     </form>

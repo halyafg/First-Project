@@ -9,11 +9,9 @@ import java.util.List;
  * Created by Administrator on 05-Mar-17.
  */
 public interface PantryService {
-    void add(int houseId, int number,String floor, double projectSize,
-             double realSize,  String description);
+    void add(int houseId, Pantry pantry);
 
-    void edit(int id, int number, String floor, double projectSize,
-              double realSize, String status, String description);
+    void edit(int pantryId, Pantry editedPantry);
 
     void buy(int pantryId,  int customerId);
 

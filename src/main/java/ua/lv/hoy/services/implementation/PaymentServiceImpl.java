@@ -43,11 +43,16 @@ public class PaymentServiceImpl implements PaymentService {
                 inf = kursUSD.text();
             } catch (IOException e) {
                 // TODO Auto-generated catch block
+
                 e.printStackTrace();
             }
-            String quoteUSD = inf.substring(12, 19);
+            String quoteUSD="";
+            if(inf != null){
+                quoteUSD = inf.substring(12, 19);
+            }
 
-            Double quote = new Double(quoteUSD);
+
+            double quote = new Double(quoteUSD);
             Payment payment = new Payment();
             payment.setCustomer(customerDao.findById(customerId));
             payment.setData(data);

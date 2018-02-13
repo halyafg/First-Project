@@ -29,32 +29,31 @@ public class PantryServiceImpl implements PantryService {
     @Autowired
     AbstractDao abstractDao;
 
-    public void add(int houseId, int number, String floor,  double projectSize, double realSize,  String description) {
-        Pantry pantry = new Pantry(number, floor, projectSize, realSize, "free", description);
+    public void add(int houseId, Pantry pantry) {
         pantry.setHouse(houseDao.findById(houseId));
         abstractDao.add(pantry);
     }
 
-    public void edit(int id, int number, String floor,  double projectSize, double realSize, String status, String description) {
+    public void edit(int id, Pantry editedPantry) {
         Pantry pantry = pantryDao.findById(id);
 
-        if (floor != null  && !floor.equalsIgnoreCase("")){
-            pantry.setFloor(floor);
+        if (editedPantry.getFloor() != null  && !editedPantry.getFloor().equalsIgnoreCase("")){
+            pantry.setFloor(editedPantry.getFloor());
         }
-        if (number >0){
-            pantry.setNumber(number);
+        if (editedPantry.getNumber() >0){
+            pantry.setNumber(editedPantry.getNumber() );
         }
-        if (projectSize >0){
-            pantry.setProjectSize(projectSize);
+        if (editedPantry.getProjectSize()  >0){
+            pantry.setProjectSize(editedPantry.getProjectSize());
         }
-        if (realSize >0){
-            pantry.setRealSize(realSize);
+        if (editedPantry.getRealSize()>0){
+            pantry.setRealSize(editedPantry.getRealSize());
         }
-        if (status != null  && !status.equalsIgnoreCase("")){
-            pantry.setStatus(status);
+        if (editedPantry.getStatus()!= null  && !editedPantry.getStatus().equalsIgnoreCase("")){
+            pantry.setStatus(editedPantry.getStatus());
         }
-        if (description != null  && !description.equalsIgnoreCase("")){
-            pantry.setDescription(description);
+        if (editedPantry.getDescription() != null  && !editedPantry.getDescription().equalsIgnoreCase("")){
+            pantry.setDescription(editedPantry.getDescription());
         }
 
         abstractDao.edit(pantry);

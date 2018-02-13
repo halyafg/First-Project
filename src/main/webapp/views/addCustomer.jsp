@@ -17,16 +17,16 @@
 
     <form action="/customer/add" method="post">
         <input name="houseId"  value="${houseId}" hidden>
-        <input name="custName" id="name" class="textbox" type="text" placeholder="Name*" required>
-        <input name="custSurname" id="surname" class="textbox" type="text" placeholder="Second name*" required>
-        <input name="custLastname" id="lastname" class="textbox" type="text" placeholder="Last name*" required>
-        <input name="custPhone" id="phone" class="textbox" class="textbox" type="text" placeholder="Phone*:">
-        <input name="custEmail" id="email" class="textbox" type="email" placeholder="Email*:" required>
-        <input name="custPassword" id="password" class="textbox" type="password" placeholder="Password*: " required>
-        <input name="pasSer" id="pasportSerija" class="textbox" type="text" placeholder="Pasport's serija:">
-        <input name="pasNumber" id="pasportNumber" class="textbox" type="text" placeholder="Pasport's number:">
-        <input name="pasVidan" id="pasportVidan"class="textbox" type="text" placeholder="Pasport kim vydan: ">
-        <input name="pasData" id="pasportdata" class="textbox"  type="text" placeholder="Pasport data vidachi: ">
+        <input name="name" id="name" class="textbox" type="text" placeholder="Name*" required>
+        <input name="surname" id="surname" class="textbox" type="text" placeholder="Second name*" required>
+        <input name="lastname" id="lastname" class="textbox" type="text" placeholder="Last name*" required>
+        <input name="phone" id="phone" class="textbox" class="textbox" type="text" placeholder="Phone*:">
+        <input name="email" id="email" class="textbox" type="email" placeholder="Email*:" required>
+        <input name="password" id="password" class="textbox" type="password" placeholder="Password*: " required>
+        <input name="pasportSeria" id="pasportSerija" class="textbox" type="text" placeholder="Pasport's serija:">
+        <input name="pasportNumber" id="pasportNumber" class="textbox" type="text" placeholder="Pasport's number:">
+        <input name="pasportKimVidan" id="pasportVidan"class="textbox" type="text" placeholder="Pasport kim vydan: ">
+        <input name="pasportData" id="pasportdata" class="textbox"  type="text" placeholder="Pasport data vidachi: ">
 
         <button class="button" type="submit">Add!</button>
     </form>

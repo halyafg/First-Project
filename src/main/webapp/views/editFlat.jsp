@@ -18,20 +18,20 @@
         <input name="houseId" type="text" value="${houseId}" hidden >
 
         <label for="number">Flat's number: </label>
-        <input name="flName" id="number" type="text" class="textbox" value="${flat.flatNumber}"><br><br>
+        <input name="flatNumber" id="number" type="text" class="textbox" value="${flat.flatNumber}"><br><br>
         <label for="floor">Floor: </label>
-        <input name="flFloor" id="floor" type="text" class="textbox" value="${flat.floor}"><br><br>
+        <input name="floor" id="floor" type="text" class="textbox" value="${flat.floor}"><br><br>
         <label for="rooms">Rooms: </label>
-        <input name="flRooms" id="rooms" type="text" class="textbox" value="${flat.romsNumber}"><br><br>
+        <input name="romsNumber" id="rooms" type="text" class="textbox" value="${flat.romsNumber}"><br><br>
         <label for="p_size">Project size: </label>
-        <input name="flPrSize" id="p_size" type="text" class="textbox" value="${flat.projectSize}"><br><br>
+        <input name="projectSize" id="p_size" type="text" class="textbox" value="${flat.projectSize}"><br><br>
         <label for="r_size">Real size: </label>
-        <input name="flRealSize" id="r_size" type="text" class="textbox" value="${flat.realSize}"><br><br>
+        <input name="realSize" id="r_size" type="text" class="textbox" value="${flat.realSize}"><br><br>
 
-        <input name="flStatus" id="status" type="text" value="${flat.status}" hidden>
+        <input name="status" id="status" type="text" value="${flat.status}" hidden>
 
         <label for="description">Description: </label>
-        <input name="flDescription" id="description" class="textbox" type="text" value="${flat.description}"><br><br>
+        <input name="description" id="description" class="textbox" type="text" value="${flat.description}"><br><br>
 
         <button type="submit" class="button">Edit!</button>
     </form>

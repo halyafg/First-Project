@@ -8,13 +8,9 @@ import java.util.List;
  * Created by Administrator on 26-Feb-17.
  */
 public interface CustomerService {
-    void add(String name, String surname, String lastname,
-             String phone, String email, String password,
-             String pasportSeria, String pasportNumber, String pasportKimVidan, String pasportData);
+    void add(Customer customer);
 
-    void edit(int id, String name, String surname, String lastname,
-              String phone, String email, String password,
-              String pasportSeria, String pasportNumber, String pasportKimVidan, String pasportData);
+    void edit(int customerId, Customer newCustomer);
 
     void delete(int id);
 
