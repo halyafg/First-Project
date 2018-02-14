@@ -8,7 +8,8 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Title</title>
+    <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+    <my:title/>
 </head>
 <body>
     <h1>Доступ заборонено!</h1>

@@ -1,5 +1,3 @@
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -7,24 +5,21 @@
   Time: 12:52
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="va" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
-    <title>DreamHouse</title>
+    <my:title/>
     <link rel="stylesheet" href="/resources/css/style_table.css">
     <link rel="stylesheet" href="/resources/css/menu.css">
 </head>
 <body>
 <div class="page">
-    <h1>All Customers ${house.name}</h1>
+    <h1>All Customers in ${house.name}</h1>
 
-    <div class="navbar">
-        <ul>
-            <li><a class="bot" href="/">Головна</a></li>
-            <li><sec:authorize access="isAuthenticated()"><a class="bot logout" href="/logout">Вийти   </a></sec:authorize></li><br><br>
-
-        </ul>
-    </div>
+    <my:menu/>
 
 
     <div><table>
@@ -32,9 +27,6 @@
         <tr>
 
             <th>Name</th>
-            <%--<th>Name</th>
-            <th>Last name</th>--%>
-
             <th>Flats(house)</th>
             <th>Pantries(house)</th>
             <th>Parkings(house)</th>
@@ -50,8 +42,6 @@
 
             <tr>
                 <td><a href="/customer/inf/0/${cust.id}">${cust.surname} ${cust.name} ${cust.lastname}</a></td>
-                    <%--<td>${cust.name}</td>
-                    <td>${cust.lastname}</td>--%>
 
                 <td><sec:authorize access="hasRole('ROLE_ADMIN')"><c:forEach items="${cust.flatList}" var="cpl">${cpl.flatNumber}(${cpl.house.name}),</c:forEach><br></sec:authorize></td>
                 <td><sec:authorize access="hasRole('ROLE_ADMIN')"><c:forEach items="${cust.pantryList}" var="cpanl">${cpanl.number}(${cpanl.house.name}),</c:forEach><br></sec:authorize></td>

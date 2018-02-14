@@ -1,4 +1,3 @@
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -7,14 +6,15 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <html>
 <head>
-    <title>Title</title>
+    <my:title/>
     <link rel="stylesheet" href="/resources/css/menu.css">
     <link rel="stylesheet" href="/resources/css/style_form.css">
 </head>
 <body>
-
 
     <div class="container">
         <form action="/password/change" method="post">

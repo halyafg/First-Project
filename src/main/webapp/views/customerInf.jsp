@@ -1,5 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -8,15 +6,18 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <html>
 <head>
-    <title>DreamHouse</title>
+    <my:title/>
     <link rel="stylesheet" href="/resources/css/style_table.css">
     <link rel="stylesheet" href="/resources/css/menu.css">
 </head>
 <body>
 <div class="page">
-
+    <my:menu/>
 <h2>Information about ${customer.surname} ${customer.name}</h2>
 <ul>
     <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/customer/editpage/${houseId}/${customer.id}" class="bot person">Edit! </a> </sec:authorize>

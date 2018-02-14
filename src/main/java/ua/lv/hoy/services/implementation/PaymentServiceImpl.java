@@ -51,8 +51,7 @@ public class PaymentServiceImpl implements PaymentService {
                 quoteUSD = inf.substring(12, 19);
             }
 
-
-            double quote = new Double(quoteUSD);
+            double quote = Double.parseDouble(quoteUSD);
             Payment payment = new Payment();
             payment.setCustomer(customerDao.findById(customerId));
             payment.setData(data);

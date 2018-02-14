@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -7,9 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <html>
 <head>
-    <title>DreamHouse</title>
+    <my:title/>
     <link rel="stylesheet" href="/resources/css/style_table.css">
     <link rel="stylesheet" href="/resources/css/style_form.css">
 </head>
@@ -22,7 +23,7 @@
             <input name="houseId" value="${houseId}" hidden>
             <input name="customerId"  value="${customer.id}" hidden>
 
-            <label for="parkingId">Parking's number to take away from customer: </label>
+            <label for="parkingId">Parking's number to take away from customer:</label>
             <select name="parkingId" id="parkingId"  class="textbox" >
                 <option value="-1">Make a choice:</option>
                 <c:forEach items="${customer_sParkings}" var = "p"><option value="${p.id}">${p.number}</option></c:forEach>

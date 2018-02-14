@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -7,9 +6,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8"  %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>DreamHouse</title>
+    <my:title/>
     <link rel="stylesheet" href="/resources/css/style_table.css">
     <link rel="stylesheet" href="/resources/css/style_form.css">
 </head>
@@ -23,8 +24,6 @@
             <td><c:forEach items="${customer_sFlats}" var = "cp">${cp.flatNumber}, </c:forEach></td>
         </tr>
     </table>
-
-
 
     <div class="container">
         <form action="/flat/buy" method="post">

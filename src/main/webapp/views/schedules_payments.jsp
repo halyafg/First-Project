@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -7,13 +6,16 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <html>
 <head>
-    <title>DreamHouse</title>
+    <my:title/>
     <link rel="stylesheet" href="/resources/css/style_table.css">
 </head>
 <body>
 <div class="page">
+    <my:menu/>
     <h1>${customer.surname} ${customer.name} ${customer.lastname}</h1>
 
     <br><br><br><br>

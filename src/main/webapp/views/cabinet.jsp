@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -6,10 +5,13 @@
   Time: 0:21
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Title</title>
+    <my:title/>
     <link rel="stylesheet" href="/resources/css/style_table.css">
     <link rel="stylesheet" href="/resources/css/menu.css">
 </head>
@@ -24,7 +26,7 @@
             <li><sec:authorize access="isAnonymous()"><a class="bot" href="/change/passwordpage">Змінити пароль</a></sec:authorize></li>
             <li class="logout"><sec:authorize access="isAuthenticated()"><a class="bot" href="/logout">Logout   </a></sec:authorize></li>
             </ul>
-    </div><br><br><br>
+    </div><br>
 
     <h2>Куплені об'єкти</h2>
     <table>

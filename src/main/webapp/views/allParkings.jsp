@@ -1,5 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -7,30 +5,20 @@
   Time: 22:22
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>DreamHouse</title>
-    <%--<link rel="stylesheet" href="/resources/css/style.css">--%>
+    <my:title/>
     <link rel="stylesheet" href="/resources/css/style_table.css">
     <link rel="stylesheet" href="/resources/css/menu.css">
 </head>
 <body>
 <div class="page">
     <h1>All Parkings in ${house.name}</h1>
-    <div class="navbar">
-        <ul>
-            <li><a class="bot " href="/">Головна</a></li>
-            <li><sec:authorize access="hasRole('ROLE_ADMIN')"><a class="bot" href="/customers/all/inhouse/${house.id}">Покупці </a> </sec:authorize></li>
-            <li><sec:authorize access="hasRole('ROLE_ADMIN')"><a class="bot" href="/flats/all/${house.id}">Квартири </a> </sec:authorize></li>
-            <li><sec:authorize access="hasRole('ROLE_ADMIN')"><a class="bot" href="/pantries/all/${house.id}">Комірки </a> </sec:authorize></li>
-            <li><sec:authorize access="hasRole('ROLE_ADMIN')"><a class="bot activ" href="/parkings/all/${house.id}">Паркомісця </a> </sec:authorize></li>
-            <li><sec:authorize access="hasRole('ROLE_ADMIN')"><a class="bot" href="/schedules/all/${house.id}">Графіки виплат </a> </sec:authorize></li>
-            <li><sec:authorize access="hasRole('ROLE_ADMIN')"><a class="bot" href="/payments/all/${house.id}">Фактична оплата </a> </sec:authorize></li>
-            <li><sec:authorize access="isAuthenticated()"><a class="bot logout" href="/logout">Вийти   </a></sec:authorize></li>
-        </ul>
-    </div>
-    <br>
+    <my:menu/>
     <ul>
         <li>
             <sec:authorize access="hasRole('ROLE_ADMIN')"><p><a class="bot" href="/parking/addpage/${house.id}">Add parking! </a> </p><br></sec:authorize><br>

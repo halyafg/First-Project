@@ -6,7 +6,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ua.lv.hoy.dao.*;
@@ -146,10 +145,15 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     }
 
     private static boolean checkField(String field){
-        if(field != null && !field.equalsIgnoreCase("")){
+        /*
+        INSEAD OF:
+        if( (field != null) && (!field.equalsIgnoreCase("")) ){
             return true;
         }
         return false;
+        USE:
+        */
+        return ( (field != null) && (!field.equalsIgnoreCase("")) );
     }
 
 }

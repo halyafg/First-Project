@@ -1,5 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: Administrator
@@ -8,9 +6,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8"%>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+
 <html>
 <head>
-    <title>DreamHouse</title>
+    <my:title/>
     <link rel="stylesheet" href="/resources/css/style_form.css">
     <link rel="stylesheet" href="/resources/css/style_table.css">
 </head>
@@ -32,8 +34,6 @@
         </tbody>
     </table>
 
-
-
     <div class="container">
         <form action="/parking/buy" method="post">
             <input name="houseId" type="text" value="${houseId}" hidden>
@@ -51,7 +51,6 @@
 
 
 </div>
-
 
 </body>
 </html>

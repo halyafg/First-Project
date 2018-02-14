@@ -33,7 +33,7 @@ public class UserController {
     ParkingService parkingService;
 
     @RequestMapping(value = "/cabinet", method = RequestMethod.GET)
-    public  String cabinet(Principal principal, Model model){
+    public  String opeCabinet(Principal principal, Model model){
         model.addAttribute("principal", principal.getName());
 
         List<Schedule>scheduleList = scheduleService.findAllCustomerSchedules(principal.getName());

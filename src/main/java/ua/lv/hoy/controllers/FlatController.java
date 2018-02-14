@@ -26,10 +26,10 @@ public class FlatController {
     @Autowired
     HouseService houseService;
 
-    @RequestMapping(value = "/flat/inf/{flatNumber}", method = RequestMethod.GET)
-    private String openFlatImage(@PathVariable Integer flatNumber,
+    @RequestMapping(value = "/flat/inf/{flatId}", method = RequestMethod.GET)
+    private String openFlatImage(@PathVariable Integer flatId,
                                  Model model){
-        model.addAttribute(FLAT, flatService.findByNumber(flatNumber));
+        model.addAttribute(FLAT, flatService.findById(flatId));
         return "flatInf";
     }
 

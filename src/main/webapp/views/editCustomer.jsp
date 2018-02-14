@@ -6,9 +6,10 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <html>
 <head>
-    <title>Title</title>
+    <my:title/>
     <link rel="stylesheet" href="/resources/css/style_form.css">
 </head>
 <body>
@@ -27,7 +28,7 @@
         <label for="phone">Phone: </label>
         <input name="phone" id="phone" class="textbox" type="text" value="${customer.phone}">
         <label for="email">Email: </label>
-        <input name="custEmail" id="email" class="textbox" type="email" value="${customer.email}">
+        <input name="email" id="email" class="textbox" type="email" value="${customer.email}">
         <label for="password">Password*: </label>
         <input name="password" id="password" class="textbox" type="password" value="${customer.password}">
 
