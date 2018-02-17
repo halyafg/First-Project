@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.lv.hoy.dao.AbstractDao;
 import ua.lv.hoy.dao.CustomerDao;
+import ua.lv.hoy.dao.HouseDao;
 import ua.lv.hoy.dao.PaymentDao;
 import ua.lv.hoy.entity.Customer;
 import ua.lv.hoy.entity.Payment;
@@ -27,38 +28,18 @@ public class PaymentServiceImpl implements PaymentService {
     CustomerDao customerDao;
     @Autowired
     AbstractDao abstractDao;
+    @Autowired
+    HouseDao houseDao;
 
-    public void add(String data, double amountGRN, double quoteUSA, double amountUSA) {
-        abstractDao.add(new Payment(data, amountGRN, quoteUSA, amountUSA));
-    }
+    public void add(int houseId, int customerId, Payment payment) {
+        if(customerId != 0 && payment.getData()!=null && payment.getAmountGRN() != 0){
+            double quote = getQuoteUSA();
 
-    public void add(int customerId, String data, double amountGRN) {
-        if(customerId != 0 && data!=null && amountGRN != 0){
-
-            Document doc;
-            String inf=null;
-            try {
-                doc = Jsoup.connect("https://finance.ua/ua/currency").get();
-                Element kursUSD = doc.select(".major").get(0);
-                inf = kursUSD.text();
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-
-                e.printStackTrace();
-            }
-            String quoteUSD="";
-            if(inf != null){
-                quoteUSD = inf.substring(12, 19);
-            }
-
-            double quote = Double.parseDouble(quoteUSD);
-            Payment payment = new Payment();
+            payment.setHouse(houseDao.findById(houseId));
             payment.setCustomer(customerDao.findById(customerId));
-            payment.setData(data);
-            payment.setAmountGRN(amountGRN);
             payment.setQuoteUSA(quote);
 
-            String amountString = String.format("%1$.2f",amountGRN/quote);
+            String amountString = String.format("%1$.2f",payment.getAmountGRN()/quote);
             double amountDouble = Double.parseDouble(amountString);
             payment.setAmountUSA(amountDouble);
 
@@ -104,6 +85,11 @@ public class PaymentServiceImpl implements PaymentService {
         return paymentDao.findAllPayments();
     }
 
+    @Override
+    public List<Payment> findAllPaymentsInHouse(int houseId) {
+        return paymentDao.findAllPaymentsInHouse(houseId);
+    }
+
     public List<Payment> findPaymentsByCustomerEmail(String email) {
         return paymentDao.findAllCustomerPayments(email);
     }
@@ -125,5 +111,24 @@ public class PaymentServiceImpl implements PaymentService {
             amount += p.getAmountUSA();
         }
         return amount;
+    }
+
+    private static double getQuoteUSA (){
+        Document doc;
+        String inf=null;
+        try {
+            doc = Jsoup.connect("https://finance.ua/ua/currency").get();
+            Element kursUSD = doc.select(".major").get(0);
+            inf = kursUSD.text();
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+
+            e.printStackTrace();
+        }
+        String quoteUSD="";
+        if(inf != null){
+            quoteUSD = inf.substring(12, 19);
+        }
+        return Double.parseDouble(quoteUSD);
     }
 }

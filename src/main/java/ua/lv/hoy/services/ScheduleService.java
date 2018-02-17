@@ -18,6 +18,8 @@ public interface ScheduleService {
 
     List<Schedule> findAllSchedules();
 
+    List<Schedule> findAllSchedulesInHouse(int houseId);
+
     List<Schedule> findScheduleByCustId(int custId);
 
     List<Schedule> findAllCustomerSchedules(String email);

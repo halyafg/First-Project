@@ -5,7 +5,7 @@
   Time: 19:55
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="" %>
+<%@ page contentType="text/html;charset=UTF-8"  %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -15,10 +15,12 @@
     <link rel="stylesheet" href="/resources/css/style_table.css">
     <link rel="stylesheet" href="/resources/css/menu.css">
 </head>
-<body><div class="page">
+<body>
+<div class="page">
+    <my:menu/>
     <h1>All Customers in ${house.name}</h1>
 
-    <%--<my:menu/>--%>
+
 
     <ul>
         <li>

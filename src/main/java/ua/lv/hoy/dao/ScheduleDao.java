@@ -16,6 +16,8 @@ public interface ScheduleDao {
 
     List<Schedule> findAllSchedules();
 
+    List<Schedule> findAllSchedulesInHouse(int houseId);
+
     List<Schedule> findByCustomer(int custId);
 
     List<Schedule> findAllCustomerSchedules(String email);

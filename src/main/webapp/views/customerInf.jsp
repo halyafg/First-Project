@@ -20,8 +20,8 @@
     <my:menu/>
 <h2>Information about ${customer.surname} ${customer.name}</h2>
 <ul>
-    <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/customer/editpage/${houseId}/${customer.id}" class="bot person">Edit! </a> </sec:authorize>
-    <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/customer/delete/${houseId}/${customer.id}" class="bot person">Delete! </a> </sec:authorize><br>
+    <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/customer/editpage/${house.id}/${customer.id}" class="bot person">Edit! </a> </sec:authorize>
+    <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/customer/delete/${house.id}/${customer.id}" class="bot person">Delete! </a> </sec:authorize><br>
 </ul>
 
     <table>
@@ -87,17 +87,17 @@
 
 
     <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/schedl_paym/${customer.id}" class="bot person">Schedule and Payments</a> </sec:authorize>
-    <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/schedule/addpage/${houseId}/${customer.id}" class="bot person">Add Schadule! </a> </sec:authorize>
-    <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/payment/addpage/${houseId}/${customer.id}" class="bot person">Add Payment! </a> <br></sec:authorize>
+    <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/schedule/addpage/${house.id}/${customer.id}" class="bot person">Add Schadule! </a> </sec:authorize>
+    <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/payment/addpage/${house.id}/${customer.id}" class="bot person">Add Payment! </a> <br></sec:authorize>
     <br><br>
-    <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/flat/buypage/${houseId}/${customer.id}" class="bot person">Buy flat! </a> </sec:authorize>
-    <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/flat/takepage/${houseId}/${customer.id}" class="bot person">Take away flat! </a> </sec:authorize>
+    <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/flat/buypage/${house.id}/${customer.id}" class="bot person">Buy flat! </a> </sec:authorize>
+    <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/flat/takepage/${house.id}/${customer.id}" class="bot person">Take away flat! </a> </sec:authorize>
 
-    <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/pantry/buyPantryPage/${houseId}/${customer.id}" class="bot  person logout">Buy pantry! </a>  </sec:authorize>
-    <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/pantry/takePage/${houseId}/${customer.id}" class="bot person">Take away pantry! </a>  </sec:authorize>
+    <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/pantry/buyPantryPage/${house.id}/${customer.id}" class="bot  person logout">Buy pantry! </a>  </sec:authorize>
+    <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/pantry/takePage/${house.id}/${customer.id}" class="bot person">Take away pantry! </a>  </sec:authorize>
 
-    <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/parking/buyPage/${houseId}/${customer.id}" class="bot person logout">Buy parking! </a>  </sec:authorize>
-    <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/parking/takePage /${houseId}/${customer.id}" class="bot person">Take parking! </a>  </sec:authorize>
+    <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/parking/buyPage/${house.id}/${customer.id}" class="bot person logout">Buy parking! </a>  </sec:authorize>
+    <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/parking/takePage /${house.id}/${customer.id}" class="bot person">Take parking! </a>  </sec:authorize>
     <br><br><br><br>
 </div>
 </body>

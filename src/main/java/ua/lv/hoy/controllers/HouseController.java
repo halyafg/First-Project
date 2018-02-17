@@ -1,6 +1,6 @@
 package ua.lv.hoy.controllers;
 
-import org.jsoup.Connection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +30,8 @@ public class HouseController {
     private ParkingService parkingService;
 
     @RequestMapping(value = "/houses/addpage", method = RequestMethod.GET)
-    private String addHousePage(){
+    private String addHousePage(Model model){
+        model.addAttribute("house", new House());
         return "addHouse";
     }
 
@@ -47,9 +48,8 @@ public class HouseController {
         return "editHouse";
     }
     @RequestMapping(value = "/house/edit", method = RequestMethod.POST)
-    private String editHouse(@RequestParam("houseId") Integer houseId,
-                            @ModelAttribute House editedHouse){
-        houseService.edit(houseId, editedHouse);
+    private String editHouse(@ModelAttribute House editedHouse){
+        houseService.edit(editedHouse.getId(), editedHouse);
         return BaseController.REDIRECT_HOME_PAGE;
     }
 

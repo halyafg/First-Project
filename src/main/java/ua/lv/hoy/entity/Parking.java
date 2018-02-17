@@ -11,7 +11,7 @@ public class Parking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column
     private int id;
-    @Column(unique = true)
+    @Column
     private int number;
     @Column
     private String status;

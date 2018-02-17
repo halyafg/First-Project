@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface ParkingService {
 
-    void add(int number, int houseId);
+    void add(Parking parking, int houseId);
 
     void edit(int id, int number, String status);
 

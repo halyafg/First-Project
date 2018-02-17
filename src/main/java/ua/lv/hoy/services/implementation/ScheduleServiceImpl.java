@@ -56,6 +56,11 @@ public class ScheduleServiceImpl implements ScheduleService {
         return scheduleDao.findAllSchedules();
     }
 
+    @Override
+    public List<Schedule> findAllSchedulesInHouse(int houseId) {
+        return scheduleDao.findAllSchedulesInHouse(houseId);
+    }
+
     public List<Schedule> findScheduleByCustId(int custId) {
         return scheduleDao.findByCustomer(custId);
     }

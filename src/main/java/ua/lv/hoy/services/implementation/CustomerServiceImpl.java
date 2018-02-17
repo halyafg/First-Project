@@ -28,17 +28,19 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
     @Autowired
     private CustomerDao customerDao;
     @Autowired
+    private AbstractDao abstractDao;
+    @Autowired
+    private ParkingDao parkingDao;
+    @Autowired
     private FlatDao flatDao;
     @Autowired
     private PantryDao pantryDao;
-    @Autowired
-    private ParkingDao  parkingDao;
-    @Autowired
-    private AbstractDao abstractDao;
 
     @Override
     public void add(Customer customer) {
-        abstractDao.add(customer);
+        if(!customer.getEmail().equalsIgnoreCase("") && !(customer.getPassword().equalsIgnoreCase(""))){
+            abstractDao.add(customer);
+        }
     }
 
 
@@ -144,14 +146,15 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
         return customers;
     }
 
+
     private static boolean checkField(String field){
         /*
-        INSEAD OF:
+        INSTEAD OF:
         if( (field != null) && (!field.equalsIgnoreCase("")) ){
             return true;
         }
         return false;
-        USE:
+        USED NEXT:
         */
         return ( (field != null) && (!field.equalsIgnoreCase("")) );
     }

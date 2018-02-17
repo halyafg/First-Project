@@ -22,6 +22,8 @@ public class Payment {
 
     @ManyToOne
     private Customer customer;
+    @ManyToOne
+    private House house;
 
     public Payment() {
     }
@@ -79,5 +81,13 @@ public class Payment {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public House getHouse() {
+        return house;
+    }
+
+    public void setHouse(House house) {
+        this.house = house;
     }
 }

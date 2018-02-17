@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8"  %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <my:title/>
@@ -16,21 +17,56 @@
     <h1>Add customer:</h1>
     <div class="container">
 
-        <form action="/customer/add" method="post">
-            <input name="houseId"  value="${houseId}" hidden>
-            <input name="name" id="name" class="textbox" type="text" placeholder="Name*" required>
-            <input name="surname" id="surname" class="textbox" type="text" placeholder="Second name*" required>
-            <input name="lastname" id="lastname" class="textbox" type="text" placeholder="Last name*" required>
-            <input name="phone" id="phone" class="textbox" class="textbox" type="text" placeholder="Phone*:">
-            <input name="email" id="email" class="textbox" type="email" placeholder="Email*:" required>
-            <input name="password" id="password" class="textbox" type="password" placeholder="Password*: " required>
-            <input name="pasportSeria" id="pasportSerija" class="textbox" type="text" placeholder="Pasport's serija:">
-            <input name="pasportNumber" id="pasportNumber" class="textbox" type="text" placeholder="Pasport's number:">
-            <input name="pasportKimVidan" id="pasportVidan" class="textbox" type="text" placeholder="Pasport kim vydan: ">
-            <input name="pasportData" id="pasportdata" class="textbox"  type="text" placeholder="Pasport data vidachi: ">
-
-            <button class="button" type="submit">Add!</button>
-        </form>
+        <%--@elvariable id="customer" type=""--%>
+        <form:form commandName="customer" action="/customer/add/${houseId}" >
+            <table>
+                <tr>
+                    <td>Name* :</td>
+                    <td><form:input path="name" class="textbox" request="true"/></td>
+                </tr>
+                <tr>
+                    <td>Surnsme*:</td>
+                    <td><form:input path="surname" class="textbox"/></td>
+                </tr>
+                <tr>
+                    <td>Lastname*:</td>
+                    <td><form:input path="lastname" class="textbox"/></td>
+                </tr>
+                <tr>
+                    <td>Phone*:</td>
+                    <td><form:input path="phone" class="textbox"/></td>
+                </tr>
+                <tr>
+                    <td>Email*:</td>
+                    <td><form:input path="email" class="textbox"/></td>
+                </tr>
+                <tr>
+                    <td>Password*:</td>
+                    <td><form:password path="password" class="textbox"/></td>
+                </tr>
+                <tr>
+                    <td>Passport's seriya:</td>
+                    <td><form:input path="pasportSeria" class="textbox"/></td>
+                </tr>
+                <tr>
+                    <td>Passport's number:</td>
+                    <td><form:input path="pasportNumber" class="textbox"/></td>
+                </tr>
+                <tr>
+                    <td>Pasport kim vydan::</td>
+                    <td><form:input path="pasportKimVidan" class="textbox"/></td>
+                </tr>
+                <tr>
+                    <td>Passport's data vidachi:</td>
+                    <td><form:input path="pasportData" class="textbox"/></td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <input type="submit" class="button" value="Add" />
+                    </td>
+                </tr>
+            </table>
+        </form:form>
 
     </div>
 

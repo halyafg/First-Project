@@ -10,16 +10,18 @@
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<spring:url  value="/resources/css/style_table.css" var="url_1" htmlEscape="true"/>
-<spring:url  value="/resources/css/menu.css" var="url_2" htmlEscape="true"/>
-<spring:url  value="/resources/css/style.css" var="url_3" htmlEscape="true"/>
-<spring:url  value="/resources/images/floor.jpg" var="url_4" htmlEscape="true"/>
+<spring:url  value="/resources/css/style_table.css" var="styleTable" htmlEscape="true"/>
+<spring:url  value="/resources/css/menu.css" var="menuCss" htmlEscape="true"/>
+<spring:url  value="/resources/css/style.css" var="styleCss" htmlEscape="true"/>
+<spring:url  value="/resources/images/floor.jpg" var="imageFloor" htmlEscape="true"/>
+
 <html>
 <head>
     <my:title/>
-    <link rel="stylesheet" href="${url_1}">
-    <link rel="stylesheet" href="${url_2}">
-    <link rel="stylesheet" href="${url_3}">
+    <%--<my:springUrl style_table="url_1" menu_css="url_2" style_css="url_3" imageFloor="url_4"/>--%>
+    <link rel="stylesheet" href="${styleTable}">
+    <link rel="stylesheet" href="${menuCss}">
+    <link rel="stylesheet" href="${styleCss}">
 </head>
 <body>
 <div class="page">
@@ -57,7 +59,7 @@
         <img class="img" src="${img.imagePath}"><br><br>
     </c:forEach>
 
-    <img width="100%" src="${url_4}" alt = "floor"><br>
+    <img width="100%" src="${imageFloor}" alt = "floor"><br>
 </div>
 </body>
 </html>

@@ -33,6 +33,12 @@ public class ScheduleDaoImpl implements ScheduleDao {
         return entityManager.createQuery("SELECT s FROM Schedule s order by date").getResultList();
     }
     @Transactional
+    @Override
+    public List<Schedule> findAllSchedulesInHouse(int houseId) {
+        return entityManager.createQuery("SELECT s FROM Schedule s WHERE s.house.id=:id").setParameter("id", houseId).getResultList();
+    }
+
+    @Transactional
     public List<Schedule> findByCustomer(int custId) {
         return entityManager.createQuery("SELECT s FROM Schedule s WHERE s.customer.id=:id order by date")
                                         .setParameter("id",custId).getResultList();

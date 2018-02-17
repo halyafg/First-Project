@@ -24,10 +24,16 @@ public class House {
     private List<Flat> flatList;
 
     @OneToMany(mappedBy = "house" , fetch = FetchType.EAGER)
-    private List<Pantry>pantryList;
+    private List<Pantry> pantryList;
 
     @OneToMany(mappedBy = "house" , fetch = FetchType.EAGER)
     private List<Parking> parkingList;
+
+    @OneToMany(mappedBy = "house" , fetch = FetchType.EAGER)
+    private List<Schedule> scheduleList;
+
+    @OneToMany(mappedBy = "house" , fetch = FetchType.EAGER)
+    private List<Payment> paymentList;
 
 
     public House() {
@@ -94,4 +100,21 @@ public class House {
     public void setParkingList(List<Parking> parkingList) {
         this.parkingList = parkingList;
     }
+
+    public List<Schedule> getScheduleList() {
+        return scheduleList;
+    }
+
+    public void setScheduleList(List<Schedule> scheduleList) {
+        this.scheduleList = scheduleList;
+    }
+
+    public List<Payment> getPaymentList() {
+        return paymentList;
+    }
+
+    public void setPaymentList(List<Payment> paymentList) {
+        this.paymentList = paymentList;
+    }
+
 }

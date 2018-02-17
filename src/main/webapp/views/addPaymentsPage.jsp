@@ -17,11 +17,9 @@
     <h1>Add payments</h1>
 
     <div class="container">
-        <form action="/payment/add" method="post">
+        <form action="/payment/add/${houseId}" method="post">
 
-            <input   name="houseId"  value="${houseId}" hidden>
-
-            <select class="textbox"  name="customer_id" >
+            <select class="textbox"  name="customerId" >
                 <option value="0">Виберіть покупця:</option>
                 <c:forEach items="${customers}" var = "c"><option value=${c.id}>${c.surname} ${c.name} ${c.lastname}</option></c:forEach>
             </select>
@@ -29,7 +27,7 @@
             <label for="data">Дата оплати: </label>
             <input class="textbox"  name="data" id="data" type="text">
             <label for="amount">Сума, грн: </label>
-            <input class="textbox"  name="amount" id="amount" type="text">
+            <input class="textbox"  name="amountGRN" id="amount" type="text">
 
             <button class="button" type="submit" >Add!</button>
         </form>

@@ -56,6 +56,7 @@
 
 
     </table>
+
     <ul>
         <li><sec:authorize access="hasRole('ROLE_ADMIN')"><a class="bot" href="/house/editpage/${house.id}">Edit </a> </sec:authorize></li>
         <li><sec:authorize access="hasRole('ROLE_ADMIN')"><a class="bot" href="/house/delete/${house.id}">Delete this house </a> </sec:authorize></li>

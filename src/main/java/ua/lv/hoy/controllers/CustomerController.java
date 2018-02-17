@@ -29,26 +29,22 @@ public class CustomerController {
         return ALL_CUSTOMERS;
     }
 
-    @RequestMapping(value = "/customers/inAllHouses", method = RequestMethod.GET)
-    private  String openAllCustomerInAllHousesPage(Model model){
-        model.addAttribute(CUSTOMERS, customerService.findAllCustomers());
-        return "allCustomersInAllHouses";
-    }
-
     @RequestMapping(value = "/customers/all/inhouse/{houseId}", method = RequestMethod.GET)
     private  String openAllCustomerPage(@PathVariable Integer houseId, Model model){
         model.addAttribute(CUSTOMERS, customerService.findAllCustomersInHouse(houseId));
         model.addAttribute(HouseController.HOUSE, houseService.findById(houseId));
+
         return ALL_CUSTOMERS;
     }
     @RequestMapping(value = "/customer/add/{houseId}", method = RequestMethod.GET)
     private  String openAddCustomerPage(@PathVariable int houseId, Model model){
         model.addAttribute(HouseController.HOUSE_ID, houseId);
+        model.addAttribute(CUSTOMER, new Customer());
         return "addCustomer";
     }
 
-    @RequestMapping(value = "/customer/add", method = RequestMethod.POST)
-    private String addCustomer(@RequestParam("houseId") String houseId,
+    @RequestMapping(value = "/customer/add/{houseId}", method = RequestMethod.POST)
+    private String addCustomer(@PathVariable int houseId,
                                @ModelAttribute Customer customer){
         customerService.add(customer);
         return REDIRECT_CUSTOMER_INF + houseId+"/"+customerService.findCustomerByLogin(customer.getEmail()).getId();
@@ -57,7 +53,7 @@ public class CustomerController {
     @RequestMapping(value = "/customer/inf/{houseId}/{customerId}")
     private String openCustomerPage(@PathVariable Integer houseId,@PathVariable Integer customerId, Model model){
         model.addAttribute(CUSTOMER, customerService.findById(customerId));
-        model.addAttribute(HouseController.HOUSE_ID, houseId);
+        model.addAttribute(HouseController.HOUSE, houseService.findById(houseId));
         return "customerInf";
     }
     @RequestMapping(value = "/customer/editpage/{houseId}/{id}", method = RequestMethod.GET)

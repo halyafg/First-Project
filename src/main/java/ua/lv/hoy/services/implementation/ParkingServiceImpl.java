@@ -29,10 +29,10 @@ public class ParkingServiceImpl implements ParkingService {
     @Autowired
     AbstractDao abstractDao;
 
-    public void add(int number, int houseId) {
+    public void add(Parking parking, int houseId) {
 
-        if(number !=0 ) {
-            Parking parking = new Parking(number, "free");
+        if(parking.getNumber() !=0 ) {
+            parking.setStatus("free");
             parking.setHouse(houseDao.findById(houseId));
             abstractDao.add(parking);
         }

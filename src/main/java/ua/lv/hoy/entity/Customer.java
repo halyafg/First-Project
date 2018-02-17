@@ -20,7 +20,7 @@ public class Customer {
     private String lastname;
     @Column(unique = true)
     private String phone;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
     @Column(unique = true, nullable = false)
     private String password;
@@ -33,6 +33,7 @@ public class Customer {
     private String pasportKimVidan;
     @Column
     private String pasportData;
+
 
     @OneToMany(mappedBy = "customer" , fetch = FetchType.EAGER)
     private List<Flat> flatList;
@@ -195,4 +196,5 @@ public class Customer {
     public void setPaymentList(List<Payment> paymentList) {
         this.paymentList = paymentList;
     }
+
 }

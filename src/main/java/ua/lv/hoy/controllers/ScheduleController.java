@@ -56,6 +56,7 @@ public class ScheduleController {
                                @RequestParam("data") String data,
                                @RequestParam("amount") Double amount,
                                @RequestParam("customerId") Integer customerId){
+
         scheduleService.add(customerId, data, amount);
         return CustomerController.REDIRECT_CUSTOMER_INF + houseId + "/" + customerId;
     }

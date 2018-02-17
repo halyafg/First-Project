@@ -43,11 +43,12 @@ public class FlatController {
     @RequestMapping(value = "/flat/add/{id}", method = RequestMethod.GET)
     private  String openAddFlatPage(@PathVariable Integer id, Model model){
         model.addAttribute(HouseController.HOUSE, houseService.findById(id));
+        model.addAttribute(FLAT, new Flat());
         return "addFlat";
     }
 
-    @RequestMapping(value = "/flat/add", method = RequestMethod.POST)
-    private String addFlat(@RequestParam("houseId") int houseId,
+    @RequestMapping(value = "/flat/add/{houseId}", method = RequestMethod.POST)
+    private String addFlat(@PathVariable int houseId,
                            @ModelAttribute Flat flat){
         flatService.addFlatToHouse(houseId, flat);
         return REDIRECT_FLATS_ALL + houseId;

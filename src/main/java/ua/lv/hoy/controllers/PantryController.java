@@ -46,11 +46,12 @@ public class PantryController {
 
     @RequestMapping(value = "/pantry/add/{houseId}", method = RequestMethod.GET)
     private  String openAddPantryPage(@PathVariable Integer houseId, Model model){
-        model.addAttribute(HouseController.HOUSE_ID, houseId);
+        model.addAttribute(HouseController.HOUSE, houseService.findById(houseId));
+        model.addAttribute(PANTRY, new Pantry());
         return "addPantry";
     }
-    @RequestMapping(value = "/pantry/add", method = RequestMethod.POST)
-    private String addPantry(@RequestParam ("houseId") int houseId,
+    @RequestMapping(value = "/pantry/add/{houseId}", method = RequestMethod.POST)
+    private String addPantry(@PathVariable int houseId,
                              @ModelAttribute Pantry pantry){
         pantryService.add(houseId,pantry);
         return REDIRECT_ALL_PANTRIES + houseId;

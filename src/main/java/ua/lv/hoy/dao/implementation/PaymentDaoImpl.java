@@ -34,6 +34,12 @@ public class PaymentDaoImpl implements PaymentDao {
     }
 
     @Transactional
+    @Override
+    public List<Payment> findAllPaymentsInHouse(int houseId) {
+        return entityManager.createQuery("SELECT p FROM Payment  p WHERE p.house.id=:id").setParameter("id", houseId).getResultList();
+    }
+
+    @Transactional
     public List<Payment> findAllCustomerPayments(String email) {
         return entityManager.createQuery("SELECT p FROM Payment p WHERE p.customer.email =:email order by data").setParameter("email", email).getResultList();
     }

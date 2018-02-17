@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <my:title/>
@@ -15,16 +16,29 @@
 <body>
 <div class="container">
     <h1>Add house page</h1>
-    <form action="/house/add" method="post">
-        <label for="name">House's name </label>
-        <input name="name" id="name" type="text" class="textbox"><br><br>
-        <label for="address">Address: </label>
-        <input name="address" id="address" type="text" class="textbox"><br><br>
-        <label for="description">Description: </label>
-        <input name="description" id="description" type="text" class="textbox"><br><br>
 
-        <button type="submit" class="button">Add!</button>
-    </form>
+    <%--@elvariable id="house" type=""--%>
+    <form:form commandName="house" action="/house/add" >
+        <table>
+            <tr>
+                <td>House's name:</td>
+                <td><form:input   class="textbox" path="name"/></td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td><form:input path="address" class="textbox"/></td>
+            </tr>
+            <tr>
+                <td>Description:</td>
+                <td><form:input path="description" class="textbox"/></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" class="button" value="Add house" />
+                </td>
+            </tr>
+        </table>
+    </form:form>
 </div>
 </body>
 </html>

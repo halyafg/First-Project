@@ -15,5 +15,7 @@ public interface PaymentDao {
 
     List<Payment> findAllPayments();
 
+    List<Payment> findAllPaymentsInHouse(int houseId);
+
     List<Payment> findAllCustomerPayments(String email);
 }

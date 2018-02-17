@@ -18,6 +18,8 @@ public class Schedule {
 
     @ManyToOne
     private Customer customer;
+    @ManyToOne
+    private  House house;
 
     public Schedule() {
     }
@@ -57,5 +59,13 @@ public class Schedule {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    public House getHouse() {
+        return house;
+    }
+
+    public void setHouse(House house) {
+        this.house = house;
     }
 }

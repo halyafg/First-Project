@@ -9,7 +9,6 @@ import ua.lv.hoy.dao.FlatDao;
 import ua.lv.hoy.dao.HouseDao;
 import ua.lv.hoy.entity.Customer;
 import ua.lv.hoy.entity.Flat;
-import ua.lv.hoy.entity.House;
 import ua.lv.hoy.services.FlatService;
 
 import java.util.ArrayList;
@@ -33,9 +32,9 @@ public class FlatServiceImpl implements FlatService {
 
     @Override
     public void addFlatToHouse(int houseId, Flat flat) {
-        House house = houseDao.findById(houseId);
-        flat.setHouse(house);
         if(flat.getRomsNumber()>0 && flat.getRomsNumber() <= 3){
+            flat.setHouse(houseDao.findById(houseId));
+            flat.setStatus("free");
             abstractDao.add(flat);
         }
     }
@@ -104,6 +103,7 @@ public class FlatServiceImpl implements FlatService {
                 abstractDao.edit(flat);
             }
         }
+
     }
 
     public void takeAway(int flatId, int customerId){
