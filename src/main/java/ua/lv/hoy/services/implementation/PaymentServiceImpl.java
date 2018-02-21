@@ -126,10 +126,8 @@ public class PaymentServiceImpl implements PaymentService {
                 inf = "000000000000.0000000";
             }
         }
-        String quoteUSD="";
-        if(inf != null){
-            quoteUSD = inf.substring(12, 19);
-        }
+        String quoteUSD = inf.substring(12, 19);;
+        
         return Double.parseDouble(quoteUSD);
     }
 }
