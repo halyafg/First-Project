@@ -86,8 +86,8 @@
     <br>
 
 
-    <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/schedl_paym/${customer.id}" class="bot person">Schedule and Payments</a> </sec:authorize>
-    <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/schedule/addpage/${house.id}/${customer.id}" class="bot person">Add Schadule! </a> </sec:authorize>
+    <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/schedl_paym/${house.id}/${customer.id}" class="bot person">Schedule and Payments</a> </sec:authorize>
+    <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/schedule/addpage/${house.id}/${customer.id}" class="bot person">Add Schedule! </a> </sec:authorize>
     <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/payment/addpage/${house.id}/${customer.id}" class="bot person">Add Payment! </a> <br></sec:authorize>
     <br><br>
     <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/flat/buypage/${house.id}/${customer.id}" class="bot person">Buy flat! </a> </sec:authorize>

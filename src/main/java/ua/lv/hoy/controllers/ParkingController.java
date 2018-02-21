@@ -13,7 +13,7 @@ import ua.lv.hoy.services.ParkingService;
  * Created by Administrator on 20-Mar-17.
  */
 @Controller
-public class ParkingController {
+public class ParkingController  {
     private static final String PARKING = "parking";
     private static final String PARKINGS = "parkings";
     private static final String REDIRECT_PARKINGS_ALL = "redirect:/parkings/all/";
@@ -27,17 +27,19 @@ public class ParkingController {
 
 
     @RequestMapping(value = "/parkings/all/{houseId}", method = RequestMethod.GET)
-    private  String openAllParkingsPage(@PathVariable int houseId ,Model model){
-        model.addAttribute(PARKINGS, parkingService.findAllPantries());
+    private  String openAllParkingsPage(@PathVariable int houseId, Model model){
+        model.addAttribute(PARKINGS, parkingService.findAllParkingsInHouse(houseId));
         model.addAttribute(HouseController.HOUSE, houseService.findById(houseId));
         return "allParkings";
     }
+
     @RequestMapping(value = "/parking/addpage/{houseId}", method = RequestMethod.GET)
     private  String openAddParkingPage(@PathVariable int houseId, Model model){
-        model.addAttribute(HouseController.HOUSE_ID, houseId);
+        model.addAttribute(HouseController.HOUSE, houseService.findById(houseId));
         model.addAttribute(PARKING, new Parking());
         return "addParking";
     }
+
     @RequestMapping(value = "/parking/add/{houseId}", method = RequestMethod.POST)
     private String addParking(@ModelAttribute Parking parking,
                               @PathVariable int houseId){
@@ -47,14 +49,14 @@ public class ParkingController {
     @RequestMapping(value = "/parking/editpage/{parkingId}", method = RequestMethod.GET)
     private  String openEditParkingage( @PathVariable Integer parkingId, Model model){
         model.addAttribute(PARKING, parkingService.findById(parkingId));
+        model.addAttribute("editedParking", new Parking());
         return "editParking";
     }
-    @RequestMapping(value = "/parking/edit", method = RequestMethod.POST)
-    private String editParking(@RequestParam("id") Integer id,
-                               @RequestParam("number") Integer number,
-                               @RequestParam("status") String status){
-        parkingService.edit(id, number, status);
-        return REDIRECT_PARKINGS_ALL + parkingService.findById(id).getHouse().getId();
+    @RequestMapping(value = "/parking/edit/{parkingId}", method = RequestMethod.POST)
+    private String editParking(@PathVariable Integer parkingId,
+                               @ModelAttribute Parking editedParking){
+        parkingService.edit(parkingId, editedParking);
+        return REDIRECT_PARKINGS_ALL + parkingService.findById(parkingId).getHouse().getId();
     }
     @RequestMapping(value = "/parking/delete/{houseId}/{id}", method = RequestMethod.GET)
     private String deleteParking(@PathVariable Integer houseId,

@@ -29,7 +29,18 @@ public class HouseController {
     @Autowired
     private ParkingService parkingService;
 
-    @RequestMapping(value = "/houses/addpage", method = RequestMethod.GET)
+   @RequestMapping(value = "/house/page/{houseId}", method = RequestMethod.GET)
+    private String housePage(@PathVariable Integer houseId, Model model){
+        model.addAttribute(HOUSE, houseService.findById(houseId));
+        model.addAttribute("flats1", flatService.findFreeFlatByRoomsNumber(1,houseId));
+        model.addAttribute("flats2", flatService.findFreeFlatByRoomsNumber(2,houseId));
+        model.addAttribute("flats3", flatService.findFreeFlatByRoomsNumber(3, houseId));
+        model.addAttribute("freePantries", pantryService.fiindFreePantriesInHouse(houseId));
+        model.addAttribute("freeParkings", parkingService.findFreeParkings(houseId));
+        return "housePage";
+    }
+
+   @RequestMapping(value = "/houses/addpage", method = RequestMethod.GET)
     private String addHousePage(Model model){
         model.addAttribute("house", new House());
         return "addHouse";
@@ -59,14 +70,4 @@ public class HouseController {
         return BaseController.REDIRECT_HOME_PAGE;
     }
 
-    @RequestMapping(value = "/house/page/{houseId}", method = RequestMethod.GET)
-    private String housePage(@PathVariable Integer houseId, Model model){
-        model.addAttribute(HOUSE, houseService.findById(houseId));
-        model.addAttribute("flats1", flatService.findFreeFlatByRoomsNumber(1,houseId));
-        model.addAttribute("flats2", flatService.findFreeFlatByRoomsNumber(2,houseId));
-        model.addAttribute("flats3", flatService.findFreeFlatByRoomsNumber(3, houseId));
-        model.addAttribute("freePantries", pantryService.fiindFreePantriesInHouse(houseId));
-        model.addAttribute("freeParkings", parkingService.findFreeParkings(houseId));
-        return "housePage";
-    }
 }

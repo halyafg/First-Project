@@ -8,16 +8,18 @@
 <%@ page contentType="text/html;charset=UTF-8"  %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<spring:url  value="/resources/css/style_form.css" var="cssPath" htmlEscape="true"/>
 <html>
 <head>
     <my:title/>
-    <link rel="stylesheet" href="/resources/css/style_form.css">
+    <link rel="stylesheet" href="${cssPath}">
 </head>
 <body>
 <div class="container">
     <h1> Add pantry in ${house.name}</h1>
     <%--@elvariable id="pantry" type=""--%>
-    <form:form commandName="pantry" action="/pantry/add/${houseId}" >
+    <form:form commandName="pantry" action="/pantry/add/${house.id}" >
         <form:label cssClass="title"  path="number" >Pantry's number</form:label>
         <form:input path="number" class="textbox"/>
         <form:label cssClass="title"  path="floor" >Floor</form:label>

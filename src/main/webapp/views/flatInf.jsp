@@ -10,22 +10,18 @@
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<spring:url  value="/resources/css/style_table.css" var="styleTable" htmlEscape="true"/>
-<spring:url  value="/resources/css/menu.css" var="menuCss" htmlEscape="true"/>
-<spring:url  value="/resources/css/style.css" var="styleCss" htmlEscape="true"/>
-<spring:url  value="/resources/images/floor.jpg" var="imageFloor" htmlEscape="true"/>
+<spring:url  value="/resources/css" var="cssPath" htmlEscape="true"/>
+<spring:url  value="/resources/images" var="image" htmlEscape="true"/>
 
 <html>
 <head>
     <my:title/>
-    <%--<my:springUrl style_table="url_1" menu_css="url_2" style_css="url_3" imageFloor="url_4"/>--%>
-    <link rel="stylesheet" href="${styleTable}">
-    <link rel="stylesheet" href="${menuCss}">
-    <link rel="stylesheet" href="${styleCss}">
+    <link rel="stylesheet" href="${cssPath}/style_table.css">
+    <link rel="stylesheet" href="${cssPath}/menu.css">
+    <link rel="stylesheet" href="${cssPath}/style.css">
 </head>
 <body>
 <div class="page">
-<my:menu/>
 <h1> Основні характеристики квартири № ${flat.flatNumber} in ${flat.house.name}</h1>
     <table>
         <tr>
@@ -56,10 +52,10 @@
     <br>
 
     <c:forEach items="${flat.imageList}" var="img">
-        <img class="img" src="${img.imagePath}"><br><br>
+        <img class="img" src="${img.imagePath}">
     </c:forEach>
 
-    <img width="100%" src="${imageFloor}" alt = "floor"><br>
+    <img width="100%" src="${image}/floor.jpg" alt = "floor"><br>
 </div>
 </body>
 </html>

@@ -10,7 +10,7 @@ import ua.lv.hoy.services.HouseService;
 
 
 @Controller
-public class CustomerController {
+public class CustomerController{
 
     static final String CUSTOMERS = "customers";
     static final String CUSTOMER = "customer";

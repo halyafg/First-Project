@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ua.lv.hoy.entity.Pantry;
+import ua.lv.hoy.entity.Parking;
 import ua.lv.hoy.services.CustomerService;
 import ua.lv.hoy.services.HouseService;
 import ua.lv.hoy.services.PantryService;
@@ -15,7 +16,7 @@ import java.util.List;
  * Created by Administrator on 20-Mar-17.
  */
 @Controller
-public class PantryController {
+public class PantryController  {
 
     static final String PANTRY = "pantry";
     static final String PANTRIES = "pantries";
@@ -43,7 +44,6 @@ public class PantryController {
         return ALL_PANTRIES;
     }
 
-
     @RequestMapping(value = "/pantry/add/{houseId}", method = RequestMethod.GET)
     private  String openAddPantryPage(@PathVariable Integer houseId, Model model){
         model.addAttribute(HouseController.HOUSE, houseService.findById(houseId));
@@ -56,20 +56,18 @@ public class PantryController {
         pantryService.add(houseId,pantry);
         return REDIRECT_ALL_PANTRIES + houseId;
     }
-    @RequestMapping(value = "/pantry/editpage/{houseId}/{pantryId}", method = RequestMethod.GET)
-    private  String openEditPantryPage(@PathVariable Integer houseId,
-                                       @PathVariable Integer pantryId,
+    @RequestMapping(value = "/pantry/editpage/{pantryId}", method = RequestMethod.GET)
+    private  String openEditPantryPage(@PathVariable Integer pantryId,
                                        Model model){
         model.addAttribute(PANTRY, pantryService.findById(pantryId));
-        model.addAttribute(HouseController.HOUSE_ID, houseId);
+        model.addAttribute("editedPantry", new Pantry());
         return "editPantry";
     }
-    @RequestMapping(value = "/pantry/edit", method = RequestMethod.POST)
-    private String editPantry(@RequestParam("pantId") Integer pantryId,
-                              @RequestParam("houseId") Integer houseId,
-                              @ModelAttribute Pantry pantry){
-        pantryService.edit(pantryId, pantry);
-        return REDIRECT_ALL_PANTRIES + houseId;
+    @RequestMapping(value = "/pantry/edit/{pantryId}", method = RequestMethod.POST)
+    private String editPantry(@PathVariable Integer pantryId,
+                              @ModelAttribute Pantry editedPantry){
+        pantryService.edit(pantryId,  editedPantry);
+        return REDIRECT_ALL_PANTRIES +  pantryService.findById(pantryId).getHouse().getId();
     }
     @RequestMapping(value = "/pantry/delete/{houseId}/{pantryId}", method = RequestMethod.GET)
     private String deletePantry(@PathVariable Integer houseId, @PathVariable Integer pantryId){

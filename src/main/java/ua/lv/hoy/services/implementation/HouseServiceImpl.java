@@ -16,9 +16,9 @@ import java.util.List;
 public class HouseServiceImpl implements HouseService {
 
     @Autowired
-    private HouseDao houseDao;
+    HouseDao houseDao;
     @Autowired
-    private AbstractDao abstractDao;
+    AbstractDao abstractDao;
 
 
     @Override

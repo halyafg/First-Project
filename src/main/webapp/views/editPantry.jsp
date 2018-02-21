@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <my:title/>
@@ -14,27 +15,19 @@
 </head>
 <body>
 <div class="container">
-    <form action="/pantry/edit" method="post">
-        <input name="houseId" type="text" value="${houseId}" hidden >
-        <input name="pantId" type="text" value="${pantry.id}" hidden >
-
-        <label for="number">Flat's number: </label>
-        <input name="number" id="number" type="text" class="textbox" value="${pantry.number}">
-        <label for="floor">Floor: </label>
-        <input name="floor" id="floor" type="text" class="textbox" value="${pantry.floor}">
-        <label for="p_size">Project size: </label>
-        <input name="projectSize" id="p_size" type="text" class="textbox" value="${pantry.projectSize}">
-        <label for="r_size">Real size: </label>
-        <input name="realSize" id="r_size" type="text" class="textbox" value="${pantry.realSize}">
-
-        <input name="status" id="status" type="text" class="textbox" value="${pantry.status}" hidden>
-
-        <label for="description">Description: </label>
-        <input name="description" id="description" type="text" class="textbox" value="${pantry.description}">
-
-
-        <button type="submit" class="button">Edit!</button>
-    </form>
+    <%--@elvariable id="editedPantry" type=""--%>
+    <form:form commandName="editedPantry" action="/pantry/edit/${pantry.id}" >
+        <form:label cssClass="title"  path="number" >Pantry's number:</form:label>
+        <form:input path="number" class="textbox" value="${pantry.number}"/>
+        <form:label cssClass="title"  path="floor" >Floor:</form:label>
+        <form:input path="floor" class="textbox" value="${pantry.floor}"/>
+        <form:label cssClass="title"  path="projectSize" >Project size: </form:label>
+        <form:input path="projectSize" class="textbox" value="${pantry.projectSize}"/>
+        <form:label cssClass="title"  path="realSize" >Real size: </form:label>
+        <form:input path="realSize" class="textbox" value="${pantry.realSize}"/>
+        <form:hidden path="status" value="${pantry.status}" />
+        <input type="submit" class="button" value="Edit" />
+    </form:form>
 </div>
 </body>
 </html>

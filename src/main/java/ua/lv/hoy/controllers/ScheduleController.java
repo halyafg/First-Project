@@ -3,10 +3,7 @@ package ua.lv.hoy.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ua.lv.hoy.entity.Customer;
 import ua.lv.hoy.entity.Payment;
 import ua.lv.hoy.entity.Schedule;
@@ -20,9 +17,10 @@ import java.util.List;
 @Controller
 public class ScheduleController {
 
+    static final String SCHEDULE = "schedule";
     static final String SCHEDULES = "schedules";
     static final String ALL_SCHEDULES = "allSchedules";
-    static final String REDIRECKT_SCHEDULES_ALL = "redirect:/schedules/all";
+    static final String REDIRECT_SCHEDULES_ALL = "redirect:/schedules/all";
 
     @Autowired
     ScheduleService scheduleService;
@@ -33,58 +31,69 @@ public class ScheduleController {
     @Autowired
     PaymentService paymentService;
 
-    @RequestMapping(value = "/schedules/all", method = RequestMethod.GET)
-    private  String openAllSchedulesPage(Model model){
-        List<Schedule> scheduleList = scheduleService.findAllSchedules();
-        model.addAttribute(SCHEDULES,scheduleList);
-        return ALL_SCHEDULES;
-    }
+
     @RequestMapping(value = "/schedules/all/{houseId}", method = RequestMethod.GET)
     private  String openAllSchedulesPage(@PathVariable int houseId, Model model){
-        model.addAttribute(SCHEDULES, scheduleService.findAllSchedules());
+        model.addAttribute(SCHEDULES, scheduleService.findAllSchedulesInHouse(houseId));
         model.addAttribute(HouseController.HOUSE, houseService.findById(houseId));
         return ALL_SCHEDULES;
     }
+
     @RequestMapping(value = "/schedule/addpage/{houseId}/{customerId}", method = RequestMethod.GET)
     private  String openAddSchedulePage(@PathVariable int houseId,@PathVariable int customerId, Model model){
-        model.addAttribute("customerId", customerId);
+        model.addAttribute(CustomerController.CUSTOMER, customerService.findById(customerId));
         model.addAttribute(HouseController.HOUSE_ID,houseId);
+        model.addAttribute(SCHEDULE, new Schedule());
         return "addSchedule";
     }
-    @RequestMapping(value = "/schedule/add", method = RequestMethod.POST)
-    private String addSchedule(@RequestParam("houseId") String houseId,
-                               @RequestParam("data") String data,
-                               @RequestParam("amount") Double amount,
-                               @RequestParam("customerId") Integer customerId){
-
-        scheduleService.add(customerId, data, amount);
+    @RequestMapping(value = "/schedule/add/{houseId}/{customerId}", method = RequestMethod.POST)
+    private String addSchedule(@PathVariable int houseId,
+                               @PathVariable int customerId,
+                               @ModelAttribute Schedule schedule){
+        scheduleService.add(houseId, customerId, schedule);
         return CustomerController.REDIRECT_CUSTOMER_INF + houseId + "/" + customerId;
     }
-    @RequestMapping(value = "/schedule/editpage/{id}", method = RequestMethod.GET)
-    private  String openEditSchedulePage(@PathVariable Integer id, Model model){
-        Schedule schedule = scheduleService.findById(id);
-        model.addAttribute("schedule", schedule);
+    @RequestMapping(value = "/add/schedule/page/{houseId}", method = RequestMethod.GET)
+    private String addSchedule(@PathVariable int houseId, Model model){
+        model.addAttribute(CustomerController.CUSTOMERS, customerService.findAllCustomersInHouse(houseId));
+        model.addAttribute(HouseController.HOUSE_ID,houseId);
+        model.addAttribute(SCHEDULE, new Schedule());
+        return "addSchedulePage";
+    }
+    @RequestMapping(value = "/schedule/add/{houseId}", method = RequestMethod.POST)
+    private String openAddSchedulePage(@PathVariable Integer houseId,
+                                      @RequestParam("customerId") int customerId,
+                                      @ModelAttribute Schedule schedule) {
+        scheduleService.add(houseId, customerId, schedule);
+        return REDIRECT_SCHEDULES_ALL + "/" + houseId;
+    }
+    @RequestMapping(value = "/schedule/editpage/{scheduleId}", method = RequestMethod.GET)
+    private  String openEditSchedulePage(@PathVariable int scheduleId,
+                                         Model model){
+        model.addAttribute(SCHEDULE, scheduleService.findById(scheduleId));
+        model.addAttribute("editedSchedule", new Schedule());
         return "editSchedule";
     }
-    @RequestMapping(value = "/schedule/edit", method = RequestMethod.POST)
-    private String editSchedule(@RequestParam("id") Integer id,
-                                @RequestParam("data") String data,
-                                @RequestParam("amount") Double amount){
-        scheduleService.edit(id, data, amount);
-        return REDIRECKT_SCHEDULES_ALL;
+    @RequestMapping(value = "/schedule/edit/{scheduleId}", method = RequestMethod.POST)
+    private String editSchedule(@PathVariable int scheduleId,
+                                @ModelAttribute Schedule editedSchedule){
+        scheduleService.edit(scheduleId, editedSchedule);
+        return REDIRECT_SCHEDULES_ALL + "/" + scheduleService.findById(scheduleId).getHouse().getId();
     }
     @RequestMapping(value = "/schedule/delete/{id}", method = RequestMethod.GET)
     private String deleteSchedule(@PathVariable Integer id){
         scheduleService.delete(id);
-        return REDIRECKT_SCHEDULES_ALL;
+        return REDIRECT_SCHEDULES_ALL;
     }
 
-    @RequestMapping(value = "/schedl_paym/{id}", method = RequestMethod.GET)
-    private String schedulesAdnPayments (@PathVariable Integer id, Model model){
+    @RequestMapping(value = "/schedl_paym/{houseId}/{id}", method = RequestMethod.GET)
+    private String schedulesAdnPayments (@PathVariable Integer id, @PathVariable Integer houseId, Model model){
         List<Schedule>scheduleList = scheduleService.findAllCustomerSchedules(customerService.findById(id).getEmail());
         List<Payment>paymentList = paymentService.findPaymentsByCustomerEmail(customerService.findById(id).getEmail());
         model.addAttribute("customerSchedules", scheduleList);
         model.addAttribute("customerPayments", paymentList);
+
+        model.addAttribute(HouseController.HOUSE, houseService.findById(houseId));
 
         double amountUSA = paymentService.paymentAmount(id);
         model.addAttribute("amountUSA", amountUSA);

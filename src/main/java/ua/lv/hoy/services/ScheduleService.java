@@ -8,9 +8,9 @@ import java.util.List;
  * Created by Administrator on 05-Mar-17.
  */
 public interface ScheduleService {
-    void add(int id, String date, double amountUSA);
+    void add(int houseId, int customerId, Schedule schedule);
 
-    void edit(int id, String data, double amountUSA);
+    void edit(int id, Schedule editedSchedule);
 
     void delete(int id);
 

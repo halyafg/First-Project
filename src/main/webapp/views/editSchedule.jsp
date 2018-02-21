@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <my:title/>
@@ -15,17 +16,15 @@
 <body>
 <h1>Edit schedule page</h1>
 <div class="container">
-    <form action="/schedule/edit" method="post">
-        <input name="id" type="text" value="${schedule.id}" hidden >
 
-        <label for="data">Дата оплати: </label>
-        <input name="data" id="data" type="text" class="textbox" value="${schedule.date}">
-
-        <label for="amount">Сума оплати, $: </label>
-        <input name="amount" id="amount" type="text" class="textbox" value="${schedule.amountUSA}">
-
-        <button class="button" type="submit">Edit!</button>
-    </form>
+    <%--@elvariable id="schedule" type=""--%>
+    <form:form commandName="schedule" action="/schedule/edit/${schedule.id}" >
+        <form:label cssClass="title"  path="date" >Date of payment</form:label>
+        <form:input path="date" class="textbox" value="${schedule.date}"/>
+        <form:label cssClass="title"  path="amountUSA" >Amount, USA</form:label>
+        <form:input path="amountUSA" class="textbox" value="${schedule.amountUSA}"/>
+        <input type="submit" class="button" value="Edit" />
+    </form:form>
 </div>
 </body>
 </html>

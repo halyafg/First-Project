@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ua.lv.hoy.dao.AbstractDao;
 import ua.lv.hoy.dao.CustomerDao;
+import ua.lv.hoy.dao.HouseDao;
 import ua.lv.hoy.dao.ScheduleDao;
 import ua.lv.hoy.entity.Schedule;
 import ua.lv.hoy.services.ScheduleService;
@@ -21,24 +22,25 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Autowired
     CustomerDao customerDao;
     @Autowired
+    HouseDao houseDao;
+    @Autowired
     AbstractDao abstractDao;
 
-    public void add(int customerId, String date, double amountUSA) {
-        Schedule schedule = new Schedule();
+    public void add(int houseId, int customerId, Schedule schedule) {
         schedule.setCustomer(customerDao.findById(customerId));
-        schedule.setDate(date);
-        schedule.setAmountUSA(amountUSA);
+        schedule.setHouse(houseDao.findById(houseId));
         abstractDao.add(schedule);
     }
 
-    public void edit(int id, String date, double amountUSA) {
-        Schedule schedule = scheduleDao.findById(id);
 
-        if (date != null  && !date.equalsIgnoreCase("")){
-            schedule.setDate(date);
+    @Override
+    public void edit(int id, Schedule editedSchedule) {
+        Schedule schedule = scheduleDao.findById(id);
+        if (editedSchedule.getDate() != null  && !editedSchedule.getDate().equalsIgnoreCase("")){
+            schedule.setDate(editedSchedule.getDate());
         }
-        if (amountUSA > 0){
-            schedule.setAmountUSA(amountUSA);
+        if (editedSchedule.getAmountUSA() > 0){
+            schedule.setAmountUSA(editedSchedule.getAmountUSA());
         }
 
         abstractDao.edit(schedule);

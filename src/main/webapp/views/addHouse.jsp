@@ -8,10 +8,12 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<spring:url  value="/resources/css/style_form.css" var="cssPath" htmlEscape="true"/>
 <html>
 <head>
     <my:title/>
-    <link rel="stylesheet" href="/resources/css/style_form.css">
+    <link rel="stylesheet" href="${cssPath}">
 </head>
 <body>
 <div class="container">

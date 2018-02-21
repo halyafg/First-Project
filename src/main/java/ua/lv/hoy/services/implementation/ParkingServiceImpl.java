@@ -38,18 +38,17 @@ public class ParkingServiceImpl implements ParkingService {
         }
     }
 
-    public void edit(int id, int number, String status) {
+    @Override
+    public void edit(int id, Parking editedParking) {
         Parking parking = parkingDao.findById(id);
-
-        if (number > 0){
-            parking.setNumber(number);
+        if (editedParking.getNumber() > 0){
+            parking.setNumber(editedParking.getNumber());
         }
-        if (status != null  && !status.equalsIgnoreCase("")){
-            parking.setStatus(status);
+        if (editedParking.getStatus() != null  && !editedParking.getStatus().equalsIgnoreCase("")){
+            parking.setStatus(editedParking.getStatus());
         }
 
         abstractDao.edit(parking);
-
     }
 
     public void buy(int parkingId, int customerId) {
@@ -93,10 +92,6 @@ public class ParkingServiceImpl implements ParkingService {
 
     public Parking findByNumber(int number) {
         return parkingDao.findByNumber(number);
-    }
-
-    public List<Parking> findAllPantries() {
-        return parkingDao.findAllParkings();
     }
 
     public List<Parking> findFreeParkings(int houseId) {

@@ -1,5 +1,7 @@
 package ua.lv.hoy.services.implementation;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -34,42 +36,38 @@ public class PaymentServiceImpl implements PaymentService {
     public void add(int houseId, int customerId, Payment payment) {
         if(customerId != 0 && payment.getData()!=null && payment.getAmountGRN() != 0){
             double quote = getQuoteUSA();
+            if(quote != 0.0){
+                payment.setHouse(houseDao.findById(houseId));
+                payment.setCustomer(customerDao.findById(customerId));
+                payment.setQuoteUSA(quote);
 
-            payment.setHouse(houseDao.findById(houseId));
-            payment.setCustomer(customerDao.findById(customerId));
-            payment.setQuoteUSA(quote);
+                String amountString = String.format("%1$.2f",payment.getAmountGRN()/quote);
+                double amountDouble = Double.parseDouble(amountString);
+                payment.setAmountUSA(amountDouble);
 
-            String amountString = String.format("%1$.2f",payment.getAmountGRN()/quote);
-            double amountDouble = Double.parseDouble(amountString);
-            payment.setAmountUSA(amountDouble);
-
-            abstractDao.add(payment);
+                abstractDao.add(payment);
+            }
         }
 
     }
 
-    public void edit(int id, String data, double amountGRN, double quoteUSA, double amountUSA) {
-        Payment payment = paymentDao.findById(id);
-        double quote = 27.13;
-
-        if (data != null  && !data.equalsIgnoreCase("")){
-            payment.setData(data);
+    @Override
+    public void edit(int paymentId, Payment editedPayment) {
+        Payment payment = paymentDao.findById(paymentId);
+        if (editedPayment.getData() != null  && !editedPayment.getData().equalsIgnoreCase("")){
+            payment.setData(editedPayment.getData());
         }
-        if (amountGRN > 0){
-            String amountGrnString = String.format("%.2f",amountGRN);
+        if (editedPayment.getAmountGRN() > 0){
+            String amountGrnString = String.format("%.2f",editedPayment.getAmountGRN());
             double amountGrnDouble = Double.parseDouble(amountGrnString);
-
             payment.setAmountGRN(amountGrnDouble);
         }
-        if (amountUSA > 0){
-            String amountString = String.format("%1$.2f",amountGRN/quote);
+        if (editedPayment.getQuoteUSA() > 0){
+            payment.setQuoteUSA(editedPayment.getQuoteUSA());
+            String amountString = String.format("%1$.2f",payment.getAmountGRN()/editedPayment.getQuoteUSA());
             double amountDouble = Double.parseDouble(amountString);
             payment.setAmountUSA(amountDouble);
         }
-        if (quoteUSA > 0){
-            payment.setQuoteUSA(quoteUSA);
-        }
-
         abstractDao.edit(payment);
     }
 
@@ -114,6 +112,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     private static double getQuoteUSA (){
+        final Logger logger = LogManager.getLogger(PaymentServiceImpl.class.getName());
         Document doc;
         String inf=null;
         try {
@@ -121,9 +120,11 @@ public class PaymentServiceImpl implements PaymentService {
             Element kursUSD = doc.select(".major").get(0);
             inf = kursUSD.text();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
-
-            e.printStackTrace();
+            logger.fatal("An exception occurred while getting the quoteUSA", e);
+        }finally {
+            if(inf == null){
+                inf = "000000000000.0000000";
+            }
         }
         String quoteUSD="";
         if(inf != null){

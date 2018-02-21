@@ -11,7 +11,7 @@ public interface ParkingService {
 
     void add(Parking parking, int houseId);
 
-    void edit(int id, int number, String status);
+    void edit(int id, Parking editedParking);
 
     void buy(int parkingId,  int customerId);
 
@@ -22,8 +22,6 @@ public interface ParkingService {
     Parking findById(int id);
 
     Parking findByNumber(int number);
-
-    List<Parking> findAllPantries();
 
     List<Parking> findFreeParkings(int houseId);
 

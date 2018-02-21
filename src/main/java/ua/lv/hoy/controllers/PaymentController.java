@@ -35,6 +35,7 @@ public class PaymentController {
         model.addAttribute(HouseController.HOUSE, houseService.findById(houseId));
         return All_PAYMENTS;
     }
+
     @RequestMapping(value = "/payment/addpage/{houseId}/{customerId}", method = RequestMethod.GET)
     private String openAddPaymentPage(@PathVariable Integer houseId,
                                       @PathVariable Integer customerId,
@@ -73,21 +74,20 @@ public class PaymentController {
 
     @RequestMapping(value = "/payment/editpage/{id}", method = RequestMethod.GET)
     private String openEditPaymentPage(@PathVariable Integer id, Model model){
-        model.addAttribute("payment", paymentService.findById(id));
+        model.addAttribute(PAYMENT, paymentService.findById(id));
+        model.addAttribute("editedPayment", new Payment());
         return "editPayment";
     }
-    @RequestMapping(value = "/payment/edit", method = RequestMethod.POST)
-    private String editPayment(@RequestParam("id") Integer id,
-                               @RequestParam("data") String data,
-                               @RequestParam("amount") Double amountGRN,
-                               @RequestParam("quote") Double quote){
-        double amountUSA = amountGRN/quote;
-        paymentService.edit(id, data, amountGRN, quote, amountUSA);
-        return REDIRECT_PAYMENTS_ALL;
+    @RequestMapping(value = "/payment/edit/{paymentId}", method = RequestMethod.POST)
+    private String editPayment(@PathVariable Integer paymentId,
+                               @ModelAttribute Payment editedPayment){
+        paymentService.edit(paymentId, editedPayment);
+        return REDIRECT_PAYMENTS_ALL + "/" + paymentService.findById(paymentId).getHouse().getId();
     }
     @RequestMapping(value = "/payment/delete/{id}", method = RequestMethod.GET)
     private String deletePayment(@PathVariable Integer id){
+        int houseId = paymentService.findById(id).getHouse().getId();
         paymentService.delete(id);
-        return REDIRECT_PAYMENTS_ALL;
+        return REDIRECT_PAYMENTS_ALL + "/" + houseId;
     }
 }

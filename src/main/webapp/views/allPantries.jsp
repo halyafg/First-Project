@@ -53,7 +53,7 @@
                 <td>${pant.status}</td>
                 <td>${pant.description}</td>
                 <td><a href="/customer/inf/${house.id}/${pant.getCustomer().getId()}"> ${pant.customer.getSurname()} ${pant.customer.getName()} ${pant.customer.getLastname()}</a> </td>
-                <td><sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/pantry/editpage/${house.id}/${pant.id}">Edit pantry! </a><br></sec:authorize></td>
+                <td><sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/pantry/editpage/${pant.id}">Edit pantry! </a><br></sec:authorize></td>
                 <td><a href="/pantry/delete/${house.id}/${pant.id}">Delete pantry! </a></td>
 
             </tr>

@@ -7,6 +7,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8"%>
 <%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <my:title/>
@@ -14,17 +15,13 @@
 </head>
 <body>
 <div class="container">
-    <form action="/parking/edit" method="post">
-
-        <input name="id" type="text" value="${parking.id}" hidden >
-
-        <label for="number">Parking's number: </label>
-        <input name="number" id="number" class="textbox" type="text" value="${parking.number}">
-
-        <input name="status" id="status" class="textbox" type="text" value="${parking.status}" hidden>
-
-        <button type="submit" class="button">Edit!</button>
-    </form>
+    <%--@elvariable id="editedParking" type=""--%>
+    <form:form commandName="editedParking" action="/parking/edit/${parking.id}" >
+        <form:label cssClass="title"  path="number" >Parking's number:</form:label>
+        <form:input path="number" class="textbox" value="${parking.number}"/>
+        <form:hidden path="status" value="${parking.status}" />
+        <input type="submit" class="button" value="Edit" />
+    </form:form>
 </div>
 </body>
 </html>

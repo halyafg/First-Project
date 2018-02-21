@@ -12,6 +12,7 @@
 <head>
     <my:title/>
     <link rel="stylesheet" href="/resources/css/style_table.css">
+    <link rel="stylesheet" href="/resources/css/menu.css">
 </head>
 <body>
 <div class="page">

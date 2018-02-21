@@ -1,6 +1,7 @@
 package ua.lv.hoy.services;
 
 import ua.lv.hoy.entity.Payment;
+import ua.lv.hoy.entity.Schedule;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public interface PaymentService {
 
     void add(int houseId, int customerId, Payment payment);
 
-    void edit(int id, String data, double amountGRN, double quoteUSA, double amountUSA);
+    void edit(int paymentId, Payment editedPayment);
 
     void delete(int id);
 

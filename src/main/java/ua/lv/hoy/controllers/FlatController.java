@@ -13,7 +13,7 @@ import ua.lv.hoy.services.HouseService;
  * Created by Administrator on 22-Mar-17.
  */
 @Controller
-public class FlatController {
+public class FlatController  {
 
     static final String FLAT = "flat";
     static final String FLATS = "flats";
