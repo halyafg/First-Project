@@ -43,9 +43,9 @@
 
             <tr>
 
-                <td><c:forEach items="${customerFlats}" var = "fl"><a href="/flat/inf/${fl.flatNumber}" >${fl.flatNumber}, </a></c:forEach></td>
-                <td><c:forEach items="${customerPantries}" var = "pan">${pan.number}<br> </c:forEach></td>
-                <td><c:forEach items="${customerParkings}" var = "par">${par.number}, </c:forEach></td>
+                <td><c:forEach items="${customer_sFlats}" var = "fl"><a href="/flat/inf/${fl.flatNumber}" >${fl.flatNumber}, </a></c:forEach></td>
+                <td><c:forEach items="${customer_sPantries}" var = "pan">${pan.number}<br> </c:forEach></td>
+                <td><c:forEach items="${customer_sParking}" var = "par">${par.number}, </c:forEach></td>
 
             </tr>
 

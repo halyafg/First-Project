@@ -16,12 +16,18 @@ import java.util.List;
  * Created by Administrator on 20-Mar-17.
  */
 @Controller
-public class PantryController  {
+public class PantryController extends BaseController  {
 
-    static final String PANTRY = "pantry";
-    static final String PANTRIES = "pantries";
-    static final String ALL_PANTRIES = "allPantries";
-    static final String REDIRECT_ALL_PANTRIES = "redirect:/pantries/all/";
+    private static final String PANTRY = "pantry";
+    private static final String PANTRIES = "pantries";
+    private static final String ALL_PANTRIES = "allPantries";
+    private static final String ADD_PANTRY = "addPantry";
+    private static final String EDIT_PANTRY = "editPantry";
+    private static final String BUY_PANTRY = "buyPantry";
+    private static final String TAKE_PANTRY = "takePantry";
+    static final String FREE_PANTRIES = "freePantries";
+    static final String CUSTOMER_S_PANTRIES = "customer_sPantries";
+    private static final String REDIRECT_ALL_PANTRIES = "redirect:/pantries/all/";
 
     @Autowired
     PantryService pantryService;
@@ -37,50 +43,57 @@ public class PantryController  {
         model.addAttribute(PANTRIES, pantryList );
         return ALL_PANTRIES;
     }
+
+    @Override
     @RequestMapping(value = "/pantries/all/{houseId}", method = RequestMethod.GET)
-    private  String openAllPantriesPage(@PathVariable Integer houseId,  Model model){
+    String findAll(@PathVariable int houseId, Model model) {
         model.addAttribute(HouseController.HOUSE, houseService.findById(houseId));
         model.addAttribute(PANTRIES, pantryService.findAllPantriesInHouse(houseId));
         return ALL_PANTRIES;
     }
-
+    @Override
     @RequestMapping(value = "/pantry/add/{houseId}", method = RequestMethod.GET)
-    private  String openAddPantryPage(@PathVariable Integer houseId, Model model){
+    String openAddPage(@PathVariable int houseId, Model model) {
         model.addAttribute(HouseController.HOUSE, houseService.findById(houseId));
         model.addAttribute(PANTRY, new Pantry());
-        return "addPantry";
+        return ADD_PANTRY;
     }
+
     @RequestMapping(value = "/pantry/add/{houseId}", method = RequestMethod.POST)
     private String addPantry(@PathVariable int houseId,
                              @ModelAttribute Pantry pantry){
         pantryService.add(houseId,pantry);
         return REDIRECT_ALL_PANTRIES + houseId;
     }
+
+    @Override
     @RequestMapping(value = "/pantry/editpage/{pantryId}", method = RequestMethod.GET)
-    private  String openEditPantryPage(@PathVariable Integer pantryId,
-                                       Model model){
+    String openEditPage(@PathVariable int pantryId, Model model) {
         model.addAttribute(PANTRY, pantryService.findById(pantryId));
         model.addAttribute("editedPantry", new Pantry());
-        return "editPantry";
+        return EDIT_PANTRY;
     }
+
     @RequestMapping(value = "/pantry/edit/{pantryId}", method = RequestMethod.POST)
     private String editPantry(@PathVariable Integer pantryId,
                               @ModelAttribute Pantry editedPantry){
         pantryService.edit(pantryId,  editedPantry);
         return REDIRECT_ALL_PANTRIES +  pantryService.findById(pantryId).getHouse().getId();
     }
+
+    @Override
     @RequestMapping(value = "/pantry/delete/{houseId}/{pantryId}", method = RequestMethod.GET)
-    private String deletePantry(@PathVariable Integer houseId, @PathVariable Integer pantryId){
+    String delete(@PathVariable int houseId, @PathVariable int pantryId) {
         pantryService.delete(pantryId);
         return REDIRECT_ALL_PANTRIES + houseId;
     }
 
-   @RequestMapping(value = "/pantry/buyPantryPage/{houseId}/{customerId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/pantry/buyPantryPage/{houseId}/{customerId}", method = RequestMethod.GET)
     private String buyPantryPage(@PathVariable Integer houseId,@PathVariable Integer customerId, Model model){
         model.addAttribute(CustomerController.CUSTOMER, customerService.findById(customerId));
-        model.addAttribute("freePantries", pantryService.fiindFreePantriesInHouse(houseId));
+        model.addAttribute(FREE_PANTRIES, pantryService.fiindFreePantriesInHouse(houseId));
         model.addAttribute("customer_sPantries", pantryService.findByCustomerId(customerId));
-        return "buyPantry";
+        return BUY_PANTRY;
     }
     @RequestMapping(value = "/pantry/buy", method = RequestMethod.POST)
     private String buyPantry (@RequestParam("customerId") Integer customerId,
@@ -95,7 +108,7 @@ public class PantryController  {
         model.addAttribute(CustomerController.CUSTOMER, customerService.findById(id));
         model.addAttribute("customer_sPantries", pantryService.findByCustomerId(id));
         model.addAttribute(HouseController.HOUSE_ID,houseId);
-        return "takePantry";
+        return TAKE_PANTRY;
     }
     @RequestMapping(value = "/pantry/take", method = RequestMethod.POST)
     private String takeParking(@RequestParam("houseId") Integer houseId,

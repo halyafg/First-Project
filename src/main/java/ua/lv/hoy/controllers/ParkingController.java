@@ -13,9 +13,16 @@ import ua.lv.hoy.services.ParkingService;
  * Created by Administrator on 20-Mar-17.
  */
 @Controller
-public class ParkingController  {
+public class ParkingController extends BaseController  {
     private static final String PARKING = "parking";
     private static final String PARKINGS = "parkings";
+    private static final String ALL_PARKINGS = "allParkings";
+    private static final String ADD_PARKING = "addParking";
+    private static final String EDIT_PARKING = "editParking";
+    private static final String BUY_PARKING = "buyParking";
+    private static final String TAKE_PARKING = "takeParking";
+    static final String FREE_PARKINGS = "freeParkings";
+    static final String CUSTOMER_S_PARKING = "customer_sParkings";
     private static final String REDIRECT_PARKINGS_ALL = "redirect:/parkings/all/";
 
     @Autowired
@@ -25,19 +32,20 @@ public class ParkingController  {
     @Autowired
     HouseService houseService;
 
-
+    @Override
     @RequestMapping(value = "/parkings/all/{houseId}", method = RequestMethod.GET)
-    private  String openAllParkingsPage(@PathVariable int houseId, Model model){
+    String findAll(@PathVariable int houseId, Model model) {
         model.addAttribute(PARKINGS, parkingService.findAllParkingsInHouse(houseId));
         model.addAttribute(HouseController.HOUSE, houseService.findById(houseId));
-        return "allParkings";
+        return ALL_PARKINGS;
     }
 
+    @Override
     @RequestMapping(value = "/parking/addpage/{houseId}", method = RequestMethod.GET)
-    private  String openAddParkingPage(@PathVariable int houseId, Model model){
+    String openAddPage(@PathVariable int houseId, Model model) {
         model.addAttribute(HouseController.HOUSE, houseService.findById(houseId));
         model.addAttribute(PARKING, new Parking());
-        return "addParking";
+        return ADD_PARKING;
     }
 
     @RequestMapping(value = "/parking/add/{houseId}", method = RequestMethod.POST)
@@ -46,32 +54,37 @@ public class ParkingController  {
         parkingService.add(parking, houseId);
         return REDIRECT_PARKINGS_ALL + houseId;
     }
+
+    @Override
     @RequestMapping(value = "/parking/editpage/{parkingId}", method = RequestMethod.GET)
-    private  String openEditParkingage( @PathVariable Integer parkingId, Model model){
+    String openEditPage(@PathVariable int parkingId, Model model) {
         model.addAttribute(PARKING, parkingService.findById(parkingId));
         model.addAttribute("editedParking", new Parking());
-        return "editParking";
+        return EDIT_PARKING;
     }
+
     @RequestMapping(value = "/parking/edit/{parkingId}", method = RequestMethod.POST)
     private String editParking(@PathVariable Integer parkingId,
                                @ModelAttribute Parking editedParking){
         parkingService.edit(parkingId, editedParking);
         return REDIRECT_PARKINGS_ALL + parkingService.findById(parkingId).getHouse().getId();
     }
+
+    @Override
     @RequestMapping(value = "/parking/delete/{houseId}/{id}", method = RequestMethod.GET)
-    private String deleteParking(@PathVariable Integer houseId,
-                                 @PathVariable Integer id){
+    String delete(@PathVariable int houseId, @PathVariable int id) {
         parkingService.delete(id);
         return REDIRECT_PARKINGS_ALL + houseId;
     }
+
     @RequestMapping(value = "/parking/buyPage/{houseId}/{customerId}", method = RequestMethod.GET)
     private String buyParkingPage(@PathVariable Integer houseId,
                                   @PathVariable Integer customerId,
                                   Model model){
         model.addAttribute(CustomerController.CUSTOMER, customerService.findById(customerId));
-        model.addAttribute("freeParkings", parkingService.findFreeParkings(houseId));
-        model.addAttribute("customer_sParkings", parkingService.findAllByCustomerId(customerId));
-        return "buyParking";
+        model.addAttribute(FREE_PARKINGS, parkingService.findFreeParkings(houseId));
+        model.addAttribute(CUSTOMER_S_PARKING, parkingService.findAllByCustomerId(customerId));
+        return BUY_PARKING;
     }
 
     @RequestMapping(value = "/parking/buy", method = RequestMethod.POST)
@@ -87,9 +100,9 @@ public class ParkingController  {
                                    @PathVariable Integer id,
                                    Model model){
         model.addAttribute(CustomerController.CUSTOMER, customerService.findById(id));
-        model.addAttribute("customer_sParkings", parkingService.findAllByCustomerId(id));
+        model.addAttribute(CUSTOMER_S_PARKING, parkingService.findAllByCustomerId(id));
         model.addAttribute(HouseController.HOUSE_ID, houseId);
-        return "takeParking";
+        return TAKE_PARKING;
     }
     @RequestMapping(value = "/parking/take", method = RequestMethod.POST)
     private String takeParking(@RequestParam("houseId") Integer houseId,

@@ -43,7 +43,7 @@
                 <td>${s.amountUSA}</td>
                 <td><a href="/customer/inf/${s.getCustomer().getId()}"> ${s.customer.getSurname()} ${s.customer.getName()} ${s.customer.getLastname()}</a> </td>
 
-                <td><a href="/schedule/delete/${s.id}">Delete! </a></td>
+                <td><a href="/schedule/delete/${houseId}/${s.id}">Delete! </a></td>
             </tr>
         </c:forEach>
         </tbody>

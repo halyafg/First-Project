@@ -1,7 +1,6 @@
 package ua.lv.hoy.services;
 
 import ua.lv.hoy.entity.Payment;
-import ua.lv.hoy.entity.Schedule;
 
 import java.util.List;
 
@@ -24,7 +23,7 @@ public interface PaymentService {
 
     List<Payment> findPaymentsByCustomerEmail(String email);
 
-    double paymentAmount (int custId);
+    double getPaymentAmount (int custId);
 
-    double paymentAmount (String userLogin);
+    double getPaymentAmount (String userLogin);
 }

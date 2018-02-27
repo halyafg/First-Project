@@ -25,7 +25,7 @@ import java.util.List;
 public class PaymentServiceImpl implements PaymentService {
 
     @Autowired
-    private PaymentDao paymentDao;
+    PaymentDao paymentDao;
     @Autowired
     CustomerDao customerDao;
     @Autowired
@@ -33,6 +33,7 @@ public class PaymentServiceImpl implements PaymentService {
     @Autowired
     HouseDao houseDao;
 
+    @Override
     public void add(int houseId, int customerId, Payment payment) {
         if(customerId != 0 && payment.getData()!=null && payment.getAmountGRN() != 0){
             double quote = getQuoteUSA();
@@ -71,14 +72,17 @@ public class PaymentServiceImpl implements PaymentService {
         abstractDao.edit(payment);
     }
 
+    @Override
     public void delete(int id) {
                     paymentDao.delete(id);
     }
 
+    @Override
     public Payment findById(int id) {
         return paymentDao.findById(id);
     }
 
+    @Override
     public List<Payment> findAllPayments() {
         return paymentDao.findAllPayments();
     }
@@ -88,11 +92,13 @@ public class PaymentServiceImpl implements PaymentService {
         return paymentDao.findAllPaymentsInHouse(houseId);
     }
 
+    @Override
     public List<Payment> findPaymentsByCustomerEmail(String email) {
         return paymentDao.findAllCustomerPayments(email);
     }
 
-    public double paymentAmount (int custId){
+    @Override
+    public double getPaymentAmount (int custId){
         Customer customer = customerDao.findById(custId);
         List<Payment>paymentList = paymentDao.findAllCustomerPayments(customer.getEmail());
         double amount = 0;
@@ -101,7 +107,9 @@ public class PaymentServiceImpl implements PaymentService {
         }
         return amount;
     }
-    public double paymentAmount (String userLogin){
+
+    @Override
+    public double getPaymentAmount (String userLogin){
         Customer customer = customerDao.findByLogin(userLogin);
         List<Payment>paymentList = paymentDao.findAllCustomerPayments(customer.getEmail());
         double amount = 0;
@@ -114,7 +122,7 @@ public class PaymentServiceImpl implements PaymentService {
     private static double getQuoteUSA (){
         final Logger logger = LogManager.getLogger(PaymentServiceImpl.class.getName());
         Document doc;
-        String inf=null;
+        String inf = null;
         try {
             doc = Jsoup.connect("https://finance.ua/ua/currency").get();
             Element kursUSD = doc.select(".major").get(0);
@@ -126,7 +134,7 @@ public class PaymentServiceImpl implements PaymentService {
                 inf = "000000000000.0000000";
             }
         }
-        String quoteUSD = inf.substring(12, 19);;
+        String quoteUSD = inf.substring(12, 19);
         
         return Double.parseDouble(quoteUSD);
     }

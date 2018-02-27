@@ -10,12 +10,14 @@ import ua.lv.hoy.services.HouseService;
 import ua.lv.hoy.services.PaymentService;
 
 @Controller
-public class PaymentController {
+public class PaymentController extends BaseController {
 
-    static final String PAYMENT = "payment";
+    private static final String PAYMENT = "payment";
     static final String PAYMENTS = "payments";
-    static final String All_PAYMENTS = "allPayments";
-    static final String REDIRECT_PAYMENTS_ALL = "redirect:/payments/all";
+    private static final String All_PAYMENTS = "allPayments";
+    private static final String ADD_PAYMENT = "addPayment";
+    private static final String EDIT_PAYMENT = "editPayment";
+    private static final String REDIRECT_PAYMENTS_ALL = "redirect:/payments/all";
 
     @Autowired
     CustomerService customerService;
@@ -29,11 +31,18 @@ public class PaymentController {
         model.addAttribute(PAYMENTS, paymentService.findAllPayments());
         return All_PAYMENTS;
     }
+
+    @Override
     @RequestMapping(value = "/payments/all/{houseId}", method = RequestMethod.GET)
-    private  String openAllPaymentsPage(@PathVariable int houseId, Model model){
+    String findAll(@PathVariable int houseId, Model model) {
         model.addAttribute(PAYMENTS, paymentService.findAllPaymentsInHouse(houseId));
         model.addAttribute(HouseController.HOUSE, houseService.findById(houseId));
         return All_PAYMENTS;
+    }
+
+    @Override
+    String openAddPage(int houseId, Model model) {
+        return null;
     }
 
     @RequestMapping(value = "/payment/addpage/{houseId}/{customerId}", method = RequestMethod.GET)
@@ -43,8 +52,9 @@ public class PaymentController {
         model.addAttribute(CustomerController.CUSTOMER,  customerService.findById(customerId));
         model.addAttribute(HouseController.HOUSE, houseService.findById(houseId));
         model.addAttribute(PAYMENT, new Payment());
-        return "addPayment";
+        return ADD_PAYMENT;
     }
+
     @RequestMapping(value = "/payment/add/{houseId}/{customerId}",method = RequestMethod.POST)
     private String addPayment(@PathVariable Integer houseId,
                               @PathVariable Integer customerId,
@@ -70,23 +80,24 @@ public class PaymentController {
         return REDIRECT_PAYMENTS_ALL + "/" + houseId;
     }
 
-
-
+    @Override
     @RequestMapping(value = "/payment/editpage/{id}", method = RequestMethod.GET)
-    private String openEditPaymentPage(@PathVariable Integer id, Model model){
+    String openEditPage(@PathVariable int id, Model model) {
         model.addAttribute(PAYMENT, paymentService.findById(id));
         model.addAttribute("editedPayment", new Payment());
-        return "editPayment";
+        return EDIT_PAYMENT;
     }
+
     @RequestMapping(value = "/payment/edit/{paymentId}", method = RequestMethod.POST)
     private String editPayment(@PathVariable Integer paymentId,
                                @ModelAttribute Payment editedPayment){
         paymentService.edit(paymentId, editedPayment);
         return REDIRECT_PAYMENTS_ALL + "/" + paymentService.findById(paymentId).getHouse().getId();
     }
-    @RequestMapping(value = "/payment/delete/{id}", method = RequestMethod.GET)
-    private String deletePayment(@PathVariable Integer id){
-        int houseId = paymentService.findById(id).getHouse().getId();
+
+    @Override
+    @RequestMapping(value = "/payment/delete/{houseId}/{id}", method = RequestMethod.GET)
+    String delete(@PathVariable int houseId, @PathVariable int id) {
         paymentService.delete(id);
         return REDIRECT_PAYMENTS_ALL + "/" + houseId;
     }

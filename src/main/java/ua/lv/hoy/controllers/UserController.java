@@ -18,6 +18,11 @@ import java.util.List;
 @Controller
 public class UserController {
 
+    static final String REDIRECT_HOME_PAGE = "redirect:/";
+    private static final String HOME = "home";
+    private static final String LOGIN = "login";
+    private static final String CABINET = "cabinet";
+    private static final String PRINCIPAL = "principal";
 
     @Autowired
     ScheduleService scheduleService;
@@ -31,31 +36,44 @@ public class UserController {
     PantryService pantryService;
     @Autowired
     ParkingService parkingService;
+    @Autowired
+    private HouseService houseService;
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    private  String  openHomePage(Model model){
+        model.addAttribute("houses", houseService.findAll());
+        return HOME;
+    }
+
+    @RequestMapping(value = "/loginpage", method = RequestMethod.GET)
+    private String openLoginPage(){
+        return LOGIN;
+    }
 
     @RequestMapping(value = "/cabinet", method = RequestMethod.GET)
     public  String opeCabinet(Principal principal, Model model){
-        model.addAttribute("principal", principal.getName());
+        model.addAttribute(PRINCIPAL, principal.getName());
 
         List<Schedule>scheduleList = scheduleService.findAllCustomerSchedules(principal.getName());
         model.addAttribute(ScheduleController.SCHEDULES, scheduleList);
 
         List<Payment>paymentList = paymentService.findPaymentsByCustomerEmail(principal.getName());
-        model.addAttribute("payments", paymentList);
+        model.addAttribute(PaymentController.PAYMENTS, paymentList);
 
-        double amountUSA = paymentService.paymentAmount(principal.getName());
+        double amountUSA = paymentService.getPaymentAmount(principal.getName());
         model.addAttribute("amountUSA", amountUSA);
 
         Customer customer = customerService.findCustomerByLogin(principal.getName());
         List<Flat>flatList = flatService.findByCustomerId(customer.getId());
-        model.addAttribute("customerFlats", flatList);
+        model.addAttribute(FlatController.CUSTOMER_S_FLATS, flatList);
 
         List<Pantry>pantryList =pantryService.findByCustomerId(customer.getId());
-        model.addAttribute("customerPantries", pantryList);
+        model.addAttribute(PantryController.CUSTOMER_S_PANTRIES, pantryList);
 
         List<Parking>parkingList = parkingService.findAllByCustomerId(customer.getId());
-        model.addAttribute("customerParkings", parkingList);
+        model.addAttribute(ParkingController.CUSTOMER_S_PARKING, parkingList);
 
-        return "cabinet";
+        return CABINET;
     }
 
     @RequestMapping(value = "/change/passwordpage", method = RequestMethod.GET)
@@ -71,6 +89,6 @@ public class UserController {
         customer.setPassword(password);
         customerService.edit(customer.getId(),customer);
 
-        return "home";
+        return HOME;
     }
 }

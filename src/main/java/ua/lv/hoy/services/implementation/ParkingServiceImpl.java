@@ -21,14 +21,15 @@ import java.util.List;
 public class ParkingServiceImpl implements ParkingService {
 
     @Autowired
-    private ParkingDao parkingDao;
+    ParkingDao parkingDao;
     @Autowired
-    private CustomerDao customerDao;
+    CustomerDao customerDao;
     @Autowired
-    private HouseDao houseDao;
+    HouseDao houseDao;
     @Autowired
     AbstractDao abstractDao;
 
+    @Override
     public void add(Parking parking, int houseId) {
 
         if(parking.getNumber() !=0 ) {
@@ -51,6 +52,7 @@ public class ParkingServiceImpl implements ParkingService {
         abstractDao.edit(parking);
     }
 
+    @Override
     public void buy(int parkingId, int customerId) {
         if(parkingId != -1){
             Customer customer = customerDao.findById(customerId);
@@ -65,6 +67,7 @@ public class ParkingServiceImpl implements ParkingService {
 
     }
 
+    @Override
     public void takeParking(int parkingId, int customerId) {
         if (parkingId != -1){
             Customer customer = customerDao.findById(customerId);
@@ -79,6 +82,7 @@ public class ParkingServiceImpl implements ParkingService {
         }
     }
 
+    @Override
     public void delete(int id) {
         Parking parking = parkingDao.findById(id);
         if(parking.getStatus().equalsIgnoreCase("free")){
@@ -86,18 +90,22 @@ public class ParkingServiceImpl implements ParkingService {
         }
     }
 
+    @Override
     public Parking findById(int id) {
         return parkingDao.findById(id);
     }
 
+    @Override
     public Parking findByNumber(int number) {
         return parkingDao.findByNumber(number);
     }
 
+    @Override
     public List<Parking> findFreeParkings(int houseId) {
         return parkingDao.findFreeParkingsInHouse(houseId);
     }
 
+    @Override
     public List<Parking> findAllByCustomerId(int id) {
         return parkingDao.findByCustomerId(id);
     }

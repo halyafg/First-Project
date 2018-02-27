@@ -19,6 +19,9 @@ public class HouseController {
 
     static final String HOUSE_ID = "houseId";
     static final String HOUSE = "house";
+    private static final String HOUSE_PAGE = "housePage";
+    private static final String ADD_HOUSE = "addHouse";
+    private static final String EDIT_HOUSE = "editHouse";
 
     @Autowired
     private HouseService houseService;
@@ -35,39 +38,40 @@ public class HouseController {
         model.addAttribute("flats1", flatService.findFreeFlatByRoomsNumber(1,houseId));
         model.addAttribute("flats2", flatService.findFreeFlatByRoomsNumber(2,houseId));
         model.addAttribute("flats3", flatService.findFreeFlatByRoomsNumber(3, houseId));
-        model.addAttribute("freePantries", pantryService.fiindFreePantriesInHouse(houseId));
-        model.addAttribute("freeParkings", parkingService.findFreeParkings(houseId));
-        return "housePage";
+        model.addAttribute(PantryController.FREE_PANTRIES, pantryService.fiindFreePantriesInHouse(houseId));
+        model.addAttribute(ParkingController.FREE_PARKINGS, parkingService.findFreeParkings(houseId));
+        return HOUSE_PAGE;
     }
 
    @RequestMapping(value = "/houses/addpage", method = RequestMethod.GET)
     private String addHousePage(Model model){
-        model.addAttribute("house", new House());
-        return "addHouse";
+        model.addAttribute(HOUSE, new House());
+        return ADD_HOUSE;
     }
 
     @RequestMapping(value = "/house/add", method = RequestMethod.POST)
     private String addHouse(@ModelAttribute House house){
         houseService.add(house);
-        return BaseController.REDIRECT_HOME_PAGE;
+        return UserController.REDIRECT_HOME_PAGE;
     }
 
     @RequestMapping(value = "/house/editpage/{houseId}", method = RequestMethod.GET)
     private  String openEditHousePage(@PathVariable Integer houseId, Model model){
         House house = houseService.findById(houseId);
         model.addAttribute(HOUSE, house);
-        return "editHouse";
+        return EDIT_HOUSE;
     }
+
     @RequestMapping(value = "/house/edit", method = RequestMethod.POST)
     private String editHouse(@ModelAttribute House editedHouse){
         houseService.edit(editedHouse.getId(), editedHouse);
-        return BaseController.REDIRECT_HOME_PAGE;
+        return UserController.REDIRECT_HOME_PAGE;
     }
 
     @RequestMapping(value = "/house/delete/{houseId}", method = RequestMethod.GET)
     private String deleteHouse(@PathVariable Integer houseId){
         houseService.delete(houseId);
-        return BaseController.REDIRECT_HOME_PAGE;
+        return UserController.REDIRECT_HOME_PAGE;
     }
 
 }

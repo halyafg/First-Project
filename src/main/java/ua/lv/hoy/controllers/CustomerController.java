@@ -10,37 +10,42 @@ import ua.lv.hoy.services.HouseService;
 
 
 @Controller
-public class CustomerController{
+public class CustomerController extends BaseController{
 
-    static final String CUSTOMERS = "customers";
     static final String CUSTOMER = "customer";
+    static final String CUSTOMERS = "customers";
+    private static final String CUSTOMER_INF = "customerInf";
+    private static final String EDIT_CUSTOMER = "editCustomer";
+    private static final String ADD_CUSTOMER = "addCustomer";
     static final String REDIRECT_CUSTOMER_INF = "redirect:/customer/inf/";
     static final String REDIRECT_CUSTOMER_ALL_INHOUSE = "redirect:/customers/all/inhouse/";
-    static final String ALL_CUSTOMERS = "allCustomers";
+    private static final String ALL_CUSTOMERS = "allCustomers";
 
     @Autowired
     CustomerService customerService;
     @Autowired
     HouseService houseService;
 
-    @RequestMapping(value = "/customers/all", method = RequestMethod.GET)
+   /* @RequestMapping(value = "/customers/all", method = RequestMethod.GET)
     private  String openAllCustomerPage(Model model){
         model.addAttribute(CUSTOMERS, customerService.findAllCustomers());
         return ALL_CUSTOMERS;
-    }
+    }*/
 
+    @Override
     @RequestMapping(value = "/customers/all/inhouse/{houseId}", method = RequestMethod.GET)
-    private  String openAllCustomerPage(@PathVariable Integer houseId, Model model){
+    String findAll(@PathVariable int houseId, Model model) {
         model.addAttribute(CUSTOMERS, customerService.findAllCustomersInHouse(houseId));
         model.addAttribute(HouseController.HOUSE, houseService.findById(houseId));
-
         return ALL_CUSTOMERS;
     }
+
+    @Override
     @RequestMapping(value = "/customer/add/{houseId}", method = RequestMethod.GET)
-    private  String openAddCustomerPage(@PathVariable int houseId, Model model){
+    String openAddPage(@PathVariable int houseId, Model model) {
         model.addAttribute(HouseController.HOUSE_ID, houseId);
         model.addAttribute(CUSTOMER, new Customer());
-        return "addCustomer";
+        return ADD_CUSTOMER;
     }
 
     @RequestMapping(value = "/customer/add/{houseId}", method = RequestMethod.POST)
@@ -54,31 +59,34 @@ public class CustomerController{
     private String openCustomerPage(@PathVariable Integer houseId,@PathVariable Integer customerId, Model model){
         model.addAttribute(CUSTOMER, customerService.findById(customerId));
         model.addAttribute(HouseController.HOUSE, houseService.findById(houseId));
-        return "customerInf";
+        return CUSTOMER_INF;
     }
+
+    @Override
+    String openEditPage(int id, Model model) {
+        return null;
+    }
+
     @RequestMapping(value = "/customer/editpage/{houseId}/{id}", method = RequestMethod.GET)
-    private String openEditCustomerPage(@PathVariable Integer houseId,@PathVariable Integer id, Model model){
+    String openEditPage(@PathVariable int houseId, @PathVariable int id, Model model) {
         model.addAttribute(CUSTOMER, customerService.findById(id));
         model.addAttribute(HouseController.HOUSE_ID, houseId);
-        return "editCustomer";
+        return EDIT_CUSTOMER;
     }
+
     @RequestMapping(value = "/customer/edit", method = RequestMethod.POST)
     private String editCustomer(@RequestParam("houseId") Integer houseId,
                                 @RequestParam("custId") Integer customerId,
                                 @ModelAttribute Customer customer){
-
         customerService.edit(customerId, customer);
         return REDIRECT_CUSTOMER_INF + houseId +"/"+customerId;
     }
 
+    @Override
     @RequestMapping(value = "/customer/delete/{houseId}/{id}")
-    private String deleteCustomer(@PathVariable Integer houseId,@PathVariable Integer id){
+    String delete( @PathVariable int houseId, @PathVariable int id) {
         customerService.delete(id);
         return REDIRECT_CUSTOMER_ALL_INHOUSE + HouseController.HOUSE_ID;
     }
-    @RequestMapping(value = "/customers/delete/{id}", method = RequestMethod.GET)
-    private String deleteCustomer(@PathVariable Integer id){
-        customerService.delete(id);
-        return "redirect:/customers/all";
-    }
+
 }

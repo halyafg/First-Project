@@ -16,7 +16,6 @@
 <div class="container">
     <form action="/flat/edit" method="post">
         <input name="flId" type="text" value="${flat.id}" hidden >
-        <input name="houseId" type="text" value="${houseId}" hidden >
 
         <label for="number">Flat's number: </label>
         <input name="flatNumber" id="number" type="text" class="textbox" value="${flat.flatNumber}"><br><br>

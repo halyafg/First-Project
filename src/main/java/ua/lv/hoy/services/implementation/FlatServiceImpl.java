@@ -22,11 +22,11 @@ import java.util.List;
 public class FlatServiceImpl implements FlatService {
 
     @Autowired
-    private FlatDao flatDao;
+    FlatDao flatDao;
     @Autowired
-    private CustomerDao customerDao;
+    CustomerDao customerDao;
     @Autowired
-    private AbstractDao abstractDao;
+    AbstractDao abstractDao;
     @Autowired
     HouseDao houseDao;
 
@@ -39,6 +39,7 @@ public class FlatServiceImpl implements FlatService {
         }
     }
 
+    @Override
     public void edit(int flatId, Flat editedFlat) {
         Flat flat = flatDao.findById(flatId);
         if (editedFlat.getflatNumber()>0){
@@ -67,6 +68,7 @@ public class FlatServiceImpl implements FlatService {
 
     }
 
+    @Override
     public void delete(int id) {
         Flat flat = flatDao.findById(id);
         if(flat.getStatus().equalsIgnoreCase("free")){
@@ -75,22 +77,27 @@ public class FlatServiceImpl implements FlatService {
 
     }
 
+    @Override
     public Flat findById(int id) {
         return flatDao.findById(id);
     }
 
+    @Override
     public List<Flat> findAllFlats() {
         return flatDao.findAllFlats();
     }
 
+    @Override
     public Flat findByNumber(int number) {
         return flatDao.findByNumber(number);
     }
 
+    @Override
     public List<Flat> findByCustomerId(int customerId) {
         return flatDao.findByCustomerId(customerId);
     }
 
+    @Override
     public void buy(int flatId, int customerId){
 
         if(flatId != -9999){
@@ -106,6 +113,7 @@ public class FlatServiceImpl implements FlatService {
 
     }
 
+    @Override
     public void takeAway(int flatId, int customerId){
         if (flatId != -1){
             Flat flat =flatDao.findById(flatId);
@@ -117,6 +125,7 @@ public class FlatServiceImpl implements FlatService {
         }
     }
 
+    @Override
     public List<Flat> findFreeFlatByRoomsNumber(int rooms, int houseId){
         List<Flat> freeFlats = flatDao.findFreeFlatsinHouse(houseId);
         List<Flat> flats = new ArrayList<>();
@@ -133,6 +142,7 @@ public class FlatServiceImpl implements FlatService {
         return flatDao.findAllFlatsInHouse(houseId);
     }
 
+    @Override
     public List<Flat> findFreeFlatsInHouse(int houseId){
         return flatDao.findFreeFlatsinHouse(houseId);
     }

@@ -52,7 +52,7 @@
                 <td>${fl.status}</td>
                 <td>${fl.description}</td>
                 <td><a href="/customer/inf/${house.id}/${fl.getCustomer().getId()}"> ${fl.customer.getSurname()} ${fl.customer.getName()} ${fl.customer.getLastname()}</a> </td>
-                <td><sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/flat/editpage/${house.id},${fl.id}">Edit flat! </a> <br></sec:authorize></td>
+                <td><sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/flat/editpage/${fl.id}">Edit flat! </a> <br></sec:authorize></td>
                 <td><a href="/flat/delete/${house.id},${fl.id}">Delete flat! </a> </td>
 
 

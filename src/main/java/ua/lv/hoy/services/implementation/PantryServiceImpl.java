@@ -21,19 +21,21 @@ import java.util.List;
 public class PantryServiceImpl implements PantryService {
 
     @Autowired
-    private PantryDao pantryDao;
+    PantryDao pantryDao;
     @Autowired
-    private CustomerDao customerDao;
+    CustomerDao customerDao;
     @Autowired
-    private HouseDao houseDao;
+    HouseDao houseDao;
     @Autowired
     AbstractDao abstractDao;
 
+    @Override
     public void add(int houseId, Pantry pantry) {
         pantry.setHouse(houseDao.findById(houseId));
         abstractDao.add(pantry);
     }
 
+    @Override
     public void edit(int id, Pantry editedPantry) {
         Pantry pantry = pantryDao.findById(id);
 
@@ -58,6 +60,8 @@ public class PantryServiceImpl implements PantryService {
 
         abstractDao.edit(pantry);
     }
+
+    @Override
     public void buy (int pantryId, int customerId){
         if(pantryId!= -1){
             Customer customer = customerDao.findById(customerId);
@@ -70,6 +74,7 @@ public class PantryServiceImpl implements PantryService {
         }
     }
 
+    @Override
     public void takeOut(int pantryId, int customerId) {
         if(pantryId != -1){
             Customer customer = customerDao.findById(customerId);
@@ -83,6 +88,7 @@ public class PantryServiceImpl implements PantryService {
         }
     }
 
+    @Override
     public void delete(int id) {
         Pantry pantry = pantryDao.findById(id);
         if(pantry.getStatus().equalsIgnoreCase("free")){
@@ -90,22 +96,27 @@ public class PantryServiceImpl implements PantryService {
         }
     }
 
+    @Override
     public Pantry findById(int id) {
         return pantryDao.findById(id);
     }
 
+    @Override
     public List<Pantry> findAllPantries() {
         return pantryDao.findAllPantries();
     }
 
+    @Override
     public Pantry findByNumber(int number) {
         return pantryDao.findByNumber(number);
     }
 
+    @Override
     public List<Pantry> fiindFreePantriesInHouse(int houseId) {
         return pantryDao.findFreePantriesInHouse(houseId);
     }
 
+    @Override
     public List<Pantry> findByCustomerId(int id) {
         return pantryDao.findByCustomerId(id);
     }

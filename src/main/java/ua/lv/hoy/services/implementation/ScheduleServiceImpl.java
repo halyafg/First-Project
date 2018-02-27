@@ -18,7 +18,7 @@ import java.util.List;
 public class ScheduleServiceImpl implements ScheduleService {
 
     @Autowired
-    private ScheduleDao scheduleDao;
+    ScheduleDao scheduleDao;
     @Autowired
     CustomerDao customerDao;
     @Autowired
@@ -26,6 +26,7 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Autowired
     AbstractDao abstractDao;
 
+    @Override
     public void add(int houseId, int customerId, Schedule schedule) {
         schedule.setCustomer(customerDao.findById(customerId));
         schedule.setHouse(houseDao.findById(houseId));
@@ -46,14 +47,17 @@ public class ScheduleServiceImpl implements ScheduleService {
         abstractDao.edit(schedule);
     }
 
+    @Override
     public void delete(int id) {
         scheduleDao.delete(id);
     }
 
+    @Override
     public Schedule findById(int id) {
         return scheduleDao.findById(id);
     }
 
+    @Override
     public List<Schedule> findAllSchedules() {
         return scheduleDao.findAllSchedules();
     }
@@ -63,10 +67,12 @@ public class ScheduleServiceImpl implements ScheduleService {
         return scheduleDao.findAllSchedulesInHouse(houseId);
     }
 
+    @Override
     public List<Schedule> findScheduleByCustId(int custId) {
         return scheduleDao.findByCustomer(custId);
     }
 
+    @Override
     public List<Schedule>findAllCustomerSchedules(String email){
         return scheduleDao.findAllCustomerSchedules(email);
     }

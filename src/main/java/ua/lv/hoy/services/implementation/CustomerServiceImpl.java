@@ -26,15 +26,15 @@ import java.util.List;
 public class CustomerServiceImpl implements CustomerService, UserDetailsService {
 
     @Autowired
-    private CustomerDao customerDao;
+    CustomerDao customerDao;
     @Autowired
-    private AbstractDao abstractDao;
+    AbstractDao abstractDao;
     @Autowired
-    private ParkingDao parkingDao;
+    ParkingDao parkingDao;
     @Autowired
-    private FlatDao flatDao;
+    FlatDao flatDao;
     @Autowired
-    private PantryDao pantryDao;
+    PantryDao pantryDao;
 
     @Override
     public void add(Customer customer) {
@@ -43,7 +43,7 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
         }
     }
 
-
+    @Override
     public void edit(int customrId, Customer newCustomer) {
 
         Customer customer = customerDao.findById(customrId);
@@ -83,6 +83,7 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
 
     }
 
+    @Override
     public void delete(int id) {
         Customer customer = customerDao.findById(id);
         if(customer.getParkingList().isEmpty() && customer.getPantryList().isEmpty()  &&  customer.getFlatList().isEmpty()){
@@ -90,18 +91,22 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
         }
     }
 
+    @Override
     public Customer findById(int id) {
         return customerDao.findById(id);
     }
 
+    @Override
     public List<Customer> findAllCustomers(){
         return customerDao.findAllCustomers();
     }
 
+    @Override
     public  Customer findCustomerByLogin(String login){
         return customerDao.findByLogin(login);
     }
 
+    @Override
     public UserDetails loadUserByUsername(String login){
         Customer customer = customerDao.findByLogin(login);
         List<GrantedAuthority>authorities = new ArrayList<>();
@@ -109,6 +114,7 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
         return new User(customer.getEmail(), customer.getPassword(), authorities);
     }
 
+    @Override
     public List<Customer> findAllCustomersInHouse(int houseId) {
         List<Customer> customerList =  customerDao.findAllCustomers();
         List<Customer> customers = new ArrayList<>();
@@ -146,16 +152,7 @@ public class CustomerServiceImpl implements CustomerService, UserDetailsService 
         return customers;
     }
 
-
     private static boolean checkField(String field){
-        /*
-        INSTEAD OF:
-        if( (field != null) && (!field.equalsIgnoreCase("")) ){
-            return true;
-        }
-        return false;
-        USED NEXT:
-        */
         return ( (field != null) && (!field.equalsIgnoreCase("")) );
     }
 
