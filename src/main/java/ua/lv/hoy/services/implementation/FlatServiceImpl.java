@@ -127,7 +127,7 @@ public class FlatServiceImpl implements FlatService {
 
     @Override
     public List<Flat> findFreeFlatByRoomsNumber(int rooms, int houseId){
-        List<Flat> freeFlats = flatDao.findFreeFlatsinHouse(houseId);
+        List<Flat> freeFlats = flatDao.findFreeFlatsInHouse(houseId);
         List<Flat> flats = new ArrayList<>();
         for (Flat f: freeFlats) {
             if(f.getRomsNumber() == rooms){
@@ -144,6 +144,6 @@ public class FlatServiceImpl implements FlatService {
 
     @Override
     public List<Flat> findFreeFlatsInHouse(int houseId){
-        return flatDao.findFreeFlatsinHouse(houseId);
+        return flatDao.findFreeFlatsInHouse(houseId);
     }
 }

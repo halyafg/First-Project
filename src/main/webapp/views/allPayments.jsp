@@ -46,7 +46,7 @@
                 <td class="money">${p.amountGRN}</td>
                 <td>${p.quoteUSA}</td>
                 <td class="money">${p.amountUSA}</td>
-                <td><a href="/customer/inf/${p.getCustomer().getId()}"> ${p.customer.getSurname()} ${p.customer.getName()} ${p.customer.getLastname()}</a> </td>
+                <td><a href="/customer/inf/${houseId}/${p.getCustomer().getId()}"> ${p.customer.getSurname()} ${p.customer.getName()} ${p.customer.getLastname()}</a> </td>
                 <td><a href="/payment/delete/${houseId}/${p.id}">Delete! </a></td>
             </tr>
         </c:forEach>

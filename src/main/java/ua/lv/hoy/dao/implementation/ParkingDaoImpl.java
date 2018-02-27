@@ -8,6 +8,7 @@ import ua.lv.hoy.entity.Parking;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -19,34 +20,44 @@ public class ParkingDaoImpl implements ParkingDao {
     @PersistenceContext(unitName = "Main")
     private EntityManager entityManager;
 
+    @Override
     public void delete(int id) {
         entityManager.remove(entityManager.find(Parking.class, id));
     }
 
+    @Override
     public Parking findById(int id) {
         return entityManager.find(Parking.class, id);
     }
 
+    @Override
     public Parking findByNumber(int number) {
         return (Parking) entityManager.createQuery("SELECT p FROM Parking p WHERE p.number=:number").setParameter("number", number).getSingleResult();
     }
 
+    @Override
     public List<Parking> findAllParkings() {
-        return entityManager.createQuery("SELECT p FROM Parking p order by  number").getResultList();
+        TypedQuery<Parking> query = entityManager.createQuery("SELECT p FROM Parking p order by  number", Parking.class);
+        return query.getResultList();
     }
 
+    @Override
     public List<Parking> findFreeParkingsInHouse(int houseId) {
-        return entityManager.createQuery("SELECT p FROM Parking p WHERE p.status='free' AND p.house.id=:id order by  number")
-                .setParameter("id", houseId).getResultList();
+        TypedQuery<Parking> query = entityManager.createQuery("SELECT p FROM Parking p WHERE p.status='free' AND p.house.id=:id order by  number", Parking.class)
+                .setParameter("id", houseId);
+        return query.getResultList();
     }
 
+    @Override
     public List<Parking> findByCustomerId(int id) {
         Customer customer = entityManager.find(Customer.class, id);
-        return entityManager.createQuery("SELECT p FROM Parking  p WHERE p.customer=:customer order by  number").setParameter("customer", customer).getResultList();
+        TypedQuery<Parking> query = entityManager.createQuery("SELECT p FROM Parking  p WHERE p.customer=:customer order by  number", Parking.class).setParameter("customer", customer);
+        return query.getResultList();
     }
 
     @Override
     public List<Parking> findAllParkingInHouse(int houseId) {
-        return entityManager.createQuery("SELECT p FROM Parking p WHERE p.house.id=:id").setParameter("id", houseId).getResultList();
+        TypedQuery<Parking> query = entityManager.createQuery("SELECT p FROM Parking p WHERE p.house.id=:id", Parking.class).setParameter("id", houseId);
+        return query.getResultList();
     }
 }

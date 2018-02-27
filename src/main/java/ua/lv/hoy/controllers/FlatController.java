@@ -72,10 +72,9 @@ public class FlatController extends BaseController {
     }
 
     @RequestMapping(value = "/flat/edit", method = RequestMethod.POST)
-    private String editFlat(@RequestParam("flId") Integer flatId,
-                            @ModelAttribute Flat flat){
-        flatService.edit(flatId, flat);
-        return REDIRECT_FLATS_ALL + flat.getHouse().getId();
+    private String editFlat(@ModelAttribute Flat flat){
+        flatService.edit(flat.getId(), flat);
+        return REDIRECT_FLATS_ALL + flatService.findById(flat.getId()).getHouse().getId();
     }
 
     @Override

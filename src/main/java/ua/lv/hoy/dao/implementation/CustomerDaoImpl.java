@@ -7,6 +7,7 @@ import ua.lv.hoy.entity.Customer;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -19,19 +20,24 @@ public class CustomerDaoImpl implements CustomerDao {
     @PersistenceContext(unitName = "Main")
     private EntityManager entityManager;
 
+
+    @Override
     public void delete(int id) {
         entityManager.remove(entityManager.find(Customer.class, id));
     }
 
+    @Override
     public Customer findById(int id) {
         return entityManager.find(Customer.class, id);
     }
 
-    @SuppressWarnings (value="unchecked")
+    @Override
     public List<Customer> findAllCustomers() {
-        return entityManager.createQuery("select c FROM Customer c order by surname").getResultList();
+        TypedQuery<Customer> query = entityManager.createQuery("select c FROM Customer c order by surname", Customer.class);
+        return query.getResultList();
     }
 
+    @Override
     public Customer findByLogin(String login) {
         return (Customer) entityManager.createQuery("SELECT c from Customer c where c.email=:email or c.phone=:phone").setParameter("email", login).setParameter("phone", login).getSingleResult();
     }

@@ -7,6 +7,7 @@ import ua.lv.hoy.entity.House;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -32,6 +33,7 @@ public class HouseDaoImpl implements HouseDao {
 
     @Override
     public List<House> findAll() {
-        return entityManager.createQuery("SELECT h FROM  House  h").getResultList();
+        TypedQuery<House> query = entityManager.createQuery("SELECT h FROM  House  h", House.class);
+        return query.getResultList();
     }
 }

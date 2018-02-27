@@ -7,45 +7,53 @@ import ua.lv.hoy.entity.Schedule;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
  * Created by Administrator on 26-Feb-17.
  */
 @Repository
+@Transactional
 public class ScheduleDaoImpl implements ScheduleDao {
 
     @PersistenceContext(unitName = "Main")
     private EntityManager entityManager;
 
-    @Transactional
+
+    @Override
     public void delete(int id) {
         entityManager.remove(entityManager.find(Schedule.class, id));
     }
 
-    @Transactional
+    @Override
     public Schedule findById(int id) {
         return entityManager.find(Schedule.class, id);
     }
 
-    @Transactional
+    @Override
     public List<Schedule> findAllSchedules() {
-        return entityManager.createQuery("SELECT s FROM Schedule s order by date").getResultList();
+        TypedQuery<Schedule> query = entityManager.createQuery("SELECT s FROM Schedule s order by date", Schedule.class);
+        return query.getResultList();
     }
-    @Transactional
+
     @Override
     public List<Schedule> findAllSchedulesInHouse(int houseId) {
-        return entityManager.createQuery("SELECT s FROM Schedule s WHERE s.house.id=:id").setParameter("id", houseId).getResultList();
+        TypedQuery<Schedule> query = entityManager.createQuery("SELECT s FROM Schedule s WHERE s.house.id=:id", Schedule.class).setParameter("id", houseId);
+        return query.getResultList();
     }
 
-    @Transactional
+    @Override
     public List<Schedule> findByCustomer(int custId) {
-        return entityManager.createQuery("SELECT s FROM Schedule s WHERE s.customer.id=:id order by date")
-                                        .setParameter("id",custId).getResultList();
+        TypedQuery<Schedule> query = entityManager.createQuery("SELECT s FROM Schedule s WHERE s.customer.id=:id order by date", Schedule.class)
+                .setParameter("id",custId);
+        return query.getResultList();
     }
 
-    @Transactional
+    @Override
     public List<Schedule> findAllCustomerSchedules(String email) {
-        return entityManager.createQuery("SELECT s FROM Schedule s WHERE s.customer.email =:email").setParameter("email", email).getResultList();
+        TypedQuery<Schedule> query = entityManager.createQuery("SELECT s FROM Schedule s WHERE s.customer.email =:email", Schedule.class).setParameter("email", email);
+        return query.getResultList();
     }
+
 }

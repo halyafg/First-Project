@@ -7,40 +7,44 @@ import ua.lv.hoy.entity.Payment;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
  * Created by Administrator on 26-Feb-17.
  */
 @Repository
+@Transactional
 public class PaymentDaoImpl implements PaymentDao {
 
     @PersistenceContext(unitName = "Main")
     private EntityManager entityManager;
 
-    @Transactional
+    @Override
     public void delete(int id) {
         entityManager.remove(entityManager.find(Payment.class, id));
     }
 
-    @Transactional
+    @Override
     public Payment findById(int id) {
         return entityManager.find(Payment.class, id);
     }
 
-    @Transactional
+    @Override
     public List<Payment> findAllPayments() {
-        return entityManager.createQuery("SELECT p FROM Payment p order by data").getResultList();
+        TypedQuery<Payment> query = entityManager.createQuery("SELECT p FROM Payment p order by data", Payment.class);
+        return query.getResultList();
     }
 
-    @Transactional
     @Override
     public List<Payment> findAllPaymentsInHouse(int houseId) {
-        return entityManager.createQuery("SELECT p FROM Payment  p WHERE p.house.id=:id").setParameter("id", houseId).getResultList();
+        TypedQuery<Payment> query = entityManager.createQuery("SELECT p FROM Payment  p WHERE p.house.id=:id", Payment.class).setParameter("id", houseId);
+        return query.getResultList();
     }
 
-    @Transactional
+    @Override
     public List<Payment> findAllCustomerPayments(String email) {
-        return entityManager.createQuery("SELECT p FROM Payment p WHERE p.customer.email =:email order by data").setParameter("email", email).getResultList();
+        TypedQuery<Payment> query = entityManager.createQuery("SELECT p FROM Payment p WHERE p.customer.email =:email order by data", Payment.class).setParameter("email", email);
+        return query.getResultList();
     }
 }

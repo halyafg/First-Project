@@ -15,7 +15,7 @@ public interface FlatDao {
 
     List<Flat> findAllFlats();
 
-    List<Flat> findFreeFlatsinHouse(int houseId);
+    List<Flat> findFreeFlatsInHouse(int houseId);
 
     Flat findByNumber(int number);
 

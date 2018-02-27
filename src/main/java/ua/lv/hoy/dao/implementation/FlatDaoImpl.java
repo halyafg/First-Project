@@ -8,6 +8,7 @@ import ua.lv.hoy.entity.Flat;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -16,38 +17,48 @@ import java.util.List;
 @Repository
 @Transactional
 public class FlatDaoImpl implements FlatDao {
+
     @PersistenceContext(unitName = "Main")
     private EntityManager entityManager;
 
+    @Override
     public void delete(int id) {
         entityManager.remove(entityManager.find(Flat.class, id));
     }
 
+    @Override
     public Flat findById(int id) {
         return entityManager.find(Flat.class, id);
     }
 
-    @SuppressWarnings (value="unchecked")
+    @Override
     public List<Flat> findAllFlats() {
-        return entityManager.createQuery("SELECT f FROM Flat f order by flatNumber").getResultList();
-    }
-    @SuppressWarnings (value="unchecked")
-    public List<Flat> findFreeFlatsinHouse(int houseId) {
-        return entityManager.createQuery("SELECT f from Flat f WHERE f.status='free' AND f.house.id=:id order by flatNumber")
-                .setParameter("id", houseId).getResultList();
+        TypedQuery<Flat> flatTypedQuery = entityManager.createQuery("SELECT f FROM Flat f order by f.flatNumber", Flat.class);
+        return flatTypedQuery.getResultList();
     }
 
+    @Override
+    public List<Flat> findFreeFlatsInHouse(int houseId) {
+        TypedQuery<Flat> flatTypedQuery = entityManager.createQuery("SELECT f from Flat f WHERE f.status='free' AND f.house.id=:id order by f.flatNumber", Flat.class)
+                .setParameter("id", houseId);
+        return flatTypedQuery.getResultList();
+    }
+
+    @Override
     public Flat findByNumber(int number) {
         return (Flat) entityManager.createQuery("SELECT f FROM Flat f WHERE f.flatNumber=:number").setParameter("number", number).getSingleResult();
     }
 
+    @Override
     public List<Flat> findByCustomerId(int customer_id) {
         Customer customer = entityManager.find(Customer.class, customer_id);
-        return entityManager.createQuery("SELECT f FROM Flat f WHERE f.customer=:customer order by flatNumber").setParameter("customer", customer).getResultList();
+        TypedQuery<Flat> flatTypedQuery = entityManager.createQuery("SELECT f FROM Flat f WHERE f.customer=:customer order by f.flatNumber", Flat.class).setParameter("customer", customer);
+        return flatTypedQuery .getResultList();
     }
 
     @Override
     public List<Flat> findAllFlatsInHouse(int houseId) {
-        return entityManager.createQuery("SELECT f FROM Flat f where f.house.id=:id order by flatNumber").setParameter("id", houseId).getResultList();
+        TypedQuery<Flat> flatTypedQuery = entityManager.createQuery("SELECT f FROM Flat f where f.house.id=:id order by f.flatNumber", Flat.class).setParameter("id", houseId);
+        return flatTypedQuery.getResultList();
     }
 }

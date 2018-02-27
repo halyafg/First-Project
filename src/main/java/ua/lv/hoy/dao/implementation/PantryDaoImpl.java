@@ -8,6 +8,7 @@ import ua.lv.hoy.entity.Pantry;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 /**
@@ -20,33 +21,44 @@ public class PantryDaoImpl implements PantryDao {
     @PersistenceContext(unitName = "Main")
     private EntityManager entityManager;
 
+
+    @Override
     public void delete(int id) {
         entityManager.remove(entityManager.find(Pantry.class, id));
     }
 
+    @Override
     public Pantry findById(int id) {
         return entityManager.find(Pantry.class, id);
     }
 
+    @Override
     public List<Pantry> findAllPantries() {
-        return entityManager.createQuery("SELECT p FROM Pantry p order by number").getResultList();
+        TypedQuery<Pantry> pantryTypedQuery = entityManager.createQuery("SELECT p FROM Pantry p order by number", Pantry.class);
+        return pantryTypedQuery.getResultList();
     }
 
+    @Override
     public List<Pantry> findFreePantriesInHouse(int houseId) {
-        return entityManager.createQuery("SELECT p FROM Pantry  p WHERE p.status='free' AND p.house.id=:id order by number")
-                .setParameter("id", houseId).getResultList();
+        TypedQuery<Pantry> query = entityManager.createQuery("SELECT p FROM Pantry  p WHERE p.status='free' AND p.house.id=:id order by number", Pantry.class)
+                .setParameter("id", houseId);
+        return query.getResultList();
     }
 
+    @Override
     public Pantry findByNumber(int number) {
         return (Pantry) entityManager.createQuery("SELECT p FROM Pantry p WHERE p.number=:number").setParameter("number", number).getSingleResult();
     }
 
+    @Override
     public List<Pantry> findByCustomerId(int id) {
         Customer customer = entityManager.find(Customer.class, id);
-        return entityManager.createQuery("SELECT p FROM Pantry p WHERE p.customer=:customer order by number").setParameter("customer", customer).getResultList();
+        TypedQuery<Pantry> query = entityManager.createQuery("SELECT p FROM Pantry p WHERE p.customer=:customer order by number", Pantry.class).setParameter("customer", customer);
+        return query.getResultList();
     }
     @Override
     public List<Pantry> findAllPantriesInHouse(int houseId) {
-        return entityManager.createQuery("SELECT p FROM Pantry p where p.house.id=:id order by number").setParameter("id", houseId).getResultList();
+        TypedQuery<Pantry> query = entityManager.createQuery("SELECT p FROM Pantry p where p.house.id=:id order by number", Pantry.class).setParameter("id", houseId);
+        return query.getResultList();
     }
 }

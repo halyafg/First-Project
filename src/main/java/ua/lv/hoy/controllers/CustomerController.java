@@ -86,7 +86,7 @@ public class CustomerController extends BaseController{
     @RequestMapping(value = "/customer/delete/{houseId}/{id}")
     String delete( @PathVariable int houseId, @PathVariable int id) {
         customerService.delete(id);
-        return REDIRECT_CUSTOMER_ALL_INHOUSE + HouseController.HOUSE_ID;
+        return REDIRECT_CUSTOMER_ALL_INHOUSE + houseId;
     }
 
 }
